@@ -33,7 +33,7 @@ export function PageShell({
               {crumbs.map((c, i) => (
                 <span key={i} className="flex items-center gap-1">
                   <ChevronRight className="h-3 w-3" />
-                  {c.to ? <Link to={c.to} className="hover:text-navy">{c.label}</Link> : <span className="text-foreground">{c.label}</span>}
+              {c.to ? <a href={c.to} className="hover:text-navy">{c.label}</a> : <span className="text-foreground">{c.label}</span>}
                 </span>
               ))}
             </nav>

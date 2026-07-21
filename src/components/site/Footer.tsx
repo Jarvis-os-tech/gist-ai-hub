@@ -22,9 +22,16 @@ export function SiteFooter() {
         <div>
           <h4 className="font-serif text-sm font-semibold uppercase tracking-widest text-gold">Explore</h4>
           <ul className="mt-4 space-y-2 text-sm">
-            {["about","faculty","programs","labs","research","placements"].map((k) => (
-              <li key={k}>
-                <Link to={`/${k}`} className="text-white/75 hover:text-gold transition-colors capitalize">{k}</Link>
+            {([
+              { to: "/about", label: "About" },
+              { to: "/faculty", label: "Faculty" },
+              { to: "/programs", label: "Programs" },
+              { to: "/labs", label: "Labs" },
+              { to: "/research", label: "Research" },
+              { to: "/placements", label: "Placements" },
+            ] as const).map((k) => (
+              <li key={k.to}>
+                <Link to={k.to} className="text-white/75 hover:text-gold transition-colors">{k.label}</Link>
               </li>
             ))}
           </ul>

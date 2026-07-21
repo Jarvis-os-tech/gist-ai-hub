@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, GraduationCap, Users, FlaskConical, BookOpen, Award, ChevronRight } from "lucide-react";
+import { ArrowRight, Sparkles, GraduationCap, Users, FlaskConical, Award, ChevronRight } from "lucide-react";
 import { SiteHeader } from "@/components/site/Header";
 import { SiteFooter } from "@/components/site/Footer";
 import { AIChatWidget } from "@/components/site/AIChatWidget";
@@ -211,4 +211,3 @@ function HomePage() {
   );
 }
 
-export { BookOpen };

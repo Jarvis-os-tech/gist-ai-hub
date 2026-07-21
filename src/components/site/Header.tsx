@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Sparkles, Search } from "lucide-react";
+import { Menu, X, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -104,5 +104,3 @@ export function SiteHeader() {
     </header>
   );
 }
-
-export { Search };

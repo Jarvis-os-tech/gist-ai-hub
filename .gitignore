@@ -30,3 +30,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment & local secret files
+.env
+.env.*
+
+# Internal agent logs
+.agents/
+

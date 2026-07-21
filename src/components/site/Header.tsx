@@ -1,106 +1,135 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { DEPARTMENT } from "@/lib/department-data";
 
-const NAV = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/faculty", label: "Faculty" },
-  { to: "/programs", label: "Programs" },
-  { to: "/labs", label: "Labs" },
-  { to: "/research", label: "Research" },
-  { to: "/placements", label: "Placements" },
-  { to: "/events", label: "Events" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/downloads", label: "Downloads" },
-  { to: "/contact", label: "Contact" },
-] as const;
+const NAV_ITEMS = [
+  { label: "Home", to: "/" },
+  { label: "About", to: "/about" },
+  { label: "Faculty", to: "/faculty" },
+  { label: "Laboratories", to: "/labs" },
+  { label: "Programs", to: "/programs" },
+  { label: "Events", to: "/events" },
+  { label: "Downloads", to: "/downloads" },
+  { label: "Research", to: "/research" },
+  { label: "Placements", to: "/placements" },
+  { label: "Gallery", to: "/gallery" },
+  { label: "Contact", to: "/contact" },
+];
 
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { location } = useRouterState();
+  const pathname = location.pathname;
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/85 backdrop-blur">
-      <div className="bg-navy-deep text-white/90 text-xs">
-        <div className="container-page flex flex-wrap items-center justify-between gap-2 py-1.5">
-          <span className="truncate">Geethanjali Institute of Science & Technology · Autonomous · NAAC ‘A’</span>
-          <a href="https://gist.edu.in" className="hidden sm:inline hover:text-gold transition-colors">gist.edu.in →</a>
+    <header>
+      {/* ─── Institutional Branding ─── */}
+      <div className="inst-header">
+        <div className="inst-inner">
+          <a
+            href="https://gist.edu.in/gist/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ flexShrink: 0, lineHeight: 0 }}
+          >
+            <img
+              src={DEPARTMENT.logoUrl}
+              alt="GIST Logo"
+              className="inst-logo"
+              onError={(e) => {
+                // Fallback if CDN unreachable
+                e.currentTarget.style.display = "none";
+              }}
+            />
+          </a>
+          <div className="inst-text">
+            <div className="inst-title">{DEPARTMENT.institute.toUpperCase()}</div>
+            <div className="inst-subrow">
+              <span className="inst-auto">
+                {DEPARTMENT.accreditation}
+                <span className="inst-approval">{DEPARTMENT.affiliation}</span>
+              </span>
+              <span className="code-box">{DEPARTMENT.eapcetCode}</span>
+              <span className="code-box">{DEPARTMENT.appgecetCode}</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="container-page flex items-center justify-between gap-4 py-4">
-        <Link to="/" className="flex items-center gap-3 group min-w-0">
-          <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-navy text-gold font-serif text-lg font-bold shadow-sm">
-            CSE
-          </div>
-          <div className="min-w-0 leading-tight">
-            <div className="font-serif text-[15px] font-semibold text-foreground truncate">
-              Computer Science & Engineering
-            </div>
-            <div className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground truncate">
-              Department · GIST
-            </div>
-          </div>
-        </Link>
 
-        <nav className="hidden lg:flex items-center gap-1 text-sm">
-          {NAV.slice(0, 8).map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="rounded-md px-3 py-2 text-foreground/70 hover:text-foreground hover:bg-secondary transition-colors"
-              activeProps={{ className: "text-navy font-semibold bg-secondary" }}
-              activeOptions={{ exact: item.to === "/" }}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+      {/* ─── Orange Navigation Bar ─── */}
+      <nav className="site-nav" role="navigation" aria-label="Main navigation">
+        <div className="site-nav-inner">
+          {/* Desktop links */}
+          <div className="site-nav-links" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`nav-link${pathname === item.to ? " active" : ""}`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
 
-        <div className="flex items-center gap-2">
-          <Link
-            to="/chat"
-            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-navy-deep transition-colors"
+          {/* CSE Department label (right) */}
+          <div
+            style={{
+              color: "rgba(255,255,255,0.85)",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+              paddingLeft: 16,
+            }}
           >
-            <Sparkles className="h-4 w-4 text-gold" /> Ask AI
-          </Link>
+            CSE Dept.
+          </div>
+
+          {/* Mobile toggle */}
           <button
-            aria-label="Open menu"
-            onClick={() => setOpen((v) => !v)}
-            className="lg:hidden grid h-10 w-10 place-items-center rounded-md border border-border"
+            className="nav-mobile-toggle"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+            style={{ marginLeft: "auto" }}
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-      </div>
 
-      <div
-        className={cn(
-          "lg:hidden overflow-hidden border-t border-border transition-[max-height]",
-          open ? "max-h-[80vh]" : "max-h-0"
-        )}
-      >
-        <nav className="container-page grid grid-cols-2 gap-1 py-4 text-sm">
-          {NAV.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              onClick={() => setOpen(false)}
-              className="rounded-md px-3 py-2 hover:bg-secondary"
-              activeProps={{ className: "text-navy font-semibold bg-secondary" }}
-              activeOptions={{ exact: item.to === "/" }}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link
-            to="/chat"
-            onClick={() => setOpen(false)}
-            className="col-span-2 mt-2 inline-flex items-center justify-center gap-2 rounded-md bg-navy px-3 py-2.5 text-white"
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div
+            style={{
+              background: "rgba(15,37,71,0.97)",
+              backdropFilter: "blur(12px)",
+              borderTop: "1px solid rgba(255,255,255,0.12)",
+              paddingBottom: 16,
+            }}
           >
-            <Sparkles className="h-4 w-4 text-gold" /> Ask the CSE AI Assistant
-          </Link>
-        </nav>
-      </div>
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  display: "block",
+                  padding: "12px 24px",
+                  color: pathname === item.to ? "var(--gold-soft)" : "rgba(255,255,255,0.85)",
+                  fontWeight: pathname === item.to ? 600 : 400,
+                  fontSize: 15,
+                  borderBottom: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </nav>
     </header>
   );
 }

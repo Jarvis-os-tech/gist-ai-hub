@@ -1,64 +1,93 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import { Sparkles, X, SendHorizonal, Loader2 } from "lucide-react";
+import { RefreshCw, X, SendHorizonal, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { cn } from "@/lib/utils";
+import { DEPARTMENT } from "@/lib/department-data";
 
-const SUGGESTIONS = [
-  "Who is the HOD?",
-  "Show the faculty list",
-  "What programs does CSE offer?",
-  "Tell me about the laboratories",
-  "What research areas does the department focus on?",
+const QUICK_CHIPS = [
+  { label: "Faculty", prompt: "Show me the faculty list" },
+  { label: "Programs", prompt: "What programs are offered?" },
+  { label: "Labs", prompt: "Tell me about the laboratories" },
+  { label: "Placements", prompt: "What are the placement statistics?" },
+  { label: "Events", prompt: "What are the recent events?" },
+  { label: "Contact", prompt: "How can I contact the department?" },
 ];
 
-const INITIAL: UIMessage[] = [
+const INITIAL_MESSAGES: UIMessage[] = [
   {
     id: "welcome",
     role: "assistant",
     parts: [
       {
         type: "text",
-        text: "Hi! I'm the **CSE Department Assistant** at GIST. Ask me about faculty, programs, labs, research, downloads or events — I only use the department's official information.",
+        text: "👋 Welcome!\nAsk me anything about the CSE Department.\nExamples: Faculty • Programs • Labs • Placements • Events",
       },
     ],
   },
 ];
 
+export function openAIChatWidget() {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("open-ai-chat"));
+  }
+}
+
 export function AIChatWidget() {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    function handleOpen() {
+      setOpen(true);
+    }
+    window.addEventListener("open-ai-chat", handleOpen);
+    return () => window.removeEventListener("open-ai-chat", handleOpen);
+  }, []);
+
   return (
-    <>
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-auto font-sans">
+      {/* Chat Window */}
+      {open && <ChatWindow onClose={() => setOpen(false)} />}
+
+      {/* Floating Toggle Button */}
       <button
-        onClick={() => setOpen(true)}
-        aria-label="Open AI Assistant"
-        className={cn(
-          "fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full bg-navy px-5 py-3 text-white shadow-lg shadow-navy/25 hover:bg-navy-deep transition-all",
-          open && "opacity-0 pointer-events-none"
-        )}
+        onClick={() => setOpen((prev) => !prev)}
+        aria-label={open ? "Close Assistant" : "Open Assistant"}
+        className="h-14 w-14 rounded-full bg-[#0F3D91] text-white shadow-xl hover:bg-[#0C3278] active:scale-95 transition-all duration-200 flex items-center justify-center cursor-pointer border border-[#E5E7EB]"
       >
-        <Sparkles className="h-4 w-4 text-gold" />
-        <span className="text-sm font-medium">Ask AI</span>
+        {open ? (
+          <X className="h-6 w-6 text-white" />
+        ) : (
+          <img
+            src={DEPARTMENT.logoUrl}
+            alt="GIST Logo"
+            className="h-9 w-9 rounded-full object-cover border border-white/50 bg-white"
+          />
+        )}
       </button>
-      {open && <ChatPanel onClose={() => setOpen(false)} />}
-    </>
+    </div>
   );
 }
 
-function ChatPanel({ onClose }: { onClose: () => void }) {
-  const { messages, sendMessage, status } = useChat({
-    id: "cse-ai-widget",
-    messages: INITIAL,
+function ChatWindow({ onClose }: { onClose: () => void }) {
+  const { messages, sendMessage, status, setMessages } = useChat({
+    id: "cse-ai-widget-session",
+    messages: INITIAL_MESSAGES,
     transport: new DefaultChatTransport({ api: "/api/chat" }),
   });
+
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const busy = status === "submitted" || status === "streaming";
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    scrollToBottom();
   }, [messages, status]);
 
   async function submit(text: string) {
@@ -68,41 +97,64 @@ function ChatPanel({ onClose }: { onClose: () => void }) {
     await sendMessage({ text: t });
   }
 
+  function handleReset() {
+    setMessages(INITIAL_MESSAGES);
+  }
+
   return (
-    <div className="fixed inset-x-3 bottom-3 z-50 sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[400px] max-h-[85vh] flex flex-col rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
-      <div className="flex items-center justify-between gap-2 border-b border-border bg-navy px-4 py-3 text-white">
-        <div className="flex items-center gap-2 min-w-0">
-          <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/10 text-gold">
-            <Sparkles className="h-4 w-4" />
-          </div>
+    <div className="w-[calc(100vw-2rem)] sm:w-[420px] max-w-[420px] h-[650px] max-h-[82vh] flex flex-col rounded-[20px] border border-[#E5E7EB] bg-white shadow-xl overflow-hidden animate-in fade-in duration-200 font-sans text-[#111827]">
+      {/* Header Bar (72px Height, Spacious Padding) */}
+      <div className="h-[72px] bg-[#0F3D91] px-5 py-4 text-white flex items-center justify-between gap-3 shrink-0">
+        <div className="flex items-center gap-3.5 min-w-0">
+          <img
+            src={DEPARTMENT.logoUrl}
+            alt="GIST Logo"
+            className="h-10 w-10 rounded-full object-cover border border-white/30 shrink-0 bg-white p-0.5"
+          />
           <div className="min-w-0">
-            <div className="text-sm font-semibold truncate">CSE Assistant</div>
-            <div className="text-[11px] text-white/60 truncate">Only official department info</div>
+            <div className="text-base font-semibold truncate leading-tight tracking-wide">CSE Assistant</div>
+            <div className="text-xs text-[#E5E7EB] truncate mt-1 font-normal">Official Department Assistant</div>
           </div>
         </div>
-        <button onClick={onClose} aria-label="Close" className="rounded-md p-1 hover:bg-white/10">
-          <X className="h-4 w-4" />
-        </button>
+
+        <div className="flex items-center gap-1">
+          <button
+            onClick={handleReset}
+            title="Refresh"
+            aria-label="Refresh"
+            className="rounded-full p-2 text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          >
+            <RefreshCw className="h-4 w-4" />
+          </button>
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            className="rounded-full p-2 text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
       </div>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+      {/* Messages Scroll Area with Clean Padding and Spacing */}
+      <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto p-5 space-y-4 bg-white">
         {messages.map((m) => {
           const text = m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
           const isUser = m.role === "user";
+
           return (
-            <div key={m.id} className={cn("flex", isUser ? "justify-end" : "justify-start")}>
+            <div key={m.id} className={`flex flex-col ${isUser ? "items-end" : "items-start"}`}>
               <div
-                className={cn(
-                  "max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm",
+                className={`max-w-[78%] rounded-2xl px-4 py-3 text-xs leading-relaxed ${
                   isUser
-                    ? "bg-navy text-white rounded-br-sm"
-                    : "bg-secondary text-foreground rounded-bl-sm"
-                )}
+                    ? "bg-[#0F3D91] text-white rounded-tr-xs"
+                    : "bg-[#F3F4F6] text-[#111827] rounded-tl-xs"
+                }`}
               >
                 {isUser ? (
                   <p className="whitespace-pre-wrap">{text}</p>
                 ) : (
-                  <div className="prose prose-sm max-w-none prose-headings:font-serif prose-p:my-1 prose-ul:my-1 prose-li:my-0">
+                  <div className="prose prose-xs max-w-none text-[#111827] prose-headings:font-bold prose-headings:text-[#0F3D91] prose-p:my-1 prose-ul:my-1 prose-li:my-0.5 prose-a:text-[#0F3D91]">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
                   </div>
                 )}
@@ -110,55 +162,62 @@ function ChatPanel({ onClose }: { onClose: () => void }) {
             </div>
           );
         })}
-        {status === "submitted" && (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Loader2 className="h-3 w-3 animate-spin" /> Thinking…
+
+        {/* Quick Actions (6 Outline Chips with Clean Whitespace) */}
+        {messages.length <= 1 && (
+          <div className="flex flex-wrap gap-2 pt-3 pb-1">
+            {QUICK_CHIPS.map((chip) => (
+              <button
+                key={chip.label}
+                onClick={() => submit(chip.prompt)}
+                className="rounded-full border border-[#E5E7EB] bg-white px-4 py-1.5 text-xs text-[#111827] font-medium hover:border-[#0F3D91] hover:text-[#0F3D91] hover:bg-slate-50 transition-all cursor-pointer shadow-2xs"
+              >
+                {chip.label}
+              </button>
+            ))}
           </div>
         )}
+
+        {busy && (
+          <div className="flex items-center gap-2 text-xs text-[#6B7280] py-2 px-4 bg-[#F3F4F6] rounded-full max-w-fit">
+            <Loader2 className="h-3.5 w-3.5 animate-spin text-[#0F3D91]" />
+            <span>Thinking…</span>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
       </div>
 
-      {messages.length <= 1 && (
-        <div className="px-4 pb-2 flex flex-wrap gap-1.5">
-          {SUGGESTIONS.map((s) => (
-            <button
-              key={s}
-              onClick={() => submit(s)}
-              className="text-xs rounded-full border border-border bg-background px-3 py-1 hover:border-navy hover:text-navy transition-colors"
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      )}
-
+      {/* Sticky Bottom Form Input with Clean Spacing */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
           submit(input);
         }}
-        className="border-t border-border p-3 flex items-end gap-2"
+        className="p-4 bg-white border-t border-[#E5E7EB] flex flex-col gap-2 shrink-0"
       >
-        <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              submit(input);
-            }
-          }}
-          rows={1}
-          placeholder="Ask about faculty, labs, research…"
-          className="flex-1 resize-none rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30 max-h-32"
-        />
-        <button
-          type="submit"
-          disabled={busy || !input.trim()}
-          className="grid h-9 w-9 place-items-center rounded-lg bg-navy text-white disabled:opacity-50 hover:bg-navy-deep"
-          aria-label="Send"
-        >
-          {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <SendHorizonal className="h-4 w-4" />}
-        </button>
+        <div className="flex items-center gap-2.5">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask about faculty, labs, placements..."
+            className="flex-1 rounded-full border border-[#E5E7EB] bg-white px-4.5 py-2.5 text-xs text-[#111827] placeholder:text-[#6B7280] focus:outline-none focus:border-[#0F3D91] focus:ring-1 focus:ring-[#0F3D91] transition-all"
+          />
+
+          <button
+            type="submit"
+            disabled={busy || !input.trim()}
+            className="grid h-9 w-9 place-items-center rounded-full bg-[#0F3D91] text-white disabled:opacity-40 hover:bg-[#0C3278] transition-colors shrink-0 cursor-pointer shadow-2xs"
+            aria-label="Send message"
+          >
+            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <SendHorizonal className="h-4 w-4" />}
+          </button>
+        </div>
+
+        {/* Footer Notice */}
+        <div className="text-[11px] text-[#6B7280] text-center pt-0.5 font-normal">
+          Temporary session. Chat is cleared when closed.
+        </div>
       </form>
     </div>
   );

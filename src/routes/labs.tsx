@@ -1,62 +1,121 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { LABORATORIES } from "@/lib/department-data";
-import { Cpu, HardDrive, User } from "lucide-react";
-import labImage from "@/assets/lab-nvidia.jpg";
+import { Monitor, User } from "lucide-react";
 
 export const Route = createFileRoute("/labs")({
   head: () => ({
     meta: [
-      { title: "Laboratories — CSE, GIST" },
-      { name: "description", content: "8 modern laboratories at the Department of CSE, GIST — including an NVIDIA Jetson lab, research lab and 4 computer labs." },
-      { property: "og:image", content: "/og-labs.jpg" },
+      { title: "Laboratories — Department of CSE, GIST" },
+      {
+        name: "description",
+        content:
+          "8 modern laboratories in the CSE Department at GIST — including Dell & Lenovo workstations and a dedicated NVIDIA AI Lab for deep learning and computer vision research.",
+      },
     ],
   }),
   component: LabsPage,
 });
 
 function LabsPage() {
-  const total = LABORATORIES.reduce((s, l) => s + l.computers, 0);
   return (
     <PageShell
       eyebrow="Infrastructure"
-      title="Eight laboratories built for real work."
-      description={`Over ${total} configured systems across four computer labs, a research lab, a project lab, an additional lab, and a dedicated NVIDIA Jetson Nano AI/edge computing lab.`}
-      crumbs={[{ label: "Labs" }]}
+      title="Laboratories"
+      description="8 state-of-the-art laboratories equipped with latest hardware, software, and dedicated lab incharges — including a specialised NVIDIA AI Lab."
+      crumbs={[{ label: "Laboratories" }]}
     >
-      <div className="container-page py-14 grid gap-8 lg:grid-cols-[1.4fr_1fr] items-start">
-        <div className="grid gap-4">
+      <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
+
+        {/* Summary stats */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+            gap: 16,
+            marginBottom: 48,
+          }}
+        >
+          {[
+            { label: "Laboratories", value: "8" },
+            { label: "Total Systems", value: "550+" },
+            { label: "Incharges", value: "8" },
+            { label: "AI / GPU Lab", value: "1" },
+          ].map(({ label, value }) => (
+            <div
+              key={label}
+              style={{
+                background: "var(--navy-deep)",
+                borderRadius: "var(--radius-lg)",
+                padding: "24px 20px",
+                textAlign: "center",
+                color: "#fff",
+              }}
+            >
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 700, color: "var(--gold-soft)" }}>{value}</div>
+              <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,0.6)", marginTop: 4 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Labs Grid */}
+        <div style={{ display: "grid", gap: 20, gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
           {LABORATORIES.map((lab) => (
-            <article key={lab.name} className="rounded-2xl border border-border bg-card p-6">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <h3 className="font-serif text-xl text-navy-deep">{lab.name}</h3>
-                  <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1"><HardDrive className="h-3 w-3 text-gold" /> {lab.computers} systems</span>
-                    <span className="flex items-center gap-1"><User className="h-3 w-3 text-gold" /> {lab.incharge}</span>
-                  </div>
+            <article
+              key={lab.sno}
+              className="card"
+              style={{ borderTop: `3px solid ${lab.sno === 8 ? "var(--gist-orange)" : "var(--navy-deep)"}` }}
+            >
+              {/* Lab header */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                <div
+                  style={{
+                    width: 44, height: 44, borderRadius: "var(--radius-md)",
+                    background: lab.sno === 8 ? "var(--gist-orange-10)" : "var(--navy-10)",
+                    display: "grid", placeItems: "center",
+                    color: lab.sno === 8 ? "var(--gist-orange)" : "var(--navy-deep)",
+                  }}
+                >
+                  <Monitor size={20} />
                 </div>
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-navy/5 text-navy">
-                  <Cpu className="h-4 w-4" />
+                {lab.sno === 8 && (
+                  <span className="badge badge-orange">NVIDIA AI Lab</span>
+                )}
+              </div>
+
+              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: "var(--navy-deep)", lineHeight: 1.3 }}>
+                {lab.name}
+              </h3>
+
+              <div
+                style={{
+                  display: "grid", gridTemplateColumns: "1fr 1fr",
+                  gap: 10, marginTop: 16,
+                }}
+              >
+                <div style={{ padding: "10px 12px", background: "var(--surface-2)", borderRadius: "var(--radius-sm)" }}>
+                  <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", marginBottom: 3 }}>Systems</div>
+                  <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, color: "var(--navy-deep)" }}>{lab.computers}</div>
+                </div>
+                <div style={{ padding: "10px 12px", background: "var(--surface-2)", borderRadius: "var(--radius-sm)" }}>
+                  <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", marginBottom: 3 }}>Incharge</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-body)" }}>{lab.incharge}</div>
                 </div>
               </div>
-              <p className="mt-3 text-sm text-foreground/80">{lab.config}</p>
+
+              <div
+                style={{
+                  marginTop: 14, padding: "12px 14px",
+                  background: "var(--surface-2)", borderRadius: "var(--radius-sm)",
+                  fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6,
+                }}
+              >
+                <span style={{ fontWeight: 600, color: "var(--text-body)" }}>Configuration: </span>
+                {lab.config}
+              </div>
             </article>
           ))}
         </div>
-        <aside className="rounded-2xl overflow-hidden border border-border bg-card lg:sticky lg:top-24">
-          <img src={labImage} alt="NVIDIA Jetson lab at GIST CSE" className="h-56 w-full object-cover" />
-          <div className="p-6">
-            <div className="text-xs uppercase tracking-widest text-gold font-semibold">Featured</div>
-            <h3 className="mt-2 font-serif text-xl text-navy-deep">NVIDIA Laboratory</h3>
-            <p className="mt-2 text-sm text-muted-foreground">Jetson Nano developer kits, Waveshare cameras (77° FoV) and wireless dev boards support student projects in computer vision, edge AI and robotics.</p>
-            <ul className="mt-4 space-y-1 text-xs text-muted-foreground">
-              <li>· 30 Jetson Nano dev kits</li>
-              <li>· AC8265 Wireless NIC</li>
-              <li>· Camera modules with 77° FoV</li>
-            </ul>
-          </div>
-        </aside>
       </div>
     </PageShell>
   );

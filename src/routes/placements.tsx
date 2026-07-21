@@ -1,13 +1,17 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
-import { PLACEMENTS_NOTE } from "@/lib/department-data";
-import { Info, Briefcase, ArrowRight } from "lucide-react";
+import { ROLL_OF_HONOUR, DEPARTMENT } from "@/lib/department-data";
+import { Trophy, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/placements")({
   head: () => ({
     meta: [
-      { title: "Placements — CSE, GIST" },
-      { name: "description", content: "Placements information for the Department of CSE at GIST — official statistics are maintained by the GIST Training & Placement Cell." },
+      { title: "Roll of Honour & Placements — Department of CSE, GIST" },
+      {
+        name: "description",
+        content:
+          "Roll of Honour — batch toppers from 2008–2023, and placement information for the CSE Department at Geethanjali Institute of Science & Technology.",
+      },
     ],
   }),
   component: PlacementsPage,
@@ -16,47 +20,133 @@ export const Route = createFileRoute("/placements")({
 function PlacementsPage() {
   return (
     <PageShell
-      eyebrow="Careers"
-      title="Placements & careers"
-      description="Consolidated department placement statistics are compiled by the institute Training & Placement Cell. What is published here is drawn only from the official GIST website."
-      crumbs={[{ label: "Placements" }]}
+      eyebrow="Achievements"
+      title="Roll of Honour"
+      description="Recognising the highest-achieving students of the Department of Computer Science & Engineering at GIST — batch toppers from 2008 to 2023."
+      crumbs={[{ label: "Placements & Honour" }]}
     >
-      <div className="container-page py-14 space-y-10">
-        <div className="rounded-2xl border border-gold/30 bg-gold-soft/30 p-6 flex gap-4">
-          <Info className="h-5 w-5 text-navy shrink-0" />
-          <div className="text-sm text-navy-deep">
-            <div className="font-semibold">Official statistics pending</div>
-            <p className="mt-1 text-foreground/80">{PLACEMENTS_NOTE}</p>
+      <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
+        {/* Trophy Banner */}
+        <div
+          style={{
+            display: "flex", alignItems: "center", gap: 20,
+            padding: "28px 32px",
+            background: "linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-light) 100%)",
+            borderRadius: "var(--radius-xl)",
+            marginBottom: 48, color: "#fff",
+          }}
+        >
+          <div
+            style={{
+              width: 64, height: 64, borderRadius: "50%",
+              background: "var(--gist-orange)",
+              display: "grid", placeItems: "center", flexShrink: 0,
+            }}
+          >
+            <Trophy size={28} color="#fff" />
+          </div>
+          <div>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: "#fff", lineHeight: 1.2 }}>
+              Roll of Honour — CSE Department
+            </h2>
+            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.75)", marginTop: 6 }}>
+              Recognising academic excellence across {ROLL_OF_HONOUR.length} graduating batches (2008–2023)
+            </p>
           </div>
         </div>
 
-        <section>
-          <div className="flex items-center gap-2 text-navy">
-            <Briefcase className="h-4 w-4 text-gold" />
-            <h2 className="font-serif text-2xl text-navy-deep">How placements work at GIST</h2>
+        {/* Roll of Honour Table */}
+        <div style={{ marginBottom: 48 }}>
+          <div style={{ overflowX: "auto", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Batch</th>
+                  <th>Roll No.</th>
+                  <th>Name</th>
+                  <th>Overall % / CGPA</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ROLL_OF_HONOUR.map((r) => (
+                  <tr key={r.sno}>
+                    <td>{r.sno}</td>
+                    <td>
+                      <span style={{ fontWeight: 600, color: "var(--gist-orange)" }}>{r.batch}</span>
+                    </td>
+                    <td style={{ fontFamily: "monospace", fontSize: 13 }}>{r.rollNo}</td>
+                    <td style={{ fontWeight: 700, color: "var(--navy-deep)" }}>{r.name}</td>
+                    <td>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "4px 14px",
+                          background: "var(--gist-orange-10)",
+                          color: "var(--gist-orange)",
+                          borderRadius: 999,
+                          fontWeight: 700,
+                          fontSize: 14,
+                        }}
+                      >
+                        {r.cgpa}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {[
-              { t: "Training", d: "Aptitude, coding, communication and interview preparation drives run through the pre-final and final year." },
-              { t: "Certifications", d: "Access to CISCO, Oracle Academy, EduSkills, Codegnan and Great Learning tracks through department MoUs." },
-              { t: "Recruitment", d: "On-campus and pool drives coordinated by the institute Training & Placement Cell." },
-            ].map((s) => (
-              <div key={s.t} className="rounded-xl border border-border bg-card p-5">
-                <div className="text-xs uppercase tracking-widest text-gold font-semibold">{s.t}</div>
-                <p className="mt-2 text-sm text-foreground/80">{s.d}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        </div>
 
-        <div className="rounded-2xl border border-border bg-card p-6 flex flex-wrap items-center justify-between gap-4">
-          <div className="min-w-0">
-            <div className="font-serif text-lg text-navy-deep">Recruiter or partner?</div>
-            <div className="text-sm text-muted-foreground">Reach out to the department to plan a campus visit, guest lecture or training programme.</div>
-          </div>
-          <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm text-white hover:bg-navy-deep transition-colors">
-            Get in touch <ArrowRight className="h-4 w-4" />
-          </Link>
+        {/* Placements CTA */}
+        <div
+          style={{
+            display: "grid", gap: 20,
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          }}
+        >
+          {[
+            {
+              title: "Carving Careers",
+              desc: "GIST's dedicated placement cell helping students build careers in top IT companies.",
+              url: "https://gist.edu.in/gist/carving-careers/",
+            },
+            {
+              title: "Recruiters at GIST",
+              desc: "Top companies that have recruited students from GIST — TCS, Wipro, Infosys, and more.",
+              url: "https://gist.edu.in/gist/recruiters-at-gist/",
+            },
+            {
+              title: "Placement Record",
+              desc: "Year-wise placement statistics and records of the institution.",
+              url: "https://gist.edu.in/gist/placement-record/",
+            },
+            {
+              title: "Employability Skills Training",
+              desc: "Training programmes to enhance student employability and technical skills.",
+              url: "https://gist.edu.in/gist/employability-skills-training/",
+            },
+          ].map(({ title, desc, url }) => (
+            <a
+              key={title}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+            >
+              <div
+                className="card"
+                style={{ height: "100%", cursor: "pointer" }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "var(--navy-deep)" }}>{title}</h3>
+                  <ExternalLink size={14} color="var(--gist-orange)" />
+                </div>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6 }}>{desc}</p>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </PageShell>

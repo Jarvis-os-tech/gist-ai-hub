@@ -1,6 +1,5 @@
 import {
   createGeminiAiGatewayProvider,
-  createLovableAiGatewayProvider,
   createOpenAiGatewayProvider,
 } from "@/lib/ai-gateway.server";
 import { buildSystemPrompt } from "@/lib/knowledge-base";
@@ -26,10 +25,9 @@ export const Route = createFileRoute("/api/chat")({
         }
 
         const geminiKey = process.env.GEMINI_API_KEY?.trim();
-        const lovableKey = process.env.LOVABLE_API_KEY?.trim();
         const openaiKey = process.env.OPENAI_API_KEY?.trim();
 
-        if (!geminiKey && !lovableKey && !openaiKey) {
+        if (!geminiKey && !openaiKey) {
           const noticeText =
             "⚠️ **API Key Required**\n\nPlease add your **GEMINI_API_KEY** (or `OPENAI_API_KEY`) to the `.env` file in the project directory:\n\n```env\nGEMINI_API_KEY=your_actual_key_here\n```\nAfter saving `.env`, ask your question again!";
 
@@ -44,9 +42,6 @@ export const Route = createFileRoute("/api/chat")({
         if (geminiKey) {
           const gateway = createGeminiAiGatewayProvider(geminiKey);
           model = gateway("gemini-2.5-flash");
-        } else if (lovableKey) {
-          const gateway = createLovableAiGatewayProvider(lovableKey);
-          model = gateway("openai/gpt-5.5");
         } else if (openaiKey) {
           const gateway = createOpenAiGatewayProvider(openaiKey);
           model = gateway("gpt-4o-mini");

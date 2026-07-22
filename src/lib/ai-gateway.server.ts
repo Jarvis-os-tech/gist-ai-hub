@@ -8,14 +8,6 @@ export function createGeminiAiGatewayProvider(apiKey: string) {
   });
 }
 
-export function createLovableAiGatewayProvider(apiKey: string) {
-  return createOpenAICompatible({
-    name: "lovable-ai-gateway",
-    baseURL: "https://ai.gateway.lovable.dev/v1",
-    headers: { "Lovable-API-Key": apiKey },
-  });
-}
-
 export function createOpenAiGatewayProvider(apiKey: string) {
   return createOpenAICompatible({
     name: "openai",

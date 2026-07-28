@@ -1,10 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import {
-  DEPT_CALENDAR, NEWSLETTERS, TECH_MAGAZINES,
-  INTERNSHIPS, INDUSTRIAL_VISITS, MOUS,
+  DEPT_CALENDAR,
+  NEWSLETTERS,
+  TECH_MAGAZINES,
+  INTERNSHIPS,
+  INDUSTRIAL_VISITS,
+  MOUS,
 } from "@/lib/department-data";
-import { ExternalLink, FileText, Calendar, BookOpen, Building, Briefcase, Factory, Handshake } from "lucide-react";
+import {
+  ExternalLink,
+  FileText,
+  Calendar,
+  BookOpen,
+  Building,
+  Briefcase,
+  Factory,
+  Handshake,
+} from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/downloads")({
@@ -40,9 +53,12 @@ function PdfRow({ label, url, sublabel }: { label: string; url: string; sublabel
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        display: "flex", alignItems: "center", gap: 14,
+        display: "flex",
+        alignItems: "center",
+        gap: 14,
         padding: "14px 18px",
-        background: "var(--surface)", border: "1px solid var(--border)",
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
         borderRadius: "var(--radius-md)",
         textDecoration: "none",
         transition: "var(--transition)",
@@ -59,26 +75,41 @@ function PdfRow({ label, url, sublabel }: { label: string; url: string; sublabel
       <FileText size={16} color="var(--gist-orange)" style={{ flexShrink: 0 }} />
       <div style={{ flex: 1 }}>
         <div style={{ fontSize: 14, fontWeight: 600, color: "var(--navy-deep)" }}>{label}</div>
-        {sublabel && <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>{sublabel}</div>}
+        {sublabel && (
+          <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>{sublabel}</div>
+        )}
       </div>
       <ExternalLink size={14} color="var(--text-muted)" style={{ flexShrink: 0 }} />
     </a>
   );
 }
 
-function SectionCard({ title, icon: Icon, children }: { title: string; icon: React.ElementType; children: React.ReactNode }) {
+function SectionCard({
+  title,
+  icon: Icon,
+  children,
+}: {
+  title: string;
+  icon: React.ElementType;
+  children: React.ReactNode;
+}) {
   return (
     <div className="card" style={{ padding: 0, overflow: "hidden" }}>
       <div
         style={{
-          display: "flex", alignItems: "center", gap: 12,
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
           padding: "18px 22px",
-          background: "var(--navy-deep)", color: "#fff",
+          background: "var(--navy-deep)",
+          color: "#fff",
           borderRadius: "var(--radius-lg) var(--radius-lg) 0 0",
         }}
       >
         <Icon size={18} />
-        <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "#fff" }}>{title}</h3>
+        <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "#fff" }}>
+          {title}
+        </h3>
       </div>
       <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: 10 }}>
         {children}
@@ -115,7 +146,12 @@ function DownloadsPage() {
         {active === "calendar" && (
           <SectionCard title="Department Academic Calendar" icon={Calendar}>
             {DEPT_CALENDAR.map((c) => (
-              <PdfRow key={c.ay} label={c.ay} url={c.pdfUrl} sublabel="Department Activity Calendar" />
+              <PdfRow
+                key={c.ay}
+                label={c.ay}
+                url={c.pdfUrl}
+                sublabel="Department Activity Calendar"
+              />
             ))}
           </SectionCard>
         )}
@@ -123,7 +159,12 @@ function DownloadsPage() {
         {active === "newsletter" && (
           <SectionCard title="Techies Chronicle — Newsletter" icon={BookOpen}>
             {NEWSLETTERS.map((n) => (
-              <PdfRow key={n.pdfUrl} label={`${n.year} — ${n.vol}`} url={n.pdfUrl} sublabel="CSE Dept Newsletter" />
+              <PdfRow
+                key={n.pdfUrl}
+                label={`${n.year} — ${n.vol}`}
+                url={n.pdfUrl}
+                sublabel="CSE Dept Newsletter"
+              />
             ))}
           </SectionCard>
         )}
@@ -131,7 +172,12 @@ function DownloadsPage() {
         {active === "magazine" && (
           <SectionCard title="Tech Spark — Technical Magazine" icon={BookOpen}>
             {TECH_MAGAZINES.map((m) => (
-              <PdfRow key={m.pdfUrl} label={`${m.year} — ${m.issue}`} url={m.pdfUrl} sublabel="CSE Technical Magazine" />
+              <PdfRow
+                key={m.pdfUrl}
+                label={`${m.year} — ${m.issue}`}
+                url={m.pdfUrl}
+                sublabel="CSE Technical Magazine"
+              />
             ))}
           </SectionCard>
         )}
@@ -144,16 +190,29 @@ function DownloadsPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  padding: "10px 20px", borderRadius: 999,
-                  background: "var(--gist-orange)", color: "#fff",
-                  fontSize: 13, fontWeight: 600, textDecoration: "none", marginBottom: 16,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "10px 20px",
+                  borderRadius: 999,
+                  background: "var(--gist-orange)",
+                  color: "#fff",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  marginBottom: 16,
                 }}
               >
                 <FileText size={14} /> View All MOUs (PDF)
               </a>
             </div>
-            <div style={{ overflowX: "auto", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
+            <div
+              style={{
+                overflowX: "auto",
+                borderRadius: "var(--radius-lg)",
+                border: "1px solid var(--border)",
+              }}
+            >
               <table className="data-table">
                 <thead>
                   <tr>
@@ -172,7 +231,12 @@ function DownloadsPage() {
                       <td style={{ maxWidth: 300 }}>{m.areas}</td>
                       <td style={{ whiteSpace: "nowrap" }}>{m.validity}</td>
                       <td>
-                        <a href={m.pdfUrl} target="_blank" rel="noopener noreferrer" className="pdf-link">
+                        <a
+                          href={m.pdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="pdf-link"
+                        >
                           View <ExternalLink size={12} />
                         </a>
                       </td>
@@ -187,7 +251,12 @@ function DownloadsPage() {
         {active === "internship" && (
           <SectionCard title="Internship Reports" icon={Briefcase}>
             {INTERNSHIPS.map((c) => (
-              <PdfRow key={c.ay} label={`Internships — ${c.ay}`} url={c.pdfUrl} sublabel="Student Internship Report" />
+              <PdfRow
+                key={c.ay}
+                label={`Internships — ${c.ay}`}
+                url={c.pdfUrl}
+                sublabel="Student Internship Report"
+              />
             ))}
           </SectionCard>
         )}
@@ -195,7 +264,12 @@ function DownloadsPage() {
         {active === "industrial" && (
           <SectionCard title="Industrial Visit Reports" icon={Factory}>
             {INDUSTRIAL_VISITS.map((c) => (
-              <PdfRow key={c.ay} label={`Industrial Visits — ${c.ay}`} url={c.pdfUrl} sublabel="Industrial Visit Report" />
+              <PdfRow
+                key={c.ay}
+                label={`Industrial Visits — ${c.ay}`}
+                url={c.pdfUrl}
+                sublabel="Industrial Visit Report"
+              />
             ))}
           </SectionCard>
         )}
@@ -213,19 +287,37 @@ function DownloadsPage() {
         {/* Additional links */}
         <div
           style={{
-            marginTop: 48, padding: "24px",
-            background: "var(--surface-2)", border: "1px solid var(--border)",
+            marginTop: 48,
+            padding: "24px",
+            background: "var(--surface-2)",
+            border: "1px solid var(--border)",
             borderRadius: "var(--radius-lg)",
           }}
         >
-          <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: "var(--navy-deep)", marginBottom: 14 }}>
+          <div
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 18,
+              color: "var(--navy-deep)",
+              marginBottom: 14,
+            }}
+          >
             Additional Resources
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             {[
-              { label: "Student Paper & Poster Presentations", url: "https://gist.edu.in/gist/student-paper-and-poster-presentations-cse/" },
-              { label: "Student Co-curricular Activities", url: "https://gist.edu.in/gist/student-other-co-curricular-activities-cse/" },
-              { label: "Student Publications in Int'l Journals", url: "https://gist.edu.in/gist/student-publications-in-international-journals-cse/" },
+              {
+                label: "Student Paper & Poster Presentations",
+                url: "https://gist.edu.in/gist/student-paper-and-poster-presentations-cse/",
+              },
+              {
+                label: "Student Co-curricular Activities",
+                url: "https://gist.edu.in/gist/student-other-co-curricular-activities-cse/",
+              },
+              {
+                label: "Student Publications in Int'l Journals",
+                url: "https://gist.edu.in/gist/student-publications-in-international-journals-cse/",
+              },
             ].map(({ label, url }) => (
               <a
                 key={label}
@@ -233,14 +325,27 @@ function DownloadsPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  display: "inline-flex", alignItems: "center", gap: 6,
-                  padding: "8px 16px", borderRadius: 999,
-                  background: "var(--surface)", border: "1px solid var(--border)",
-                  color: "var(--navy-deep)", fontSize: 13, fontWeight: 500, textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "8px 16px",
+                  borderRadius: 999,
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  color: "var(--navy-deep)",
+                  fontSize: 13,
+                  fontWeight: 500,
+                  textDecoration: "none",
                   transition: "var(--transition)",
                 }}
-                onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--gist-orange)"; (e.currentTarget as HTMLElement).style.color = "var(--gist-orange)"; }}
-                onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.color = "var(--navy-deep)"; }}
+                onMouseOver={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--gist-orange)";
+                  (e.currentTarget as HTMLElement).style.color = "var(--gist-orange)";
+                }}
+                onMouseOut={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
+                  (e.currentTarget as HTMLElement).style.color = "var(--navy-deep)";
+                }}
               >
                 <ExternalLink size={12} /> {label}
               </a>

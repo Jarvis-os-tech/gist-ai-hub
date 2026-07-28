@@ -61,9 +61,12 @@ export const Route = createFileRoute("/api/chat")({
           return result.toUIMessageStreamResponse({
             originalMessages: messages as UIMessage[],
           });
-        } catch (err: any) {
+        } catch (err: unknown) {
           console.error("AI Generation Error:", err);
-          return new Response(`AI stream error: ${err?.message || "Unknown error"}`, { status: 500 });
+          const message = err instanceof Error ? err.message : "Unknown error";
+          return new Response(`AI stream error: ${message}`, {
+            status: 500,
+          });
         }
       },
     },

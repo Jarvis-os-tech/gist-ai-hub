@@ -73,7 +73,10 @@ function ChatPage() {
       if (res.ok) {
         const textData = await res.text();
         if (textData && !textData.includes("API Key Required")) {
-          const cleanedText = textData.replace(/^[0-9]+:"/g, "").replace(/"$/g, "").replace(/\\n/g, "\n");
+          const cleanedText = textData
+            .replace(/^[0-9]+:"/g, "")
+            .replace(/"$/g, "")
+            .replace(/\\n/g, "\n");
           if (cleanedText.trim().length > 0) {
             const botMsg: Message = {
               id: (Date.now() + 1).toString(),
@@ -132,7 +135,16 @@ function ChatPage() {
             </div>
             <div className="cse-header-actions">
               <button onClick={handleReset} title="Restart chat" aria-label="Restart chat">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="23 4 23 10 17 10" />
                   <polyline points="1 20 1 14 7 14" />
                   <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
@@ -145,14 +157,29 @@ function ChatPage() {
           <div className="cse-body" ref={bodyRef}>
             <div className="cse-welcome max-w-2xl mx-auto">
               <div className="cse-welcome-title">👋 Welcome!</div>
-              <div className="cse-welcome-text">Ask me about faculty, programs, laboratories, placements, events, or department information.</div>
+              <div className="cse-welcome-text">
+                Ask me about faculty, programs, laboratories, placements, events, or department
+                information.
+              </div>
             </div>
 
             <div className="max-w-2xl mx-auto">
               <div className="cse-quick-label">Quick Actions</div>
               <div className="cse-quick-grid">
-                <button className="cse-quick-btn" onClick={() => handleSend("Tell me about the faculty")}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <button
+                  className="cse-quick-btn"
+                  onClick={() => handleSend("Tell me about the faculty")}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#0d2a5a"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                     <circle cx="9" cy="7" r="4" />
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -161,16 +188,40 @@ function ChatPage() {
                   <span>Faculty</span>
                 </button>
 
-                <button className="cse-quick-btn" onClick={() => handleSend("What programs do you offer?")}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <button
+                  className="cse-quick-btn"
+                  onClick={() => handleSend("What programs do you offer?")}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#0d2a5a"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M22 10 12 5 2 10l10 5 10-5Z" />
                     <path d="M6 12v5c3 3 9 3 12 0v-5" />
                   </svg>
                   <span>Programs</span>
                 </button>
 
-                <button className="cse-quick-btn" onClick={() => handleSend("Tell me about the laboratories")}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <button
+                  className="cse-quick-btn"
+                  onClick={() => handleSend("Tell me about the laboratories")}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#0d2a5a"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M9 2v6.4a2 2 0 0 1-.3 1L4 18a2 2 0 0 0 1.7 3h12.6a2 2 0 0 0 1.7-3l-4.7-8.6a2 2 0 0 1-.3-1V2" />
                     <path d="M7 15h10" />
                     <path d="M9 2h6" />
@@ -178,16 +229,40 @@ function ChatPage() {
                   <span>Labs</span>
                 </button>
 
-                <button className="cse-quick-btn" onClick={() => handleSend("Tell me about placements")}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <button
+                  className="cse-quick-btn"
+                  onClick={() => handleSend("Tell me about placements")}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#0d2a5a"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <rect x="2" y="7" width="20" height="14" rx="2" />
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                   </svg>
                   <span>Placements</span>
                 </button>
 
-                <button className="cse-quick-btn" onClick={() => handleSend("What events are coming up?")}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <button
+                  className="cse-quick-btn"
+                  onClick={() => handleSend("What events are coming up?")}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#0d2a5a"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <rect x="3" y="4" width="18" height="18" rx="2" />
                     <line x1="16" y1="2" x2="16" y2="6" />
                     <line x1="8" y1="2" x2="8" y2="6" />
@@ -196,8 +271,20 @@ function ChatPage() {
                   <span>Events</span>
                 </button>
 
-                <button className="cse-quick-btn" onClick={() => handleSend("How can I contact the department?")}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <button
+                  className="cse-quick-btn"
+                  onClick={() => handleSend("How can I contact the department?")}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#0d2a5a"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .36 1.94.68 2.85a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.23-1.25a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.85.68A2 2 0 0 1 22 16.92z" />
                   </svg>
                   <span>Contact</span>
@@ -241,7 +328,14 @@ function ChatPage() {
 
           {/* Footer */}
           <div className="cse-footer">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8a94a6" strokeWidth="2">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#8a94a6"
+              strokeWidth="2"
+            >
               <rect x="3" y="11" width="18" height="11" rx="2" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>

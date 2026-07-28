@@ -26,10 +26,22 @@ function ContactPage() {
       crumbs={[{ label: "Contact" }]}
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
-        <div style={{ display: "grid", gap: 32, gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+        <div
+          style={{
+            display: "grid",
+            gap: 32,
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          }}
+        >
           {/* Contact Cards */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--navy-deep)" }}>
+            <h2
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 22,
+                color: "var(--navy-deep)",
+              }}
+            >
               Department Contact
             </h2>
 
@@ -59,29 +71,58 @@ function ContactPage() {
               <div
                 key={label}
                 style={{
-                  display: "flex", gap: 16, padding: "20px 22px",
-                  background: "var(--surface)", border: "1px solid var(--border)",
-                  borderRadius: "var(--radius-lg)", alignItems: "flex-start",
+                  display: "flex",
+                  gap: 16,
+                  padding: "20px 22px",
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-lg)",
+                  alignItems: "flex-start",
                   boxShadow: "var(--shadow-sm)",
                 }}
               >
                 <div
                   style={{
-                    width: 44, height: 44, borderRadius: "var(--radius-md)",
-                    background: "var(--gist-orange-10)", display: "grid",
-                    placeItems: "center", color: "var(--gist-orange)", flexShrink: 0,
+                    width: 44,
+                    height: 44,
+                    borderRadius: "var(--radius-md)",
+                    background: "var(--gist-orange-10)",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "var(--gist-orange)",
+                    flexShrink: 0,
                   }}
                 >
                   <Icon size={18} />
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-muted)", marginBottom: 4 }}>{label}</div>
-                  <div style={{ fontSize: 14, color: "var(--text-body)", lineHeight: 1.6 }}>{value}</div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      color: "var(--text-muted)",
+                      marginBottom: 4,
+                    }}
+                  >
+                    {label}
+                  </div>
+                  <div style={{ fontSize: 14, color: "var(--text-body)", lineHeight: 1.6 }}>
+                    {value}
+                  </div>
                   <a
                     href={href}
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
-                    style={{ fontSize: 13, color: "var(--gist-orange)", fontWeight: 600, textDecoration: "none", marginTop: 6, display: "inline-block" }}
+                    style={{
+                      fontSize: 13,
+                      color: "var(--gist-orange)",
+                      fontWeight: 600,
+                      textDecoration: "none",
+                      marginTop: 6,
+                      display: "inline-block",
+                    }}
                   >
                     {linkLabel} →
                   </a>
@@ -94,31 +135,61 @@ function ContactPage() {
               style={{
                 background: "linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%)",
                 borderRadius: "var(--radius-xl)",
-                padding: 24, color: "#fff",
+                padding: 24,
+                color: "#fff",
               }}
             >
-              <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--gold-soft)", marginBottom: 14 }}>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  color: "var(--gold-soft)",
+                  marginBottom: 14,
+                }}
+              >
                 Head of Department
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 <div
                   style={{
-                    width: 56, height: 56, borderRadius: "50%",
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
                     background: "var(--gist-orange)",
-                    display: "grid", placeItems: "center",
+                    display: "grid",
+                    placeItems: "center",
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: 20, fontWeight: 700, color: "#fff", flexShrink: 0,
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: "#fff",
+                    flexShrink: 0,
                   }}
                 >
-                  {DEPARTMENT.hod.name.split(" ").filter(w => !["Dr.", "Mr.", "Ms."].includes(w)).map(w => w[0]).slice(0, 2).join("")}
+                  {DEPARTMENT.hod.name
+                    .split(" ")
+                    .filter((w) => !["Dr.", "Mr.", "Ms."].includes(w))
+                    .map((w) => w[0])
+                    .slice(0, 2)
+                    .join("")}
                 </div>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: 17 }}>{DEPARTMENT.hod.name}</div>
-                  <div style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", marginTop: 2 }}>{DEPARTMENT.hod.designation}</div>
-                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", marginTop: 2 }}>{DEPARTMENT.hod.qualification}</div>
+                  <div style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", marginTop: 2 }}>
+                    {DEPARTMENT.hod.designation}
+                  </div>
+                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", marginTop: 2 }}>
+                    {DEPARTMENT.hod.qualification}
+                  </div>
                   <a
                     href={`mailto:${DEPARTMENT.hod.email}`}
-                    style={{ fontSize: 13, color: "var(--gold-soft)", marginTop: 6, display: "block" }}
+                    style={{
+                      fontSize: 13,
+                      color: "var(--gold-soft)",
+                      marginTop: 6,
+                      display: "block",
+                    }}
                   >
                     {DEPARTMENT.hod.email}
                   </a>
@@ -129,21 +200,40 @@ function ContactPage() {
 
           {/* Useful Links */}
           <div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--navy-deep)", marginBottom: 24 }}>
+            <h2
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 22,
+                color: "var(--navy-deep)",
+                marginBottom: 24,
+              }}
+            >
               Useful Links
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {[
-                { label: "Official CSE Department Page", url: "https://gist.edu.in/gist/computer-science-and-engineering/" },
+                {
+                  label: "Official CSE Department Page",
+                  url: "https://gist.edu.in/gist/computer-science-and-engineering/",
+                },
                 { label: "GIST Official Website", url: "https://gist.edu.in/gist/" },
                 { label: "GIST Contact Us", url: "https://gist.edu.in/gist/contact-us/" },
-                { label: "GIST Location & Maps", url: "https://gist.edu.in/gist/location-and-maps/" },
+                {
+                  label: "GIST Location & Maps",
+                  url: "https://gist.edu.in/gist/location-and-maps/",
+                },
                 { label: "GIST NAAC Reports", url: "https://gist.edu.in/gist/naac/" },
                 { label: "GIST NBA Reports", url: "https://gist.edu.in/gist/nba-3/" },
                 { label: "AICTE Approvals", url: "https://gist.edu.in/gist/a-i-c-t-e/" },
-                { label: "GIST Campus Tour (YouTube)", url: "https://www.youtube.com/watch?v=cGGjMT91-CQ" },
+                {
+                  label: "GIST Campus Tour (YouTube)",
+                  url: "https://www.youtube.com/watch?v=cGGjMT91-CQ",
+                },
                 { label: "Anti-Ragging Cell", url: "https://gist.edu.in/gist/antiragging/" },
-                { label: "Online Certificate Verification", url: "https://gist.edu.in/gist/verification-of-certificates/" },
+                {
+                  label: "Online Certificate Verification",
+                  url: "https://gist.edu.in/gist/verification-of-certificates/",
+                },
               ].map(({ label, url }) => (
                 <a
                   key={label}
@@ -151,11 +241,17 @@ function ContactPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
-                    gap: 12, padding: "14px 18px",
-                    background: "var(--surface)", border: "1px solid var(--border)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 12,
+                    padding: "14px 18px",
+                    background: "var(--surface)",
+                    border: "1px solid var(--border)",
                     borderRadius: "var(--radius-md)",
-                    fontSize: 14, color: "var(--text-body)", textDecoration: "none",
+                    fontSize: 14,
+                    color: "var(--text-body)",
+                    textDecoration: "none",
                     transition: "var(--transition)",
                   }}
                   onMouseOver={(e) => {
@@ -174,8 +270,23 @@ function ContactPage() {
             </div>
 
             {/* Social Media */}
-            <div style={{ marginTop: 28, padding: "20px", background: "var(--surface-2)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)" }}>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "var(--navy-deep)", marginBottom: 14 }}>
+            <div
+              style={{
+                marginTop: 28,
+                padding: "20px",
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                borderRadius: "var(--radius-lg)",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 16,
+                  color: "var(--navy-deep)",
+                  marginBottom: 14,
+                }}
+              >
                 Follow GIST
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
@@ -191,9 +302,13 @@ function ContactPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      padding: "7px 16px", borderRadius: 999,
-                      background: "var(--navy-deep)", color: "#fff",
-                      fontSize: 13, fontWeight: 600, textDecoration: "none",
+                      padding: "7px 16px",
+                      borderRadius: 999,
+                      background: "var(--navy-deep)",
+                      color: "#fff",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      textDecoration: "none",
                     }}
                   >
                     {label}

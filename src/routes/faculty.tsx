@@ -18,7 +18,13 @@ export const Route = createFileRoute("/faculty")({
   component: FacultyPage,
 });
 
-const ROLES = ["All", "Professor & HoD", "Professor", "Associate Professor", "Assistant Professor"] as const;
+const ROLES = [
+  "All",
+  "Professor & HoD",
+  "Professor",
+  "Associate Professor",
+  "Assistant Professor",
+] as const;
 
 function FacultyPage() {
   const [q, setQ] = useState("");
@@ -43,7 +49,16 @@ function FacultyPage() {
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
         {/* Filters */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "space-between", marginBottom: 32 }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 12,
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 32,
+          }}
+        >
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {ROLES.map((r) => (
               <button
@@ -57,7 +72,18 @@ function FacultyPage() {
             ))}
           </div>
           <div style={{ position: "relative" }}>
-            <span style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", fontSize: 14 }}>🔍</span>
+            <span
+              style={{
+                position: "absolute",
+                left: 14,
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "var(--text-muted)",
+                fontSize: 14,
+              }}
+            >
+              🔍
+            </span>
             <input
               id="faculty-search"
               value={q}
@@ -70,11 +96,18 @@ function FacultyPage() {
 
         {/* Count */}
         <div style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 20 }}>
-          Showing <strong style={{ color: "var(--navy-deep)" }}>{list.length}</strong> of {FACULTY.length} faculty members
+          Showing <strong style={{ color: "var(--navy-deep)" }}>{list.length}</strong> of{" "}
+          {FACULTY.length} faculty members
         </div>
 
         {/* Grid */}
-        <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
+        <div
+          style={{
+            display: "grid",
+            gap: 16,
+            gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+          }}
+        >
           {list.map((f) => {
             const initials = f.name
               .replace(/^(Dr\.|Mr\.|Ms\.)\s*/, "")
@@ -87,16 +120,32 @@ function FacultyPage() {
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
                   <div className="avatar">{initials}</div>
                   <div style={{ minWidth: 0 }}>
-                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "var(--navy-deep)", lineHeight: 1.3 }}>{f.name}</h3>
-                    <div className="badge badge-orange" style={{ marginTop: 6 }}>{f.designation}</div>
-                    <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 5 }}>{f.qualification}</div>
+                    <h3
+                      style={{
+                        fontFamily: "'Playfair Display', serif",
+                        fontSize: 16,
+                        color: "var(--navy-deep)",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {f.name}
+                    </h3>
+                    <div className="badge badge-orange" style={{ marginTop: 6 }}>
+                      {f.designation}
+                    </div>
+                    <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 5 }}>
+                      {f.qualification}
+                    </div>
                   </div>
                 </div>
                 <div
                   style={{
-                    marginTop: 16, paddingTop: 14,
+                    marginTop: 16,
+                    paddingTop: 14,
                     borderTop: "1px solid var(--border)",
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
                     fontSize: 12,
                   }}
                 >
@@ -106,7 +155,14 @@ function FacultyPage() {
                       href={f.profileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ color: "var(--gist-orange)", display: "inline-flex", alignItems: "center", gap: 4, fontWeight: 600, textDecoration: "none" }}
+                      style={{
+                        color: "var(--gist-orange)",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 4,
+                        fontWeight: 600,
+                        textDecoration: "none",
+                      }}
                     >
                       Profile <ExternalLink size={12} />
                     </a>
@@ -139,7 +195,15 @@ function FacultyPage() {
           }}
         >
           <div>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: "var(--navy-deep)" }}>Reach the department</div>
+            <div
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 18,
+                color: "var(--navy-deep)",
+              }}
+            >
+              Reach the department
+            </div>
             <div style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 4 }}>
               Write to the HoD for academic, research, or partnership queries.
             </div>
@@ -147,10 +211,16 @@ function FacultyPage() {
           <a
             href={`mailto:${DEPARTMENT.contact.email}`}
             style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              padding: "11px 24px", borderRadius: 999,
-              background: "var(--gist-orange)", color: "#fff",
-              fontSize: 14, fontWeight: 600, textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "11px 24px",
+              borderRadius: 999,
+              background: "var(--gist-orange)",
+              color: "#fff",
+              fontSize: 14,
+              fontWeight: 600,
+              textDecoration: "none",
             }}
           >
             <Mail size={15} /> {DEPARTMENT.contact.email}

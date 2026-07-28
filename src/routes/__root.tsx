@@ -75,10 +75,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "GIST CSE Department" },
-      { name: "description", content: "GIST CSE Department — Department of Computer Science & Engineering at Geethanjali Institute of Science & Technology." },
+      {
+        name: "description",
+        content:
+          "GIST CSE Department — Department of Computer Science & Engineering at Geethanjali Institute of Science & Technology.",
+      },
       { name: "author", content: "GIST CSE Department" },
       { property: "og:title", content: "GIST CSE Department" },
-      { property: "og:description", content: "Department of Computer Science & Engineering at Geethanjali Institute of Science & Technology (GIST)." },
+      {
+        property: "og:description",
+        content:
+          "Department of Computer Science & Engineering at Geethanjali Institute of Science & Technology (GIST).",
+      },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "/gist-logo.jpg" },
       { name: "twitter:card", content: "summary" },
@@ -94,7 +102,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/gist-logo.jpg" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

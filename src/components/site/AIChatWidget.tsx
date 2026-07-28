@@ -29,11 +29,49 @@ export function getAccurateDepartmentReply(queryText: string): string {
 
   // Guardrail for Unwanted / Off-Topic Queries
   const unwantedKeywords = [
-    "weather", "recipe", "cook", "food", "movie", "film", "song", "sing", "music", "joke", "story",
-    "cricket", "football", "match", "game", "gaming", "playstation", "xbox", "election",
-    "politics", "president", "prime minister", "crypto", "bitcoin", "stock", "trading",
-    "relationship", "dating", "love", "hack", "password", "bypass", "illegal", "drug",
-    "alcohol", "gambling", "casino", "weapon", "bomb", "kill", "die", "horoscope", "astrology"
+    "weather",
+    "recipe",
+    "cook",
+    "food",
+    "movie",
+    "film",
+    "song",
+    "sing",
+    "music",
+    "joke",
+    "story",
+    "cricket",
+    "football",
+    "match",
+    "game",
+    "gaming",
+    "playstation",
+    "xbox",
+    "election",
+    "politics",
+    "president",
+    "prime minister",
+    "crypto",
+    "bitcoin",
+    "stock",
+    "trading",
+    "relationship",
+    "dating",
+    "love",
+    "hack",
+    "password",
+    "bypass",
+    "illegal",
+    "drug",
+    "alcohol",
+    "gambling",
+    "casino",
+    "weapon",
+    "bomb",
+    "kill",
+    "die",
+    "horoscope",
+    "astrology",
   ];
 
   if (unwantedKeywords.some((kw) => t.includes(kw))) {
@@ -41,18 +79,38 @@ export function getAccurateDepartmentReply(queryText: string): string {
   }
 
   // Greetings & Conversational Queries
-  if (t === "hi" || t === "hello" || t === "hey" || t.includes("good morning") || t.includes("good afternoon") || t.includes("good evening") || t.includes("greetings")) {
-    return `👋 **Hello!** I am the official AI Assistant for the **Department of Computer Science & Engineering (CSE)** at **GIST**.\n\nHow can I help you today? You can ask me about:\n- 👥 Faculty & HOD details\n- 🎓 B.Tech & M.Tech programmes\n- 🧪 Computer & NVIDIA AI Labs\n- 🏆 Placements & Roll of Honour\n- 🤝 MOUs & Industry Collaborations\n- 📅 VOICE Events & Workshops\n- 📞 Department Contact & Codes`;
+  if (
+    t === "hi" ||
+    t === "hello" ||
+    t === "hey" ||
+    t.includes("good morning") ||
+    t.includes("good afternoon") ||
+    t.includes("good evening") ||
+    t.includes("greetings")
+  ) {
+    return `👋 **Hello!** I am the official AI Assistant for the **Department of Computer Science & Engineering (CSE)** at **GIST**.\n\nHow can I help you today? You can ask me about:\n- 👥 Faculty & HOD details\n- 🎓 B.Tech programme\n- 🧪 Computer & NVIDIA AI Labs\n- 🏆 Placements & Roll of Honour\n- 🤝 MOUs & Industry Collaborations\n- 📅 VOICE Events & Workshops\n- 📞 Department Contact & Codes`;
   }
 
   // Who are you / Identity Queries
-  if (t.includes("who are you") || t.includes("what is your name") || t.includes("tell me about yourself") || t.includes("about you") || t.includes("introduce yourself")) {
+  if (
+    t.includes("who are you") ||
+    t.includes("what is your name") ||
+    t.includes("tell me about yourself") ||
+    t.includes("about you") ||
+    t.includes("introduce yourself")
+  ) {
     return `🤖 **I am the CSE Department Assistant**\n\nI am an AI assistant designed to provide official and accurate information regarding the **Department of Computer Science & Engineering** at **Geethanjali Institute of Science and Technology (GIST)**.\n\nAll my responses are grounded directly in verified department records!`;
   }
 
   // What can you do / Capabilities Queries
-  if (t.includes("what can you do") || t.includes("how can you help") || t.includes("help me") || t.includes("features") || t.includes("options")) {
-    return `💡 **Here is what I can do for you:**\n\n1. **Faculty Information:** Lookup any of our 49 faculty members, HOD profiles, and qualifications.\n2. **Academic Programmes:** Details on B.Tech & M.Tech intakes, durations, and specializations.\n3. **Laboratories:** Configurations and incharges for all 8 labs (including NVIDIA AI Lab).\n4. **Placements & Toppers:** Information on CGPA toppers and placement records.\n5. **Industry Collaborations:** Active MOUs (Codegnan, EduSkills, Cisco, Oracle).\n6. **Events & Contact:** VOICE student association events, EAPCET code (\`GTNN\`), and contact info.`;
+  if (
+    t.includes("what can you do") ||
+    t.includes("how can you help") ||
+    t.includes("help me") ||
+    t.includes("features") ||
+    t.includes("options")
+  ) {
+    return `💡 **Here is what I can do for you:**\n\n1. **Faculty Information:** Lookup any of our 49 faculty members, HOD profiles, and qualifications.\n2. **Academic Programmes:** Details on B.Tech intake (420 seats), duration, and specializations.\n3. **Laboratories:** Configurations and incharges for all 8 labs (including NVIDIA AI Lab).\n4. **Placements & Toppers:** Information on CGPA toppers and placement records.\n5. **Industry Collaborations:** Active MOUs (Codegnan, EduSkills, Cisco, Oracle).\n6. **Events & Contact:** VOICE student association events, EAPCET code (\`GTNN\`), and contact info.`;
   }
 
   // Thank you Queries
@@ -61,55 +119,122 @@ export function getAccurateDepartmentReply(queryText: string): string {
   }
 
   // HOD query
-  if (t.includes("hod") || t.includes("head of department") || t.includes("lakshmana rao") || t.includes("who is the head")) {
+  if (
+    t.includes("hod") ||
+    t.includes("head of department") ||
+    t.includes("lakshmana rao") ||
+    t.includes("who is the head")
+  ) {
     const hod = DEPARTMENT.hod;
     return `### 👨‍🏫 Head of Department (HOD)\n\n- **Name:** ${hod.name}\n- **Designation:** ${hod.designation}\n- **Qualification:** ${hod.qualification}\n- **Email:** [${hod.email}](mailto:${hod.email})\n- **Profile:** [View HOD Profile](${hod.profileUrl})`;
   }
 
   // Faculty query
-  if (t.includes("faculty") || t.includes("professor") || t.includes("teacher") || t.includes("staff")) {
-    const matched = FACULTY.find((f) => t.includes(f.name.toLowerCase()) || f.name.toLowerCase().split(" ").some(part => part.length > 3 && t.includes(part)));
+  if (
+    t.includes("faculty") ||
+    t.includes("professor") ||
+    t.includes("teacher") ||
+    t.includes("staff")
+  ) {
+    const matched = FACULTY.find(
+      (f) =>
+        t.includes(f.name.toLowerCase()) ||
+        f.name
+          .toLowerCase()
+          .split(" ")
+          .some((part) => part.length > 3 && t.includes(part)),
+    );
     if (matched) {
       return `### 👤 Faculty Profile\n\n- **Name:** ${matched.name}\n- **Designation:** ${matched.designation}\n- **Qualification:** ${matched.qualification}${matched.profileUrl ? `\n- **Official Page:** [View Faculty Page](${matched.profileUrl})` : ""}`;
     }
-    
-    const topFaculty = FACULTY.slice(0, 8).map((f) => `- **${f.name}** (${f.designation}, ${f.qualification})`).join("\n");
+
+    const topFaculty = FACULTY.slice(0, 8)
+      .map((f) => `- **${f.name}** (${f.designation}, ${f.qualification})`)
+      .join("\n");
     return `### 👥 CSE Department Faculty\n\nThe department has **49 full-time faculty members**.\n\n**Key Faculty Members:**\n${topFaculty}\n\n🔗 [View Full Faculty List (49 Members)](https://gist.edu.in/gist/computer-science-and-engineering/)`;
   }
 
   // Programs query
-  if (t.includes("program") || t.includes("b.tech") || t.includes("btech") || t.includes("m.tech") || t.includes("mtech") || t.includes("course") || t.includes("intake") || t.includes("specialization")) {
+  if (
+    t.includes("program") ||
+    t.includes("b.tech") ||
+    t.includes("btech") ||
+    t.includes("course") ||
+    t.includes("intake") ||
+    t.includes("specialization")
+  ) {
     const ug = PROGRAMMES[0];
-    const pg = PROGRAMMES[1];
-    return `### 🎓 Academic Programmes\n\n1. **${ug.title} (UG)**\n   - **Duration:** ${ug.duration}\n   - **Intake:** ${ug.intake} seats\n\n2. **${pg.title} (PG)**\n   - **Duration:** ${pg.duration}\n   - **Intake:** ${pg.intake} seats\n\n**Specializations:** Artificial Intelligence, Machine Learning, Data Science, Cyber Security, Cloud Computing, & IoT.\n\n🔗 [View Syllabus & Course Structure](https://gist.edu.in/gist/computer-science-and-engineering/)`;
+    return `### 🎓 Academic Programmes\n\n1. **${ug.title} (UG)**\n   - **Duration:** ${ug.duration}\n   - **Intake:** ${ug.intake} seats\n\n**Specializations:** Artificial Intelligence, Machine Learning, Data Science, Cyber Security, Cloud Computing, & IoT.\n\n🔗 [View Syllabus & Course Structure](https://gist.edu.in/gist/computer-science-and-engineering/)`;
   }
 
   // Labs query
-  if (t.includes("lab") || t.includes("laboratory") || t.includes("nvidia") || t.includes("computer") || t.includes("hardware")) {
-    const labsList = LABORATORIES.map((l) => `- **${l.name}:** ${l.computers} Systems | *Incharge:* ${l.incharge}`).join("\n");
+  if (
+    t.includes("lab") ||
+    t.includes("laboratory") ||
+    t.includes("nvidia") ||
+    t.includes("computer") ||
+    t.includes("hardware")
+  ) {
+    const labsList = LABORATORIES.map(
+      (l) => `- **${l.name}:** ${l.computers} Systems | *Incharge:* ${l.incharge}`,
+    ).join("\n");
     return `### 🧪 Department Laboratories (${LABORATORIES.length} Labs)\n\n${labsList}\n\nAll labs have high-speed internet, UPS backup, and licensed software.\n\n🔗 [View Lab Facilities](https://gist.edu.in/gist/computer-science-and-engineering/)`;
   }
 
   // Placements & Toppers query
-  if (t.includes("placement") || t.includes("topper") || t.includes("rank") || t.includes("cgpa") || t.includes("roll of honour")) {
-    const toppers = ROLL_OF_HONOUR.slice(0, 5).map((r) => `- **${r.batch}:** ${r.name} (${r.rollNo}) — **CGPA: ${r.cgpa}**`).join("\n");
+  if (
+    t.includes("placement") ||
+    t.includes("topper") ||
+    t.includes("rank") ||
+    t.includes("cgpa") ||
+    t.includes("roll of honour")
+  ) {
+    const toppers = ROLL_OF_HONOUR.slice(0, 5)
+      .map((r) => `- **${r.batch}:** ${r.name} (${r.rollNo}) — **CGPA: ${r.cgpa}**`)
+      .join("\n");
     return `### 🏆 Placements & Roll of Honour\n\nOur CSE department has strong placement records with leading IT companies.\n\n**Recent Batch Toppers:**\n${toppers}\n\n🔗 [View Placement Reports](https://gist.edu.in/gist/computer-science-and-engineering/)`;
   }
 
   // MOUs / Industry Collaborations
-  if (t.includes("mou") || t.includes("industry") || t.includes("collaboration") || t.includes("codegnan") || t.includes("eduskills") || t.includes("cisco") || t.includes("oracle")) {
+  if (
+    t.includes("mou") ||
+    t.includes("industry") ||
+    t.includes("collaboration") ||
+    t.includes("codegnan") ||
+    t.includes("eduskills") ||
+    t.includes("cisco") ||
+    t.includes("oracle")
+  ) {
     const mousList = MOUS.map((m) => `- **${m.company}:** ${m.areas}`).join("\n");
     return `### 🤝 Industry MOUs & Collaborations\n\n${mousList}\n\nIncludes active **CSI, ACM, ISTE, CISCO Networking Academy, and ORACLE Academy** chapters.\n\n🔗 [View All MOUs](https://gist.edu.in/gist/computer-science-and-engineering/)`;
   }
 
   // Events & VOICE Association
-  if (t.includes("event") || t.includes("voice") || t.includes("workshop") || t.includes("hackathon") || t.includes("fest") || t.includes("seminar")) {
-    const eventsList = VOICE_EVENTS.slice(0, 5).map((e) => `- **${e.event}** (${e.ay}) — Date: ${e.date}`).join("\n");
+  if (
+    t.includes("event") ||
+    t.includes("voice") ||
+    t.includes("workshop") ||
+    t.includes("hackathon") ||
+    t.includes("fest") ||
+    t.includes("seminar")
+  ) {
+    const eventsList = VOICE_EVENTS.slice(0, 5)
+      .map((e) => `- **${e.event}** (${e.ay}) — Date: ${e.date}`)
+      .join("\n");
     return `### 📅 Events & VOICE Association\n\n${eventsList}\n\nVOICE regularly organizes coding hackathons, guest lectures, and workshops.\n\n🔗 [View Events Gallery](https://gist.edu.in/gist/computer-science-and-engineering/)`;
   }
 
   // Contact / Address / Code
-  if (t.includes("contact") || t.includes("address") || t.includes("phone") || t.includes("email") || t.includes("location") || t.includes("eapcet") || t.includes("eamcet") || t.includes("code")) {
+  if (
+    t.includes("contact") ||
+    t.includes("address") ||
+    t.includes("phone") ||
+    t.includes("email") ||
+    t.includes("location") ||
+    t.includes("eapcet") ||
+    t.includes("eamcet") ||
+    t.includes("code")
+  ) {
     const c = DEPARTMENT.contact;
     return `### 📞 Department Contact Information\n\n- **College Codes:** EAPCET/ECET: \`${DEPARTMENT.eapcetCode}\` | APPGECET: \`${DEPARTMENT.appgecetCode}\`\n- **Address:** ${c.address}\n- **Phone:** ${c.phone}\n- **Email:** [${c.email}](mailto:${c.email})\n- **Main Website:** [https://gist.edu.in/gist/gist-home/](https://gist.edu.in/gist/gist-home/)`;
   }
@@ -175,7 +300,10 @@ export function AIChatWidget() {
         const textData = await res.text();
         if (textData && !textData.includes("API Key Required")) {
           // Cleanly parse text or stream
-          const cleanedText = textData.replace(/^[0-9]+:"/g, "").replace(/"$/g, "").replace(/\\n/g, "\n");
+          const cleanedText = textData
+            .replace(/^[0-9]+:"/g, "")
+            .replace(/"$/g, "")
+            .replace(/\\n/g, "\n");
           if (cleanedText.trim().length > 0) {
             const botMsg: Message = {
               id: (Date.now() + 1).toString(),
@@ -219,12 +347,30 @@ export function AIChatWidget() {
         aria-label="Open CSE Assistant"
       >
         {open ? (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         ) : (
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
           </svg>
         )}
@@ -250,15 +396,38 @@ export function AIChatWidget() {
             </div>
           </div>
           <div className="cse-header-actions">
-            <button id="cse-refresh" onClick={handleReset} title="Restart chat" aria-label="Restart chat">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button
+              id="cse-refresh"
+              onClick={handleReset}
+              title="Restart chat"
+              aria-label="Restart chat"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="23 4 23 10 17 10" />
                 <polyline points="1 20 1 14 7 14" />
                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
               </svg>
             </button>
             <button id="cse-close" onClick={() => setOpen(false)} title="Close" aria-label="Close">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -270,13 +439,28 @@ export function AIChatWidget() {
         <div className="cse-body" id="cse-body" ref={bodyRef}>
           <div className="cse-welcome">
             <div className="cse-welcome-title">👋 Welcome!</div>
-            <div className="cse-welcome-text">Ask me about faculty, programs, laboratories, placements, events, or department information.</div>
+            <div className="cse-welcome-text">
+              Ask me about faculty, programs, laboratories, placements, events, or department
+              information.
+            </div>
           </div>
 
           <div className="cse-quick-label">Quick Actions</div>
           <div className="cse-quick-grid" id="cse-quick-grid">
-            <button className="cse-quick-btn" onClick={() => handleSend("Tell me about the faculty")}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button
+              className="cse-quick-btn"
+              onClick={() => handleSend("Tell me about the faculty")}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#0d2a5a"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                 <circle cx="9" cy="7" r="4" />
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -285,16 +469,40 @@ export function AIChatWidget() {
               <span>Faculty</span>
             </button>
 
-            <button className="cse-quick-btn" onClick={() => handleSend("What programs do you offer?")}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button
+              className="cse-quick-btn"
+              onClick={() => handleSend("What programs do you offer?")}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#0d2a5a"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M22 10 12 5 2 10l10 5 10-5Z" />
                 <path d="M6 12v5c3 3 9 3 12 0v-5" />
               </svg>
               <span>Programs</span>
             </button>
 
-            <button className="cse-quick-btn" onClick={() => handleSend("Tell me about the laboratories")}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button
+              className="cse-quick-btn"
+              onClick={() => handleSend("Tell me about the laboratories")}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#0d2a5a"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M9 2v6.4a2 2 0 0 1-.3 1L4 18a2 2 0 0 0 1.7 3h12.6a2 2 0 0 0 1.7-3l-4.7-8.6a2 2 0 0 1-.3-1V2" />
                 <path d="M7 15h10" />
                 <path d="M9 2h6" />
@@ -302,16 +510,40 @@ export function AIChatWidget() {
               <span>Labs</span>
             </button>
 
-            <button className="cse-quick-btn" onClick={() => handleSend("Tell me about placements")}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button
+              className="cse-quick-btn"
+              onClick={() => handleSend("Tell me about placements")}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#0d2a5a"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <rect x="2" y="7" width="20" height="14" rx="2" />
                 <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
               </svg>
               <span>Placements</span>
             </button>
 
-            <button className="cse-quick-btn" onClick={() => handleSend("What events are coming up?")}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button
+              className="cse-quick-btn"
+              onClick={() => handleSend("What events are coming up?")}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#0d2a5a"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <rect x="3" y="4" width="18" height="18" rx="2" />
                 <line x1="16" y1="2" x2="16" y2="6" />
                 <line x1="8" y1="2" x2="8" y2="6" />
@@ -320,8 +552,20 @@ export function AIChatWidget() {
               <span>Events</span>
             </button>
 
-            <button className="cse-quick-btn" onClick={() => handleSend("How can I contact the department?")}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d2a5a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button
+              className="cse-quick-btn"
+              onClick={() => handleSend("How can I contact the department?")}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#0d2a5a"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .36 1.94.68 2.85a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.23-1.25a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.85.68A2 2 0 0 1 22 16.92z" />
               </svg>
               <span>Contact</span>
@@ -361,7 +605,14 @@ export function AIChatWidget() {
         </form>
 
         <div className="cse-footer">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8a94a6" strokeWidth="2">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#8a94a6"
+            strokeWidth="2"
+          >
             <rect x="3" y="11" width="18" height="11" rx="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>

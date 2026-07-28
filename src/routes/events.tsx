@@ -48,8 +48,11 @@ function EventsPage() {
           <div>
             <div
               style={{
-                display: "flex", gap: 20, flexWrap: "wrap",
-                alignItems: "flex-start", marginBottom: 40,
+                display: "flex",
+                gap: 20,
+                flexWrap: "wrap",
+                alignItems: "flex-start",
+                marginBottom: 40,
               }}
             >
               <div
@@ -60,24 +63,55 @@ function EventsPage() {
                   color: "#fff",
                 }}
               >
-                <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--gold-soft)", marginBottom: 14 }}>
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    color: "var(--gold-soft)",
+                    marginBottom: 14,
+                  }}
+                >
                   Department Events
                 </div>
-                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#fff", lineHeight: 1.3, marginBottom: 16 }}>
+                <h2
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: 22,
+                    color: "#fff",
+                    lineHeight: 1.3,
+                    marginBottom: 16,
+                  }}
+                >
                   CSE Department Events Portal
                 </h2>
-                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.75)", lineHeight: 1.7, marginBottom: 20 }}>
-                  View all technical events, seminars, workshops, FDPs and student activities organised by the CSE Department on the official GIST portal.
+                <p
+                  style={{
+                    fontSize: 14,
+                    color: "rgba(255,255,255,0.75)",
+                    lineHeight: 1.7,
+                    marginBottom: 20,
+                  }}
+                >
+                  View all technical events, seminars, workshops, FDPs and student activities
+                  organised by the CSE Department on the official GIST portal.
                 </p>
                 <a
                   href="https://gist.edu.in/gist/cseevents/"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: "inline-flex", alignItems: "center", gap: 8,
-                    padding: "12px 24px", borderRadius: 999,
-                    background: "var(--gist-orange)", color: "#fff",
-                    fontSize: 14, fontWeight: 600, textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "12px 24px",
+                    borderRadius: 999,
+                    background: "var(--gist-orange)",
+                    color: "#fff",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    textDecoration: "none",
                   }}
                 >
                   View All CSE Events <ExternalLink size={14} />
@@ -86,11 +120,23 @@ function EventsPage() {
 
               <div style={{ flex: "1 1 280px", display: "flex", flexDirection: "column", gap: 12 }}>
                 {[
-                  { label: "Student Paper & Poster Presentations", url: "https://gist.edu.in/gist/student-paper-and-poster-presentations-cse/" },
-                  { label: "Student Co-curricular Activities", url: "https://gist.edu.in/gist/student-other-co-curricular-activities-cse/" },
-                  { label: "Student Publications (Int'l Journals)", url: "https://gist.edu.in/gist/student-publications-in-international-journals-cse/" },
+                  {
+                    label: "Student Paper & Poster Presentations",
+                    url: "https://gist.edu.in/gist/student-paper-and-poster-presentations-cse/",
+                  },
+                  {
+                    label: "Student Co-curricular Activities",
+                    url: "https://gist.edu.in/gist/student-other-co-curricular-activities-cse/",
+                  },
+                  {
+                    label: "Student Publications (Int'l Journals)",
+                    url: "https://gist.edu.in/gist/student-publications-in-international-journals-cse/",
+                  },
                   { label: "GIST TechFest Events", url: "https://gist.edu.in/gist/cseevents/" },
-                  { label: "GDSC Report NBA", url: "https://gist.edu.in/gist/wp-content/uploads/2024/08/GDSC-Report-NBA.pdf" },
+                  {
+                    label: "GDSC Report NBA",
+                    url: "https://gist.edu.in/gist/wp-content/uploads/2024/08/GDSC-Report-NBA.pdf",
+                  },
                 ].map(({ label, url }) => (
                   <a
                     key={label}
@@ -98,11 +144,16 @@ function EventsPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      display: "flex", alignItems: "center", justifyContent: "space-between",
-                      gap: 12, padding: "14px 18px",
-                      background: "var(--surface)", border: "1px solid var(--border)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: 12,
+                      padding: "14px 18px",
+                      background: "var(--surface)",
+                      border: "1px solid var(--border)",
                       borderRadius: "var(--radius-md)",
-                      color: "var(--text-body)", textDecoration: "none",
+                      color: "var(--text-body)",
+                      textDecoration: "none",
                       transition: "var(--transition)",
                     }}
                     onMouseOver={(e) => {
@@ -123,7 +174,14 @@ function EventsPage() {
 
             {/* GIST TechFest 2021 Highlights */}
             <div className="card" style={{ background: "var(--surface-2)" }}>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: "var(--navy-deep)", marginBottom: 16 }}>
+              <h3
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 20,
+                  color: "var(--navy-deep)",
+                  marginBottom: 16,
+                }}
+              >
                 GIST TECHFEST/2k21 — Prize Winners Highlights
               </h3>
               <div style={{ overflowX: "auto" }}>
@@ -139,21 +197,71 @@ function EventsPage() {
                   </thead>
                   <tbody>
                     {[
-                      { name: "Mattam Thanuja", event: "GIST TECHFEST/2k21", topic: "Poster Presentation", date: "26/06/2021", award: "1st (₹800)" },
-                      { name: "Gandikota Prem Krishna & Bommana Sandhya", event: "GIST TECHFEST/2k21", topic: "Poster Presentation", date: "26/06/2021", award: "2nd (₹400)" },
-                      { name: "Aitha Meera Venkata Sai Sri Teja", event: "GIST TECHFEST/2k21", topic: "Photography", date: "26/06/2021", award: "1st (₹500)" },
-                      { name: "Gandikota Premkrishna", event: "GIST TECHFEST/2k21", topic: "Photography", date: "26/06/2021", award: "3rd Consolation" },
-                      { name: "P. Rishitha", event: "GIST TECHFEST/2k21", topic: "Voice of Youth", date: "26/06/2021", award: "1st (₹500)" },
-                      { name: "Yasaswini Sai Akhila", event: "GIST TECHFEST/2k21", topic: "Project Expo", date: "26/06/2021", award: "1st (₹800)" },
-                      { name: "Mekala Mounika", event: "GIST TECHFEST/2k21", topic: "Technical Quiz", date: "26/06/2021", award: "1st (₹800)" },
-                      { name: "J.C Riya Reddy", event: "GIST TECHFEST/2k21", topic: "General Quiz", date: "26/06/2021", award: "1st (₹800)" },
+                      {
+                        name: "Mattam Thanuja",
+                        event: "GIST TECHFEST/2k21",
+                        topic: "Poster Presentation",
+                        date: "26/06/2021",
+                        award: "1st (₹800)",
+                      },
+                      {
+                        name: "Gandikota Prem Krishna & Bommana Sandhya",
+                        event: "GIST TECHFEST/2k21",
+                        topic: "Poster Presentation",
+                        date: "26/06/2021",
+                        award: "2nd (₹400)",
+                      },
+                      {
+                        name: "Aitha Meera Venkata Sai Sri Teja",
+                        event: "GIST TECHFEST/2k21",
+                        topic: "Photography",
+                        date: "26/06/2021",
+                        award: "1st (₹500)",
+                      },
+                      {
+                        name: "Gandikota Premkrishna",
+                        event: "GIST TECHFEST/2k21",
+                        topic: "Photography",
+                        date: "26/06/2021",
+                        award: "3rd Consolation",
+                      },
+                      {
+                        name: "P. Rishitha",
+                        event: "GIST TECHFEST/2k21",
+                        topic: "Voice of Youth",
+                        date: "26/06/2021",
+                        award: "1st (₹500)",
+                      },
+                      {
+                        name: "Yasaswini Sai Akhila",
+                        event: "GIST TECHFEST/2k21",
+                        topic: "Project Expo",
+                        date: "26/06/2021",
+                        award: "1st (₹800)",
+                      },
+                      {
+                        name: "Mekala Mounika",
+                        event: "GIST TECHFEST/2k21",
+                        topic: "Technical Quiz",
+                        date: "26/06/2021",
+                        award: "1st (₹800)",
+                      },
+                      {
+                        name: "J.C Riya Reddy",
+                        event: "GIST TECHFEST/2k21",
+                        topic: "General Quiz",
+                        date: "26/06/2021",
+                        award: "1st (₹800)",
+                      },
                     ].map((row, i) => (
                       <tr key={i}>
                         <td style={{ fontWeight: 500 }}>{row.name}</td>
                         <td>{row.event}</td>
                         <td>{row.topic}</td>
                         <td style={{ whiteSpace: "nowrap" }}>{row.date}</td>
-                        <td><span className="badge badge-orange">{row.award}</span></td>
+                        <td>
+                          <span className="badge badge-orange">{row.award}</span>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -168,28 +276,61 @@ function EventsPage() {
             {/* About VOICE */}
             <div
               style={{
-                padding: 28, marginBottom: 36,
+                padding: 28,
+                marginBottom: 36,
                 background: "linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%)",
-                borderRadius: "var(--radius-xl)", color: "#fff",
+                borderRadius: "var(--radius-xl)",
+                color: "#fff",
               }}
             >
-              <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--gold-soft)", marginBottom: 12 }}>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  color: "var(--gold-soft)",
+                  marginBottom: 12,
+                }}
+              >
                 About VOICE
               </div>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: "#fff", marginBottom: 14 }}>
+              <h2
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 24,
+                  color: "#fff",
+                  marginBottom: 14,
+                }}
+              >
                 VOICE Student Association — CSE Dept.
               </h2>
               <p style={{ fontSize: 15, color: "rgba(255,255,255,0.80)", lineHeight: 1.7 }}>
-                VOICE is the official student association of the Department of Computer Science & Engineering at GIST. It organises technical events, workshops, coding competitions, and cultural activities to develop students' professional and interpersonal skills.
+                VOICE is the official student association of the Department of Computer Science &
+                Engineering at GIST. It organises technical events, workshops, coding competitions,
+                and cultural activities to develop students' professional and interpersonal skills.
               </p>
             </div>
 
             {/* Committee */}
             <div style={{ marginBottom: 40 }}>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: "var(--navy-deep)", marginBottom: 20 }}>
+              <h3
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 20,
+                  color: "var(--navy-deep)",
+                  marginBottom: 20,
+                }}
+              >
                 Committee Members
               </h3>
-              <div style={{ overflowX: "auto", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
+              <div
+                style={{
+                  overflowX: "auto",
+                  borderRadius: "var(--radius-lg)",
+                  border: "1px solid var(--border)",
+                }}
+              >
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -205,7 +346,9 @@ function EventsPage() {
                         <td>{m.sno}</td>
                         <td style={{ fontWeight: 600, color: "var(--navy-deep)" }}>{m.name}</td>
                         <td>{m.designation}</td>
-                        <td><span className="badge badge-orange">{m.role}</span></td>
+                        <td>
+                          <span className="badge badge-orange">{m.role}</span>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -215,10 +358,23 @@ function EventsPage() {
 
             {/* Events Table */}
             <div>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: "var(--navy-deep)", marginBottom: 20 }}>
+              <h3
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 20,
+                  color: "var(--navy-deep)",
+                  marginBottom: 20,
+                }}
+              >
                 VOICE Events History
               </h3>
-              <div style={{ overflowX: "auto", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
+              <div
+                style={{
+                  overflowX: "auto",
+                  borderRadius: "var(--radius-lg)",
+                  border: "1px solid var(--border)",
+                }}
+              >
                 <table className="data-table">
                   <thead>
                     <tr>

@@ -28,10 +28,26 @@ function ResearchPage() {
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
         {/* Research Areas Grid */}
         <div style={{ marginBottom: 56 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--gist-orange)", marginBottom: 14 }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.12em",
+              color: "var(--gist-orange)",
+              marginBottom: 14,
+            }}
+          >
             Major Areas
           </div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, color: "var(--navy-deep)", marginBottom: 28 }}>
+          <h2
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 26,
+              color: "var(--navy-deep)",
+              marginBottom: 28,
+            }}
+          >
             Research Focus Areas
           </h2>
           <div
@@ -63,37 +79,101 @@ function ResearchPage() {
         </div>
 
         {/* Two columns: Research statement + Resources */}
-        <div style={{ display: "grid", gap: 40, gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", marginBottom: 48 }}>
+        <div
+          style={{
+            display: "grid",
+            gap: 40,
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            marginBottom: 48,
+          }}
+        >
           <div>
-            <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--gist-orange)", marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color: "var(--gist-orange)",
+                marginBottom: 14,
+              }}
+            >
               Approach
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--navy-deep)", marginBottom: 18 }}>
+            <h2
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 22,
+                color: "var(--navy-deep)",
+                marginBottom: 18,
+              }}
+            >
               Industry-Institute Collaboration
             </h2>
-            <p style={{ fontSize: 15, color: "var(--text-body)", lineHeight: 1.75, marginBottom: 14 }}>{DEPARTMENT.about[1]}</p>
-            <p style={{ fontSize: 15, color: "var(--text-body)", lineHeight: 1.75 }}>{DEPARTMENT.about[3]}</p>
+            <p
+              style={{
+                fontSize: 15,
+                color: "var(--text-body)",
+                lineHeight: 1.75,
+                marginBottom: 14,
+              }}
+            >
+              {DEPARTMENT.about[1]}
+            </p>
+            <p style={{ fontSize: 15, color: "var(--text-body)", lineHeight: 1.75 }}>
+              {DEPARTMENT.about[3]}
+            </p>
           </div>
 
           <div>
-            <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--gist-orange)", marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color: "var(--gist-orange)",
+                marginBottom: 14,
+              }}
+            >
               NPTEL
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--navy-deep)", marginBottom: 18 }}>
+            <h2
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 22,
+                color: "var(--navy-deep)",
+                marginBottom: 18,
+              }}
+            >
               Online Certifications
             </h2>
-            <p style={{ fontSize: 15, color: "var(--text-body)", lineHeight: 1.75, marginBottom: 18 }}>
-              The department actively encourages students and faculty to enrol in NPTEL courses and earn industry-recognised certifications in advanced computing technologies.
+            <p
+              style={{
+                fontSize: 15,
+                color: "var(--text-body)",
+                lineHeight: 1.75,
+                marginBottom: 18,
+              }}
+            >
+              The department actively encourages students and faculty to enrol in NPTEL courses and
+              earn industry-recognised certifications in advanced computing technologies.
             </p>
             <a
               href="https://gist.edu.in/gist/gist-as-remote-center-of-iitbombay/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                padding: "10px 20px", borderRadius: 999,
-                background: "var(--gist-orange)", color: "#fff",
-                fontSize: 13, fontWeight: 600, textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "10px 20px",
+                borderRadius: 999,
+                background: "var(--gist-orange)",
+                color: "#fff",
+                fontSize: 13,
+                fontWeight: 600,
+                textDecoration: "none",
               }}
             >
               Spoken Tutorials — IIT Bombay <ExternalLink size={13} />
@@ -103,17 +183,42 @@ function ResearchPage() {
 
         {/* Student Publications & Activities */}
         <div style={{ marginBottom: 48 }}>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: "var(--navy-deep)", marginBottom: 24 }}>
+          <h2
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 24,
+              color: "var(--navy-deep)",
+              marginBottom: 24,
+            }}
+          >
             Student Research Activities
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {[
-              { label: "Student Paper and Poster Presentations", url: "https://gist.edu.in/gist/student-paper-and-poster-presentations-cse/" },
-              { label: "Student Publications in International Journals", url: "https://gist.edu.in/gist/student-publications-in-international-journals-cse/" },
-              { label: "Student Other Co-curricular Activities", url: "https://gist.edu.in/gist/student-other-co-curricular-activities-cse/" },
-              { label: "GDSC Report (Google Developer Student Clubs)", url: "https://gist.edu.in/gist/wp-content/uploads/2024/08/GDSC-Report-NBA.pdf" },
-              { label: "Amrita Virtual Labs (GIST Nodal Centre)", url: "https://gist.edu.in/gist/gist-recognised-as-nodal-center-for-virtual-labs/" },
-              { label: "Research & Development — GIST", url: "https://gist.edu.in/gist/research-development/" },
+              {
+                label: "Student Paper and Poster Presentations",
+                url: "https://gist.edu.in/gist/student-paper-and-poster-presentations-cse/",
+              },
+              {
+                label: "Student Publications in International Journals",
+                url: "https://gist.edu.in/gist/student-publications-in-international-journals-cse/",
+              },
+              {
+                label: "Student Other Co-curricular Activities",
+                url: "https://gist.edu.in/gist/student-other-co-curricular-activities-cse/",
+              },
+              {
+                label: "GDSC Report (Google Developer Student Clubs)",
+                url: "https://gist.edu.in/gist/wp-content/uploads/2024/08/GDSC-Report-NBA.pdf",
+              },
+              {
+                label: "Amrita Virtual Labs (GIST Nodal Centre)",
+                url: "https://gist.edu.in/gist/gist-recognised-as-nodal-center-for-virtual-labs/",
+              },
+              {
+                label: "Research & Development — GIST",
+                url: "https://gist.edu.in/gist/research-development/",
+              },
             ].map(({ label, url }) => (
               <a
                 key={label}
@@ -121,11 +226,16 @@ function ResearchPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  display: "flex", alignItems: "center", justifyContent: "space-between",
-                  gap: 14, padding: "16px 20px",
-                  background: "var(--surface)", border: "1px solid var(--border)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 14,
+                  padding: "16px 20px",
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
                   borderRadius: "var(--radius-md)",
-                  textDecoration: "none", color: "var(--text-body)",
+                  textDecoration: "none",
+                  color: "var(--text-body)",
                   transition: "var(--transition)",
                 }}
                 onMouseOver={(e) => {
@@ -147,25 +257,45 @@ function ResearchPage() {
         {/* PSOs relevance */}
         <div
           style={{
-            padding: 28, background: "var(--surface-2)", border: "1px solid var(--border)",
-            borderRadius: "var(--radius-xl)", borderLeft: "4px solid var(--gist-orange)",
+            padding: 28,
+            background: "var(--surface-2)",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--radius-xl)",
+            borderLeft: "4px solid var(--gist-orange)",
           }}
         >
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: "var(--navy-deep)", marginBottom: 14 }}>
+          <h3
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 20,
+              color: "var(--navy-deep)",
+              marginBottom: 14,
+            }}
+          >
             Programme Specific Outcomes (Research Focus)
           </h3>
           {DEPARTMENT.psos.map((pso) => (
-            <div key={pso.id} style={{ display: "flex", gap: 14, marginBottom: 10, alignItems: "flex-start" }}>
+            <div
+              key={pso.id}
+              style={{ display: "flex", gap: 14, marginBottom: 10, alignItems: "flex-start" }}
+            >
               <span
                 style={{
-                  minWidth: 52, padding: "3px 10px",
-                  background: "var(--gist-orange)", color: "#fff",
-                  borderRadius: 6, fontSize: 11, fontWeight: 700, textAlign: "center",
+                  minWidth: 52,
+                  padding: "3px 10px",
+                  background: "var(--gist-orange)",
+                  color: "#fff",
+                  borderRadius: 6,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textAlign: "center",
                 }}
               >
                 {pso.id}
               </span>
-              <span style={{ fontSize: 14, color: "var(--text-body)", lineHeight: 1.65 }}>{pso.text}</span>
+              <span style={{ fontSize: 14, color: "var(--text-body)", lineHeight: 1.65 }}>
+                {pso.text}
+              </span>
             </div>
           ))}
         </div>

@@ -1,12 +1,33 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, GraduationCap, Users, FlaskConical, Award, BookOpen, ChevronRight, Download, Calendar, Image, Mail } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  GraduationCap,
+  Users,
+  FlaskConical,
+  Award,
+  BookOpen,
+  ChevronRight,
+  Download,
+  Calendar,
+  Image,
+  Mail,
+} from "lucide-react";
 import { SiteHeader } from "@/components/site/Header";
 import { SiteFooter } from "@/components/site/Footer";
 import { openAIChatWidget } from "@/components/site/AIChatWidget";
-import { DEPARTMENT, QUICK_LINKS, PROGRAMMES, FACULTY, GALLERY_IMAGES } from "@/lib/department-data";
+import { GistSpotlight } from "@/components/site/GistSpotlight";
+import { Testimonials } from "@/components/site/Testimonials";
+import {
+  DEPARTMENT,
+  QUICK_LINKS,
+  PROGRAMMES,
+  FACULTY,
+  GALLERY_IMAGES,
+} from "@/lib/department-data";
 import { useEffect, useRef, useState } from "react";
 
-export const Route = createFileRoute("/")(({
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "GIST CSE Department" },
@@ -18,7 +39,7 @@ export const Route = createFileRoute("/")(({
     ],
   }),
   component: HomePage,
-}));
+});
 
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const [val, setVal] = useState(0);
@@ -42,7 +63,7 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
           io.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -56,14 +77,29 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 }
 
 const ICON_MAP: Record<string, React.ElementType> = {
-  BookOpen, GraduationCap, Users, FlaskConical, Download, Award, Calendar, Image, Mail,
+  BookOpen,
+  GraduationCap,
+  Users,
+  FlaskConical,
+  Download,
+  Award,
+  Calendar,
+  Image,
+  Mail,
 };
 
 function HomePage() {
   const topFaculty = FACULTY.slice(0, 8);
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        background: "var(--bg)",
+      }}
+    >
       <SiteHeader />
 
       {/* ─── HERO ─── */}
@@ -87,9 +123,7 @@ function HomePage() {
             Department of Computer Science
             <br />& Engineering, <span>GIST</span>
           </h1>
-          <p className="hero-desc">
-            {DEPARTMENT.about[0]}
-          </p>
+          <p className="hero-desc">{DEPARTMENT.about[0]}</p>
           <div className="hero-actions animate-fade-up">
             <Link to="/about" className="btn btn-secondary">
               Explore Department <ArrowRight size={15} />
@@ -117,9 +151,17 @@ function HomePage() {
             { label: "Faculty Members", value: DEPARTMENT.stats.faculty, icon: Users },
             { label: "UG Intake", value: DEPARTMENT.stats.studentIntakeUG, icon: GraduationCap },
             { label: "Laboratories", value: DEPARTMENT.stats.laboratories, icon: FlaskConical },
-            { label: "Years of Excellence", value: DEPARTMENT.stats.yearsOfExcellence, icon: Award },
+            {
+              label: "Years of Excellence",
+              value: DEPARTMENT.stats.yearsOfExcellence,
+              icon: Award,
+            },
           ].map((s) => (
-            <div key={s.label} className="stat-item" style={{ borderRight: "1px solid var(--border)" }}>
+            <div
+              key={s.label}
+              className="stat-item"
+              style={{ borderRight: "1px solid var(--border)" }}
+            >
               <div className="stat-icon">
                 <s.icon size={22} />
               </div>
@@ -137,12 +179,37 @@ function HomePage() {
       {/* ─── QUICK ACCESS ─── */}
       <section className="section">
         <div className="container-page">
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 40 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: 16,
+              marginBottom: 40,
+            }}
+          >
             <div>
               <div className="eyebrow">Quick Access</div>
-              <h2 className="section-title">Everything about the department,<br />in one click.</h2>
+              <h2 className="section-title">
+                Everything about the department,
+                <br />
+                in one click.
+              </h2>
             </div>
-            <button onClick={openAIChatWidget} style={{ fontSize: 14, color: "var(--gist-orange)", display: "inline-flex", alignItems: "center", gap: 6, fontWeight: 600, background: "none", border: "none" }}>
+            <button
+              onClick={openAIChatWidget}
+              style={{
+                fontSize: 14,
+                color: "var(--gist-orange)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontWeight: 600,
+                background: "none",
+                border: "none",
+              }}
+            >
               <Sparkles size={14} /> Ask the AI Assistant
             </button>
           </div>
@@ -156,23 +223,44 @@ function HomePage() {
             {QUICK_LINKS.map((q) => {
               const Icon = ICON_MAP[q.icon] || BookOpen;
               return (
-                <Link
-                  key={q.to}
-                  to={q.to}
-                  style={{ textDecoration: "none" }}
-                >
-                  <div
-                    className="card"
-                    style={{ height: "100%", cursor: "pointer" }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-                      <div style={{ width: 40, height: 40, borderRadius: 10, background: "var(--gist-orange-subtle)", display: "grid", placeItems: "center", color: "var(--gist-orange)" }}>
+                <Link key={q.to} to={q.to} style={{ textDecoration: "none" }}>
+                  <div className="card" style={{ height: "100%", cursor: "pointer" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: 10,
+                          background: "var(--gist-orange-subtle)",
+                          display: "grid",
+                          placeItems: "center",
+                          color: "var(--gist-orange)",
+                        }}
+                      >
                         <Icon size={18} />
                       </div>
                       <ChevronRight size={16} color="var(--text-muted)" />
                     </div>
-                    <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 17, color: "var(--navy-deep)", marginBottom: 6 }}>{q.title}</h3>
-                    <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.55 }}>{q.desc}</p>
+                    <h3
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontSize: 17,
+                        color: "var(--navy-deep)",
+                        marginBottom: 6,
+                      }}
+                    >
+                      {q.title}
+                    </h3>
+                    <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.55 }}>
+                      {q.desc}
+                    </p>
                   </div>
                 </Link>
               );
@@ -183,27 +271,53 @@ function HomePage() {
 
       {/* ─── HOD MESSAGE + PROGRAMMES ─── */}
       <section className="section section-alt">
-        <div className="container-page" style={{ display: "grid", gap: 48, gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+        <div
+          className="container-page"
+          style={{
+            display: "grid",
+            gap: 48,
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          }}
+        >
           {/* HOD */}
           <div>
             <div className="eyebrow">From the HOD</div>
             <h2 className="section-title">A department that molds tomorrow's technocrats.</h2>
-            <p style={{ marginTop: 16, color: "var(--text-muted)", lineHeight: 1.75, fontSize: 15 }}>
+            <p
+              style={{ marginTop: 16, color: "var(--text-muted)", lineHeight: 1.75, fontSize: 15 }}
+            >
               {DEPARTMENT.about[1]}
             </p>
-            <p style={{ marginTop: 12, color: "var(--text-muted)", lineHeight: 1.75, fontSize: 15 }}>
+            <p
+              style={{ marginTop: 12, color: "var(--text-muted)", lineHeight: 1.75, fontSize: 15 }}
+            >
               {DEPARTMENT.about[2]}
             </p>
             <div className="hod-card" style={{ marginTop: 24 }}>
               <div className="hod-avatar">
-                {DEPARTMENT.hod.name.split(" ").filter(w => !["Dr.", "Mr.", "Ms."].includes(w)).map(w => w[0]).slice(0, 2).join("")}
+                {DEPARTMENT.hod.name
+                  .split(" ")
+                  .filter((w) => !["Dr.", "Mr.", "Ms."].includes(w))
+                  .map((w) => w[0])
+                  .slice(0, 2)
+                  .join("")}
               </div>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 16, color: "#fff" }}>{DEPARTMENT.hod.name}</div>
-                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", marginTop: 2 }}>{DEPARTMENT.hod.designation}</div>
+                <div style={{ fontWeight: 700, fontSize: 16, color: "#fff" }}>
+                  {DEPARTMENT.hod.name}
+                </div>
+                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", marginTop: 2 }}>
+                  {DEPARTMENT.hod.designation}
+                </div>
                 <a
                   href={`mailto:${DEPARTMENT.hod.email}`}
-                  style={{ fontSize: 13, color: "var(--gold-soft)", marginTop: 4, display: "block", textDecoration: "none" }}
+                  style={{
+                    fontSize: 13,
+                    color: "var(--gold-soft)",
+                    marginTop: 4,
+                    display: "block",
+                    textDecoration: "none",
+                  }}
                 >
                   {DEPARTMENT.hod.email}
                 </a>
@@ -214,28 +328,76 @@ function HomePage() {
           {/* Programmes */}
           <div>
             <div className="eyebrow">Programmes</div>
-            <h2 className="section-title">Undergraduate & Postgraduate offerings.</h2>
+            <h2 className="section-title">Undergraduate Academic Offerings.</h2>
             <ul style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 12 }}>
               {PROGRAMMES.map((p) => (
                 <li
                   key={p.title}
                   className="card"
-                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, listStyle: "none" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 16,
+                    listStyle: "none",
+                  }}
                 >
                   <div>
-                    <div className="badge badge-orange" style={{ marginBottom: 8 }}>{p.level}</div>
-                    <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 17, color: "var(--navy-deep)", fontWeight: 600 }}>{p.title}</div>
-                    <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>{p.duration}</div>
+                    <div className="badge badge-orange" style={{ marginBottom: 8 }}>
+                      {p.level}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontSize: 17,
+                        color: "var(--navy-deep)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {p.title}
+                    </div>
+                    <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>
+                      {p.duration}
+                    </div>
                   </div>
                   <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 28, fontWeight: 700, color: "var(--navy-deep)" }}>{p.intake}</div>
-                    <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-muted)" }}>Intake</div>
+                    <div
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontSize: 28,
+                        fontWeight: 700,
+                        color: "var(--navy-deep)",
+                      }}
+                    >
+                      {p.intake}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 11,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                        color: "var(--text-muted)",
+                      }}
+                    >
+                      Intake
+                    </div>
                   </div>
                 </li>
               ))}
             </ul>
             <div style={{ marginTop: 16 }}>
-              <Link to="/programs" style={{ color: "var(--gist-orange)", fontSize: 14, fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
+              <Link
+                to="/programs"
+                style={{
+                  color: "var(--gist-orange)",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  textDecoration: "none",
+                }}
+              >
                 View Course Structure & Syllabus <ArrowRight size={14} />
               </Link>
             </div>
@@ -246,7 +408,13 @@ function HomePage() {
       {/* ─── VISION & MISSION ─── */}
       <section className="section">
         <div className="container-page">
-          <div style={{ display: "grid", gap: 48, gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+          <div
+            style={{
+              display: "grid",
+              gap: 48,
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            }}
+          >
             <div>
               <div className="eyebrow">Vision</div>
               <h2 className="section-title">Our North Star</h2>
@@ -269,7 +437,15 @@ function HomePage() {
             <div>
               <div className="eyebrow">Mission</div>
               <h2 className="section-title">What We Stand For</h2>
-              <ul style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12, listStyle: "none" }}>
+              <ul
+                style={{
+                  marginTop: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
+                  listStyle: "none",
+                }}
+              >
                 {DEPARTMENT.mission.map((m, i) => (
                   <li
                     key={i}
@@ -285,17 +461,23 @@ function HomePage() {
                   >
                     <span
                       style={{
-                        width: 26, height: 26, borderRadius: "50%",
+                        width: 26,
+                        height: 26,
+                        borderRadius: "50%",
                         background: "var(--gist-orange)",
                         color: "#fff",
-                        display: "grid", placeItems: "center",
-                        fontSize: 12, fontWeight: 700,
+                        display: "grid",
+                        placeItems: "center",
+                        fontSize: 12,
+                        fontWeight: 700,
                         flexShrink: 0,
                       }}
                     >
                       {i + 1}
                     </span>
-                    <span style={{ fontSize: 14, color: "var(--text-body)", lineHeight: 1.6 }}>{m}</span>
+                    <span style={{ fontSize: 14, color: "var(--text-body)", lineHeight: 1.6 }}>
+                      {m}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -307,12 +489,32 @@ function HomePage() {
       {/* ─── FACULTY PREVIEW ─── */}
       <section className="section section-alt">
         <div className="container-page">
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 36 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: 16,
+              marginBottom: 36,
+            }}
+          >
             <div>
               <div className="eyebrow">Faculty</div>
               <h2 className="section-title">Experienced educators & researchers.</h2>
             </div>
-            <Link to="/faculty" style={{ fontSize: 14, color: "var(--gist-orange)", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
+            <Link
+              to="/faculty"
+              style={{
+                fontSize: 14,
+                color: "var(--gist-orange)",
+                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                textDecoration: "none",
+              }}
+            >
               All {DEPARTMENT.stats.faculty} members <ArrowRight size={14} />
             </Link>
           </div>
@@ -333,9 +535,23 @@ function HomePage() {
               return (
                 <div key={f.slug} className="card">
                   <div className="avatar">{initials}</div>
-                  <div style={{ marginTop: 14, fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 16, color: "var(--navy-deep)", lineHeight: 1.3 }}>{f.name}</div>
-                  <div className="badge badge-orange" style={{ marginTop: 8 }}>{f.designation}</div>
-                  <div style={{ marginTop: 6, fontSize: 12, color: "var(--text-muted)" }}>{f.qualification}</div>
+                  <div
+                    style={{
+                      marginTop: 14,
+                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                      fontSize: 16,
+                      color: "var(--navy-deep)",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {f.name}
+                  </div>
+                  <div className="badge badge-orange" style={{ marginTop: 8 }}>
+                    {f.designation}
+                  </div>
+                  <div style={{ marginTop: 6, fontSize: 12, color: "var(--text-muted)" }}>
+                    {f.qualification}
+                  </div>
                 </div>
               );
             })}
@@ -343,42 +559,16 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ─── GALLERY PREVIEW ─── */}
-      <section className="section">
-        <div className="container-page">
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 28 }}>
-            <div>
-              <div className="eyebrow">Gallery</div>
-              <h2 className="section-title">Life at CSE, GIST</h2>
-            </div>
-            <Link to="/gallery" style={{ color: "var(--gist-orange)", fontSize: 14, fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
-              View Gallery <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          <div className="gallery-grid">
-            {GALLERY_IMAGES.slice(0, 3).map((img, i) => (
-              <div key={i} className="gallery-item">
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="gallery-img"
-                />
-                <div style={{ padding: "12px 16px", fontSize: 13, color: "var(--text-muted)", fontStyle: "italic" }}>
-                  {img.alt}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ─── ALUMNI & STUDENT TESTIMONIALS ─── */}
+      <Testimonials />
 
       {/* ─── AI CTA ─── */}
       <section style={{ padding: "0 0 80px" }}>
         <div className="container-page">
           <div
             style={{
-              background: "linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 60%, #1A4A90 100%)",
+              background:
+                "linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 60%, #1A4A90 100%)",
               borderRadius: "var(--radius-xl)",
               padding: "clamp(32px, 5vw, 64px) clamp(24px, 5vw, 64px)",
               color: "#fff",
@@ -389,28 +579,60 @@ function HomePage() {
             <div style={{ position: "relative", maxWidth: 600 }}>
               <div
                 style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  background: "rgba(255,255,255,0.1)", borderRadius: 999,
-                  padding: "5px 14px", fontSize: 11, fontWeight: 700,
-                  letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gold-soft)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: "rgba(255,255,255,0.1)",
+                  borderRadius: 999,
+                  padding: "5px 14px",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "var(--gold-soft)",
                   marginBottom: 16,
                 }}
               >
                 <Sparkles size={12} /> AI Assistant
               </div>
-              <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)", fontWeight: 800, color: "#fff", lineHeight: 1.15, marginBottom: 16 }}>
+              <h2
+                style={{
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)",
+                  fontWeight: 800,
+                  color: "#fff",
+                  lineHeight: 1.15,
+                  marginBottom: 16,
+                }}
+              >
                 Ask anything about the CSE department.
               </h2>
-              <p style={{ fontSize: 15, color: "rgba(255,255,255,0.78)", lineHeight: 1.7, marginBottom: 28 }}>
-                "Who is the HOD?" · "Show me the syllabus" · "What labs do you have?" · "What research areas?" — the AI assistant answers instantly using official department information.
+              <p
+                style={{
+                  fontSize: 15,
+                  color: "rgba(255,255,255,0.78)",
+                  lineHeight: 1.7,
+                  marginBottom: 28,
+                }}
+              >
+                "Who is the HOD?" · "Show me the syllabus" · "What labs do you have?" · "What
+                research areas?" — the AI assistant answers instantly using official department
+                information.
               </p>
               <button
                 onClick={openAIChatWidget}
                 style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  padding: "14px 32px", borderRadius: 999,
-                  background: "var(--gist-orange)", color: "#fff",
-                  fontSize: 14, fontWeight: 700, border: "none", cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "14px 32px",
+                  borderRadius: 999,
+                  background: "var(--gist-orange)",
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
                   transition: "var(--transition)",
                 }}
               >

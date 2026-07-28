@@ -71,7 +71,6 @@ INTERNSHIPS & INDUSTRIAL VISITS:
 
 SYLLABI:
 - B.Tech: ${SYLLABI.btech.map((s) => s.label).join(", ")}
-- M.Tech: ${SYLLABI.mtech.map((s) => s.label).join(", ")}
 
 NEWSLETTERS & MAGAZINES:
 - Newsletters: ${NEWSLETTERS.map((n) => `${n.year} ${n.vol}`).join(", ")}

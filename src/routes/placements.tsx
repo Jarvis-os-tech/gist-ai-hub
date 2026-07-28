@@ -29,35 +29,56 @@ function PlacementsPage() {
         {/* Trophy Banner */}
         <div
           style={{
-            display: "flex", alignItems: "center", gap: 20,
+            display: "flex",
+            alignItems: "center",
+            gap: 20,
             padding: "28px 32px",
             background: "linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-light) 100%)",
             borderRadius: "var(--radius-xl)",
-            marginBottom: 48, color: "#fff",
+            marginBottom: 48,
+            color: "#fff",
           }}
         >
           <div
             style={{
-              width: 64, height: 64, borderRadius: "50%",
+              width: 64,
+              height: 64,
+              borderRadius: "50%",
               background: "var(--gist-orange)",
-              display: "grid", placeItems: "center", flexShrink: 0,
+              display: "grid",
+              placeItems: "center",
+              flexShrink: 0,
             }}
           >
             <Trophy size={28} color="#fff" />
           </div>
           <div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: "#fff", lineHeight: 1.2 }}>
+            <h2
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 24,
+                color: "#fff",
+                lineHeight: 1.2,
+              }}
+            >
               Roll of Honour — CSE Department
             </h2>
             <p style={{ fontSize: 14, color: "rgba(255,255,255,0.75)", marginTop: 6 }}>
-              Recognising academic excellence across {ROLL_OF_HONOUR.length} graduating batches (2008–2023)
+              Recognising academic excellence across {ROLL_OF_HONOUR.length} graduating batches
+              (2008–2023)
             </p>
           </div>
         </div>
 
         {/* Roll of Honour Table */}
         <div style={{ marginBottom: 48 }}>
-          <div style={{ overflowX: "auto", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
+          <div
+            style={{
+              overflowX: "auto",
+              borderRadius: "var(--radius-lg)",
+              border: "1px solid var(--border)",
+            }}
+          >
             <table className="data-table">
               <thead>
                 <tr>
@@ -73,7 +94,9 @@ function PlacementsPage() {
                   <tr key={r.sno}>
                     <td>{r.sno}</td>
                     <td>
-                      <span style={{ fontWeight: 600, color: "var(--gist-orange)" }}>{r.batch}</span>
+                      <span style={{ fontWeight: 600, color: "var(--gist-orange)" }}>
+                        {r.batch}
+                      </span>
                     </td>
                     <td style={{ fontFamily: "monospace", fontSize: 13 }}>{r.rollNo}</td>
                     <td style={{ fontWeight: 700, color: "var(--navy-deep)" }}>{r.name}</td>
@@ -102,7 +125,8 @@ function PlacementsPage() {
         {/* Placements CTA */}
         <div
           style={{
-            display: "grid", gap: 20,
+            display: "grid",
+            gap: 20,
             gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           }}
         >
@@ -135,12 +159,24 @@ function PlacementsPage() {
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
             >
-              <div
-                className="card"
-                style={{ height: "100%", cursor: "pointer" }}
-              >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "var(--navy-deep)" }}>{title}</h3>
+              <div className="card" style={{ height: "100%", cursor: "pointer" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 12,
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: 17,
+                      color: "var(--navy-deep)",
+                    }}
+                  >
+                    {title}
+                  </h3>
                   <ExternalLink size={14} color="var(--gist-orange)" />
                 </div>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6 }}>{desc}</p>

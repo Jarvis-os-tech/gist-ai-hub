@@ -22,7 +22,14 @@ export function PageShell({
   hideAskAI?: boolean;
 }) {
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        background: "var(--bg)",
+      }}
+    >
       <SiteHeader />
 
       {/* Page hero banner */}
@@ -30,14 +37,19 @@ export function PageShell({
         <div className="container-page">
           {crumbs && (
             <nav aria-label="Breadcrumb" className="breadcrumb" style={{ marginBottom: 16 }}>
-              <Link to="/" style={{ color: "rgba(255,255,255,0.65)" }}>Home</Link>
+              <Link to="/" style={{ color: "rgba(255,255,255,0.65)" }}>
+                Home
+              </Link>
               {crumbs.map((c, i) => (
                 <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                   <ChevronRight size={12} style={{ color: "rgba(255,255,255,0.4)" }} />
-                  {c.to
-                    ? <a href={c.to} style={{ color: "rgba(255,255,255,0.65)" }}>{c.label}</a>
-                    : <span style={{ color: "#fff", fontWeight: 500 }}>{c.label}</span>
-                  }
+                  {c.to ? (
+                    <a href={c.to} style={{ color: "rgba(255,255,255,0.65)" }}>
+                      {c.label}
+                    </a>
+                  ) : (
+                    <span style={{ color: "#fff", fontWeight: 500 }}>{c.label}</span>
+                  )}
                 </span>
               ))}
             </nav>

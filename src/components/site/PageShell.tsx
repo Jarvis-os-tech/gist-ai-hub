@@ -32,9 +32,22 @@ export function PageShell({
     >
       <SiteHeader />
 
-      {/* Page hero banner */}
+      {/* Page hero banner — enhanced */}
       <section className="page-hero">
-        <div className="container-page">
+        {/* Ambient mesh */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `
+              radial-gradient(ellipse at 20% 50%, rgba(228, 92, 4, 0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 50%)
+            `,
+            pointerEvents: "none",
+          }}
+        />
+
+        <div className="container-page" style={{ position: "relative", zIndex: 1 }}>
           {crumbs && (
             <nav aria-label="Breadcrumb" className="breadcrumb" style={{ marginBottom: 16 }}>
               <Link to="/" style={{ color: "rgba(255,255,255,0.65)" }}>
@@ -48,7 +61,7 @@ export function PageShell({
                       {c.label}
                     </a>
                   ) : (
-                    <span style={{ color: "#fff", fontWeight: 500 }}>{c.label}</span>
+                    <span style={{ color: "#fff", fontWeight: 600 }}>{c.label}</span>
                   )}
                 </span>
               ))}

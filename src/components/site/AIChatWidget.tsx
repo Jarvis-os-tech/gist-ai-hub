@@ -622,36 +622,44 @@ export function AIChatWidget() {
 
       <style>{`
         #cse-widget-root, #cse-widget-root * { box-sizing: border-box; }
-        #cse-widget-root { position: fixed; bottom: 24px; right: 24px; z-index: 999999; font-family: 'Segoe UI', Arial, sans-serif; }
+        #cse-widget-root { position: fixed; bottom: 24px; right: 24px; z-index: 999999; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; }
 
         #cse-launcher {
           width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer;
           background: linear-gradient(135deg,#0d2a5a,#153a78);
-          box-shadow: 0 8px 20px rgba(13,42,90,0.35);
+          box-shadow: 0 8px 32px rgba(13,42,90,0.4);
           display: flex; align-items: center; justify-content: center;
-          transition: transform .15s ease;
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1px solid rgba(255,255,255,0.2);
         }
-        #cse-launcher:hover { transform: scale(1.06); }
+        #cse-launcher:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 12px 40px rgba(13,42,90,0.5); }
 
         #cse-panel {
           position: absolute; bottom: 76px; right: 0;
           width: 380px; max-width: calc(100vw - 32px);
           height: 600px; max-height: calc(100vh - 120px);
-          background: #ffffff; border-radius: 16px; overflow: hidden;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+          background: rgba(255,255,255,0.95);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border-radius: 20px; overflow: hidden;
+          box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+          border: 1px solid rgba(255,255,255,0.3);
           display: flex; flex-direction: column;
           transform-origin: bottom right;
-          transition: opacity .18s ease, transform .18s ease;
+          transition: opacity .2s ease, transform .2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        #cse-panel.hidden { opacity: 0; transform: scale(.9); pointer-events: none; }
+        #cse-panel.hidden { opacity: 0; transform: scale(.85) translateY(20px); pointer-events: none; }
 
         .cse-header {
           background: linear-gradient(135deg,#0d2a5a,#123362);
           padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; flex-shrink:0;
+          border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .cse-header-left { display:flex; align-items:center; gap:12px; }
         .cse-logo-img {
-          width: 42px; height: 42px; border-radius: 50%; background:#fff; object-fit: cover; flex-shrink:0; border: 1px solid rgba(255,255,255,0.3);
+          width: 42px; height: 42px; border-radius: 50%; background:#fff; object-fit: cover; flex-shrink:0; border: 2px solid rgba(255,255,255,0.3);
         }
         .cse-logo-fallback {
           width: 42px; height: 42px; border-radius: 50%; background:#fff;
@@ -661,14 +669,18 @@ export function AIChatWidget() {
         .cse-subtitle { color:#c7d2e6; font-size:12px; margin-top:2px; }
         .cse-header-actions { display:flex; gap:6px; }
         .cse-header-actions button {
-          background: transparent; border:none; cursor:pointer; padding:6px; border-radius:8px;
-          display:flex; align-items:center; justify-content:center;
+          background: rgba(255,255,255,0.1); border:none; cursor:pointer; padding:6px; border-radius:8px;
+          display:flex; align-items:center; justify-content:center; transition: background 0.2s ease;
         }
-        .cse-header-actions button:hover { background: rgba(255,255,255,0.15); }
+        .cse-header-actions button:hover { background: rgba(255,255,255,0.2); }
 
-        .cse-body { flex:1; overflow-y:auto; padding:18px; }
+        .cse-body { flex:1; overflow-y:auto; padding:18px; scrollbar-width: thin; }
 
-        .cse-welcome { background:#f2f4f8; border-radius:12px; padding:16px; margin-bottom:20px; }
+        .cse-welcome {
+          background: linear-gradient(135deg, #f2f4f8, #e8ecf4);
+          border-radius: 14px; padding: 18px; margin-bottom: 20px;
+          border: 1px solid rgba(255,255,255,0.5);
+        }
         .cse-welcome-title { font-weight:700; font-size:16px; color:#1a2440; margin-bottom:8px; }
         .cse-welcome-text { font-size:13.5px; color:#4a5470; line-height:1.5; }
 
@@ -676,35 +688,38 @@ export function AIChatWidget() {
         .cse-quick-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; }
         .cse-quick-btn {
           display:flex; align-items:center; gap:8px; padding:12px 10px;
-          background:#fff; border:1.5px solid #c8d2e6; border-radius:10px;
+          background: rgba(255,255,255,0.8); backdrop-filter: blur(8px);
+          border: 1.5px solid rgba(200,210,230,0.5); border-radius:12px;
           font-size:13.5px; font-weight:600; color:#0d2a5a; cursor:pointer;
-          transition: background .12s ease, border-color .12s ease;
+          transition: all .15s ease;
         }
-        .cse-quick-btn:hover { background:#eef2fa; border-color:#0d2a5a; }
+        .cse-quick-btn:hover { background:#eef2fa; border-color:#0d2a5a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(13,42,90,0.1); }
 
         .cse-messages { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
-        .cse-msg { max-width:85%; padding:10px 13px; border-radius:12px; font-size:13.5px; line-height:1.45; word-break: break-word; }
+        .cse-msg { max-width:85%; padding:10px 13px; border-radius:14px; font-size:13.5px; line-height:1.5; word-break: break-word; }
         .cse-msg a { color: #0d2a5a; font-weight: 600; text-decoration: underline; }
         .cse-msg.user { align-self:flex-end; background:#0d2a5a; color:#fff; border-bottom-right-radius:4px; }
-        .cse-msg.bot { align-self:flex-start; background:#f2f4f8; color:#1a2440; border-bottom-left-radius:4px; }
+        .cse-msg.bot { align-self:flex-start; background:#f2f4f8; color:#1a2440; border-bottom-left-radius:4px; border: 1px solid rgba(0,0,0,0.04); }
 
         .cse-input-row {
-          display:flex; align-items:center; gap:10px; padding:12px 16px; border-top:1px solid #e7eaf1; flex-shrink:0; background:#fff;
+          display:flex; align-items:center; gap:10px; padding:12px 16px; border-top:1px solid rgba(200,210,230,0.4); flex-shrink:0; background:transparent;
         }
         #cse-input {
-          flex:1; border:1.5px solid #d7deea; border-radius:22px; padding:10px 16px;
-          font-size:13.5px; outline:none; background:#fff; color:#1a2440;
+          flex:1; border:1.5px solid rgba(200,210,230,0.6); border-radius:22px; padding:10px 16px;
+          font-size:13.5px; outline:none; background:rgba(255,255,255,0.8); color:#1a2440; transition: all 0.2s ease;
         }
-        #cse-input:focus { border-color:#0d2a5a; }
+        #cse-input:focus { border-color:#0d2a5a; box-shadow: 0 0 0 3px rgba(13,42,90,0.1); background:#fff; }
         #cse-send {
           width:38px; height:38px; border-radius:50%; border:none; background:#0d2a5a; cursor:pointer;
           display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          transition: all 0.2s ease;
         }
-        #cse-send:hover { background:#153a78; }
+        #cse-send:hover { background:#153a78; transform: scale(1.05); }
 
         .cse-footer {
           display:flex; align-items:center; gap:6px; justify-content:center;
-          font-size:11px; color:#8a94a6; padding:8px 12px 14px; background:#fff;
+          font-size:11px; color:#8a94a6; padding:8px 12px 14px; background:transparent;
+          border-top: 1px solid rgba(200,210,230,0.2);
         }
 
         @media (max-width: 420px) {

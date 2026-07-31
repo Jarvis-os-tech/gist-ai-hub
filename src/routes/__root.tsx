@@ -7,9 +7,10 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { AIChatWidget } from "@/components/site/AIChatWidget";
+import { ParticleField } from "@/components/animations/GlassCard";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -135,6 +136,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <AIChatWidget />
+      <ParticleField quantity={12} />
     </QueryClientProvider>
   );
 }

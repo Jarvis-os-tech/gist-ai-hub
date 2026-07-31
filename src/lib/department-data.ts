@@ -21,6 +21,7 @@ export const DEPARTMENT = {
     qualification: "Ph.D",
     email: "csehod@gist.edu.in",
     profileUrl: "https://gist.edu.in/gist/cse_lakshmana-rao/",
+    photoUrl: "/faculty/4.LakshmanRao.png",
   },
   vision:
     "To evolve as a leading computer science and engineering center producing competent technocrats to meet the demands of ever-changing industry and society.",
@@ -147,7 +148,6 @@ export const DEPARTMENT = {
   socialMedia: {
     facebook:
       "https://www.facebook.com/Geethanjali-Institute-of-Science-And-Technology-105202408538156",
-    twitter: "https://twitter.com/Geethanjale",
     youtube: "https://www.youtube.com/@geethanjaliinstituteofscie2569",
     instagram: "https://www.instagram.com/gist_nellore_official_insta/",
   },
@@ -158,404 +158,1714 @@ export type FacultyMember = {
   name: string;
   qualification: string;
   designation: string;
+  rankOrder: number; // 1: Professor & HoD, 2: Professor, 3: Associate Professor, 4: Assistant Professor
   slug: string;
+  photoUrl: string;
+  email: string;
+  experienceYears: number;
+  specialization: string[];
+  education: { degree: string; institution: string; year: string }[];
+  researchDetails?: {
+    vidwan?: string;
+    orcid?: string;
+    scopus?: string;
+    googleScholar?: string;
+  };
+  patentsCount?: number;
+  publicationsCount?: number;
+  bio?: string;
   profileUrl: string | null;
 };
 
-// Source: https://gist.edu.in/gist/computer-science-and-engineering/ (Faculty tab)
+// Sourced directly from https://gist.edu.in/gist/computer-science-and-engineering/
+// Pre-ordered High to Low: HoD -> Professor -> Associate Professor -> Assistant Professor
 export const FACULTY: FacultyMember[] = [
   {
-    sno: 1,
-    name: "Dr. Veguru Gayatri",
-    qualification: "Ph.D",
-    designation: "Associate Professor",
-    slug: "cse_gayatri",
-    profileUrl: "https://gist.edu.in/gist/cse_gayatri/",
+    "sno": 4,
+    "name": "Dr. Lakshmana Rao Battarusetty",
+    "qualification": "Ph.D",
+    "designation": "Professor & HoD",
+    "rankOrder": 1,
+    "slug": "cse-lakshmana-rao-battarusetty",
+    "photoUrl": "/faculty/4.LakshmanRao.png",
+    "email": "lakshmanaraobat.cse@gist.edu.in",
+    "experienceYears": 19,
+    "specialization": [
+      "Machine Learning"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Saveetha University",
+        "year": "2023"
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "Bangalore University",
+        "year": "2010"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA(GKCE)",
+        "year": "2006"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "462117",
+      "orcid": "0009-0007-2996-2536",
+      "scopus": "58494775700",
+      "googleScholar": "p21Ns0gAAAAJ"
+    },
+    "patentsCount": 3,
+    "publicationsCount": 2,
+    "bio": "Dr. Lakshmana Rao Battarusetty is an experienced Professor & HoD in the Department of Computer Science & Engineering at GIST, specializing in Machine Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse_lakshmana-rao/"
   },
   {
-    sno: 2,
-    name: "Dr. R. Rajani",
-    qualification: "Ph.D",
-    designation: "Professor",
-    slug: "cse_rajani",
-    profileUrl: "https://gist.edu.in/gist/cse_rajani/",
+    "sno": 2,
+    "name": "Dr. R.Rajani",
+    "qualification": "Ph.D",
+    "designation": "Professor",
+    "rankOrder": 2,
+    "slug": "cse-rrajani",
+    "photoUrl": "/faculty/2.rajani.png",
+    "email": "rrajani.cse@gist.edu.in",
+    "experienceYears": 27,
+    "specialization": [
+      "Image Processing",
+      "ML"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "SPMVV",
+        "year": "2019"
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "SPMVV",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "Not specified",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "https://vidwan.inflibnet.ac.in/profile/452406"
+    },
+    "patentsCount": 6,
+    "publicationsCount": 4,
+    "bio": "Dr. R.Rajani is an experienced Professor in the Department of Computer Science & Engineering at GIST, specializing in Image Processing, ML.",
+    "profileUrl": "https://gist.edu.in/gist/cse_rajani/"
   },
   {
-    sno: 3,
-    name: "Dr. T. Chalamareddy",
-    qualification: "Ph.D",
-    designation: "Professor",
-    slug: "cse_chalama-reddy",
-    profileUrl: "https://gist.edu.in/gist/cse_chalama-reddy/",
+    "sno": 3,
+    "name": "Dr. T.Chalamareddy",
+    "qualification": "Ph.D",
+    "designation": "Professor",
+    "rankOrder": 2,
+    "slug": "cse-tchalamareddy",
+    "photoUrl": "/faculty/3.chalamareddy.png",
+    "email": "tchalamareddy.cse@gist.edu.in",
+    "experienceYears": 25,
+    "specialization": [
+      "Network Security and Cryptography"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Srivenkateswara University",
+        "year": "2016"
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUH",
+        "year": "2000"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "Nagarjuna University",
+        "year": "1995"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "395554",
+      "orcid": "0009-0006-8479-9615",
+      "scopus": "55813062200",
+      "googleScholar": "https://scholar.google.com/citations?hl=en&user=45k2CosAAAAJ"
+    },
+    "patentsCount": 1,
+    "publicationsCount": 2,
+    "bio": "Dr. T.Chalamareddy is an experienced Professor in the Department of Computer Science & Engineering at GIST, specializing in Network Security and Cryptography.",
+    "profileUrl": "https://gist.edu.in/gist/cse_chalama-reddy/"
   },
   {
-    sno: 4,
-    name: "Dr. Lakshmana Rao Battarusetty",
-    qualification: "Ph.D",
-    designation: "Professor & HoD",
-    slug: "cse_lakshmana-rao",
-    profileUrl: "https://gist.edu.in/gist/cse_lakshmana-rao/",
+    "sno": 6,
+    "name": "Ms. Vudduru Bharathi",
+    "qualification": "M.Tech",
+    "designation": "Associate Professor",
+    "rankOrder": 3,
+    "slug": "cse-vudduru-bharathi",
+    "photoUrl": "/faculty/6.Bharathi.png",
+    "email": "vuddurubharathi.cse@gist.edu.in",
+    "experienceYears": 20,
+    "specialization": [
+      "Machine Learning",
+      "Deep Learning",
+      "Computer Networks",
+      "Software Engineering",
+      "Machine Learning",
+      "Data Structures",
+      "Software Architecture",
+      "Distributed Systems"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUK",
+        "year": "2016"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUH",
+        "year": "2003"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "580006",
+      "orcid": "0009-0007-8989-7393",
+      "googleScholar": "Lf70VVIAAAAJ&hl"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 16,
+    "bio": "Ms. Vudduru Bharathi is an experienced Associate Professor in the Department of Computer Science & Engineering at GIST, specializing in Machine Learning, Deep Learning, Computer Networks.",
+    "profileUrl": "https://gist.edu.in/gist/cse_bharathi/"
   },
   {
-    sno: 5,
-    name: "Vanithavani Janakiraman",
-    qualification: "Ph.D",
-    designation: "Associate Professor",
-    slug: "cse_vanithavani",
-    profileUrl: "https://gist.edu.in/gist/cse_vanithavani/",
+    "sno": 7,
+    "name": "Mr. Shaik Asiff",
+    "qualification": "M.E",
+    "designation": "Associate Professor",
+    "rankOrder": 3,
+    "slug": "cse-shaik-asiff",
+    "photoUrl": "/faculty/Shaik-Asiff.jpeg",
+    "email": "shaikasiff.cse@gist.edu.in",
+    "experienceYears": 16,
+    "specialization": [
+      "Machine Learning"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Pursuing in Amrita University, Chennai",
+        "year": ""
+      },
+      {
+        "degree": "M.E",
+        "institution": "UVCE, Bangalore \u00a0University",
+        "year": "2008"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "NEC,JNTU, Hyderabad",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "https://vidwan.inflibnet.ac.in/profile/673882",
+      "googleScholar": "Google"
+    },
+    "patentsCount": 4,
+    "publicationsCount": 2,
+    "bio": "Mr. Shaik Asiff is an experienced Associate Professor in the Department of Computer Science & Engineering at GIST, specializing in Machine Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse-asiff-2/"
   },
   {
-    sno: 6,
-    name: "Ms. Vudduru Bharathi",
-    qualification: "M.Tech",
-    designation: "Associate Professor",
-    slug: "cse_bharathi",
-    profileUrl: "https://gist.edu.in/gist/cse_bharathi/",
+    "sno": 1,
+    "name": "Dr. Veguru Gayatri",
+    "qualification": "Ph.D",
+    "designation": "Associate Professor",
+    "rankOrder": 3,
+    "slug": "cse-veguru-gayatri",
+    "photoUrl": "/faculty/1.Gayatri.png",
+    "email": "vegurugayatri.cse@gist.edu.in",
+    "experienceYears": 15,
+    "specialization": [
+      "Computer Networking",
+      "ML",
+      "DL"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "SCSVMV,Chennai",
+        "year": "2024"
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUCEA",
+        "year": "2010"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUH",
+        "year": "2005"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "https://vidwan.inflibnet.ac.in/profile/674581"
+    },
+    "patentsCount": 6,
+    "publicationsCount": 6,
+    "bio": "Dr. Veguru Gayatri is an experienced Associate Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Networking, ML, DL.",
+    "profileUrl": "https://gist.edu.in/gist/cse_gayatri/"
   },
   {
-    sno: 7,
-    name: "Mr. Shaik Asiff",
-    qualification: "M.E",
-    designation: "Associate Professor",
-    slug: "cse-asiff-2",
-    profileUrl: "https://gist.edu.in/gist/cse-asiff-2/",
+    "sno": 5,
+    "name": "Vanithavani Janakiraman",
+    "qualification": "Ph.D",
+    "designation": "Associate Professor",
+    "rankOrder": 3,
+    "slug": "cse-vanithavani-janakiraman",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "vanithavanijana.cse@gist.edu.in",
+    "experienceYears": 15,
+    "specialization": [
+      "Image Processing",
+      "ML",
+      "Wireless sensor networks",
+      "Computer Networks"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "KU",
+        "year": "2015"
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "SRM",
+        "year": "2008"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "PU",
+        "year": "2006"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "Orcid:"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 8,
+    "bio": "Vanithavani Janakiraman is an experienced Associate Professor in the Department of Computer Science & Engineering at GIST, specializing in Image Processing, ML, Wireless sensor networks.",
+    "profileUrl": "https://gist.edu.in/gist/cse_vanithavani/"
   },
   {
-    sno: 8,
-    name: "Ms. R. Deepthi",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_deepthi",
-    profileUrl: "https://gist.edu.in/gist/cse_deepthi/",
+    "sno": 36,
+    "name": "Ms. P Supraja",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-p-supraja",
+    "photoUrl": "/faculty/36PSupraja.png",
+    "email": "psupraja.cse@gist.edu.in",
+    "experienceYears": 20,
+    "specialization": [
+      "Computer Networks",
+      "Software Engineering",
+      "Machine Learning",
+      "Data Structures",
+      "Software Architecture"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA, 2013",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 10,
+    "bio": "Ms. P Supraja is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Networks, Software Engineering, Machine Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse-supraja/"
   },
   {
-    sno: 9,
-    name: "Ms. Indhupuri Shalini",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_shalini",
-    profileUrl: "https://gist.edu.in/gist/cse_shalini/",
+    "sno": 12,
+    "name": "Mr. Raveendra Chaithanya K",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-raveendra-chaithanya-k",
+    "photoUrl": "/faculty/12.Raveendrachaitanya.png",
+    "email": "raveendrachaith.cse@gist.edu.in",
+    "experienceYears": 18,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "VIT, Chennai ( Pursuing) M.E",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA, Anantapuramu",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTU, Hyderabad",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "https://vidwan.inflibnet.ac.in/profile/469393",
+      "googleScholar": "https://scholar.google.com/citations?view_op=new_profile&hl=en"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Raveendra Chaithanya K is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse_raveendra-chaithanya/"
   },
   {
-    sno: 10,
-    name: "Mr. B. Rama Murthi",
-    qualification: "M.E",
-    designation: "Assistant Professor",
-    slug: "cse_rama-murthy",
-    profileUrl: "https://gist.edu.in/gist/cse_rama-murthy/",
+    "sno": 10,
+    "name": "Mr. B.Rama Murthi",
+    "qualification": "M.E",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-brama-murthi",
+    "photoUrl": "/faculty/10.Ramamurthy.png",
+    "email": "bramamurthi.cse@gist.edu.in",
+    "experienceYears": 17,
+    "specialization": [
+      "\u201cImproved Enhancement and Segmentation Methods for fundus Imagery\u201d"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Bharath University",
+        "year": "2023"
+      },
+      {
+        "degree": "M.E",
+        "institution": "Sathyabama University",
+        "year": "2009"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "M.Sc.(Mathematics)-SV University",
+        "year": "2005"
+      }
+    ],
+    "researchDetails": {
+      "orcid": "0009000795145761"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 2,
+    "bio": "Mr. B.Rama Murthi is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in \u201cImproved Enhancement and Segmentation Methods for fundus Imagery\u201d.",
+    "profileUrl": "https://gist.edu.in/gist/cse_rama-murthy/"
   },
   {
-    sno: 11,
-    name: "Mr. Kandukuri Kiran",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_kiran",
-    profileUrl: "https://gist.edu.in/gist/cse_kiran/",
+    "sno": 11,
+    "name": "Mr. Kandukuri Kiran",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-kandukuri-kiran",
+    "photoUrl": "/faculty/11.Kiran_.png",
+    "email": "kandukurikiran.cse@gist.edu.in",
+    "experienceYears": 17,
+    "specialization": [
+      "CSE"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Pursuing",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUH-2010 B.Tech : JNTUH-2006",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUH-2006",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "https://vidwan.inflibnet.ac.in/profile/650721",
+      "googleScholar": "https://scholar.google.com/citations?hl=en&user=9I0Vch0AAAAJ"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 2,
+    "bio": "Mr. Kandukuri Kiran is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in CSE.",
+    "profileUrl": "https://gist.edu.in/gist/cse_kiran/"
   },
   {
-    sno: 12,
-    name: "Mr. Raveendra Chaithanya K",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_raveendra-chaithanya",
-    profileUrl: "https://gist.edu.in/gist/cse_raveendra-chaithanya/",
+    "sno": 31,
+    "name": "Ms. D.Saritha",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-dsaritha",
+    "photoUrl": "/faculty/31.DSaritha.png",
+    "email": "dsaritha.cse@gist.edu.in",
+    "experienceYears": 16,
+    "specialization": [
+      "Machine Learning",
+      "Computer Networks",
+      "Software Engineering",
+      "Machine Learning",
+      "Data Structures",
+      "Software Architecture"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "ANU, 2010",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 12,
+    "bio": "Ms. D.Saritha is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Machine Learning, Computer Networks, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-saritha/"
   },
   {
-    sno: 13,
-    name: "Ms. Y Annie Jerusha",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_jerusha",
-    profileUrl: "https://gist.edu.in/gist/cse_jerusha/",
+    "sno": 17,
+    "name": "Mr. A.Ramesh",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-aramesh",
+    "photoUrl": "/faculty/17.ARamesh.png",
+    "email": "aramesh.cse@gist.edu.in",
+    "experienceYears": 15,
+    "specialization": [
+      "Deep Learning"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUK, 2014 M.C.A : ANU, 2009. \u00a0\u00a0B.C.A: ANU,2003",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 1,
+    "publicationsCount": 2,
+    "bio": "Mr. A.Ramesh is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Deep Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse_-avula-ramesh/"
   },
   {
-    sno: 14,
-    name: "Mr. Yanamala Venkataramesh",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_venkata-ramesh",
-    profileUrl: "https://gist.edu.in/gist/cse_venkata-ramesh/",
+    "sno": 18,
+    "name": "Mr. Eeaga. Chitti Babu",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-eeaga-chitti-babu",
+    "photoUrl": "/faculty/18.echittibabu.png",
+    "email": "eeagachittibabu.cse@gist.edu.in",
+    "experienceYears": 15,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Not specified",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUH,2010 B.Tech : SVU,2002",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "SVU,2002",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "Orcid:"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Eeaga. Chitti Babu is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse_chittibabu/"
   },
   {
-    sno: 15,
-    name: "Ms. N. Divya Sruthi",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_divya-sruthi",
-    profileUrl: "https://gist.edu.in/gist/cse_divya-sruthi/",
+    "sno": 9,
+    "name": "Ms. Indhupuri.Shalini",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-indhupurishalini",
+    "photoUrl": "/faculty/9.Shalini.png",
+    "email": "indhupurishalin.cse@gist.edu.in",
+    "experienceYears": 14,
+    "specialization": [
+      "Machine Learning"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Pursuing in Amrita Viswavidhya peetam,\u00a0 chennai M.E",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "PBR VITS, JNTUA",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUH",
+        "year": "2008"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 2,
+    "bio": "Ms. Indhupuri.Shalini is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Machine Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse_shalini/"
   },
   {
-    sno: 16,
-    name: "Ms. M. Lakshmi",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_lakshmi",
-    profileUrl: "https://gist.edu.in/gist/cse_lakshmi/",
+    "sno": 8,
+    "name": "Ms. R.Deepthi",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-rdeepthi",
+    "photoUrl": "/faculty/8.Deepthi.png",
+    "email": "rdeepthi.cse@gist.edu.in",
+    "experienceYears": 13,
+    "specialization": [
+      "Machine Learning"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Pursuing in SVU, Tirupati M.E",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUK",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUH",
+        "year": "2006"
+      }
+    ],
+    "researchDetails": {
+      "orcid": "0009-0006-7250-2685",
+      "scopus": "58107344900",
+      "googleScholar": "deepthi"
+    },
+    "patentsCount": 2,
+    "publicationsCount": 2,
+    "bio": "Ms. R.Deepthi is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Machine Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse_deepthi/"
   },
   {
-    sno: 17,
-    name: "Mr. A. Ramesh",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_-avula-ramesh",
-    profileUrl: "https://gist.edu.in/gist/cse_-avula-ramesh/",
+    "sno": 14,
+    "name": "Mr. Yanamala Venkataramesh",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-yanamala-venkataramesh",
+    "photoUrl": "/faculty/14.yvramesh.png",
+    "email": "yanamalavenkata.cse@gist.edu.in",
+    "experienceYears": 11,
+    "specialization": [
+      "Theory of Computation",
+      "Compiler Design",
+      "Machine Learing"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA, 2015 B.Tech : JNTUH, 2008",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUH, 2008",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "580004"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 6,
+    "bio": "Mr. Yanamala Venkataramesh is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Theory of Computation, Compiler Design, Machine Learing.",
+    "profileUrl": "https://gist.edu.in/gist/cse_venkata-ramesh/"
   },
   {
-    sno: 18,
-    name: "Mr. Eeaga Chitti Babu",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_chittibabu",
-    profileUrl: "https://gist.edu.in/gist/cse_chittibabu/",
+    "sno": 26,
+    "name": "Ms. D.Apeksha",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-dapeksha",
+    "photoUrl": "/faculty/26.Apeksha.png",
+    "email": "dapeksha.cse@gist.edu.in",
+    "experienceYears": 10,
+    "specialization": [
+      "Distributed Detection Methods for Network Attacks"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "Rashtrasant Tukadoji Maharaj Nagpur University(RTMNU)",
+        "year": "2014"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "(CSE) : Rashtrasant Tukadoji Maharaj Nagpur University(RTMNU)",
+        "year": "2009"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 2,
+    "bio": "Ms. D.Apeksha is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Distributed Detection Methods for Network Attacks.",
+    "profileUrl": "https://gist.edu.in/gist/cse-apeksha/"
   },
   {
-    sno: 19,
-    name: "Ms. P. Sravani",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_sravani",
-    profileUrl: "https://gist.edu.in/gist/cse_sravani/",
+    "sno": 41,
+    "name": "Mr. M Ramesh Kumar",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-m-ramesh-kumar",
+    "photoUrl": "/faculty/41.mannavarapu-Ramesh.png",
+    "email": "mrameshkumar.cse@gist.edu.in",
+    "experienceYears": 10,
+    "specialization": [
+      "Data Structures",
+      "Computer Networks"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": "2011"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTH",
+        "year": "2007"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "Orcid:"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. M Ramesh Kumar is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Data Structures, Computer Networks.",
+    "profileUrl": "https://gist.edu.in/gist/cse-ramesh-kumar/"
   },
   {
-    sno: 20,
-    name: "Mr. Sk. Kaja Rasool",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_khaja-rasool",
-    profileUrl: "https://gist.edu.in/gist/cse_khaja-rasool/",
+    "sno": 33,
+    "name": "Ms. Kovuru Poorna Chandrarao",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-kovuru-poorna-chandrarao",
+    "photoUrl": "/faculty/33.Poornachndra.png",
+    "email": "kovurupoornacha.cse@gist.edu.in",
+    "experienceYears": 8,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA, 2010. B.Tech : JNTUA,\u00a0 2008.",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA,\u00a0 2008.",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. Kovuru Poorna Chandrarao is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-poornachandrarao/"
   },
   {
-    sno: 21,
-    name: "Ms. Bondili Varalakshmi",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse_vara-lakshmi",
-    profileUrl: "https://gist.edu.in/gist/cse_vara-lakshmi/",
+    "sno": 15,
+    "name": "Ms. N. Divya Sruthi",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-n-divya-sruthi",
+    "photoUrl": "/faculty/15.divyasruthi.png",
+    "email": "ndivyasruthi.cse@gist.edu.in",
+    "experienceYears": 6,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "QISIT, JNTUK",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "QISCET, JNTUK",
+        "year": "2012"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 4,
+    "publicationsCount": 4,
+    "bio": "Ms. N. Divya Sruthi is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse_divya-sruthi/"
   },
   {
-    sno: 22,
-    name: "Ms. G. Sukanya",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-sukanya",
-    profileUrl: "https://gist.edu.in/gist/cse-sukanya/",
+    "sno": 20,
+    "name": "Mr. Sk.Kaja Rasool",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-skkaja-rasool",
+    "photoUrl": "/faculty/20.Kajarasool.png",
+    "email": "skkajarasool.cse@gist.edu.in",
+    "experienceYears": 6,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Not specified",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": "2011"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTU",
+        "year": "2007"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "Orcid:"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Sk.Kaja Rasool is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse_khaja-rasool/"
   },
   {
-    sno: 23,
-    name: "Ms. K. Sreelakshmi",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-sreelakshmi-2",
-    profileUrl: "https://gist.edu.in/gist/cse-sreelakshmi-2/",
+    "sno": 29,
+    "name": "Ms. K.Sreeja",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-ksreeja",
+    "photoUrl": "/faculty/29KSreeja.png",
+    "email": "ksreeja.cse@gist.edu.in",
+    "experienceYears": 6,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Not specified",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2013"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. K.Sreeja is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-sreeja/"
   },
   {
-    sno: 24,
-    name: "Ms. K. Pavitra",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-pavithra",
-    profileUrl: "https://gist.edu.in/gist/cse-pavithra/",
+    "sno": 13,
+    "name": "Ms. Y Annie Jerusha",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-y-annie-jerusha",
+    "photoUrl": "/faculty/13.Y-Annie-Jerusha.png",
+    "email": "yanniejerusha.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Cyber Security",
+      "Machine Learning",
+      "Deep Learning",
+      "Federated Learning",
+      "Explainable AI"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "M.Tech : Christ University, 2015 B.Tech : Narayana Engineering College, 2013",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "Christ University, 2015 B.Tech : Narayana Engineering College, 2013",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "Narayana Engineering College, 2013",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "Orcid:",
+      "orcid": "0000-0001-8807-5565",
+      "scopus": "59339151700",
+      "googleScholar": "5lKW7R4AAAAJ"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 10,
+    "bio": "Ms. Y Annie Jerusha is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Cyber Security, Machine Learning, Deep Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse_jerusha/"
   },
   {
-    sno: 25,
-    name: "Mr. T. HarshaVardhan",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-harshavardhan",
-    profileUrl: "https://gist.edu.in/gist/cse-harshavardhan/",
+    "sno": 21,
+    "name": "Ms. Bondili Varalakshmi",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-bondili-varalakshmi",
+    "photoUrl": "/faculty/21.varalakshmi.png",
+    "email": "bondilivaralaks.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "M.Tech :JNTUA",
+        "year": "2015"
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": "2015"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2010"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "579386"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. Bondili Varalakshmi is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse_vara-lakshmi/"
   },
   {
-    sno: 26,
-    name: "Ms. D. Apeksha",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-apeksha",
-    profileUrl: "https://gist.edu.in/gist/cse-apeksha/",
+    "sno": 23,
+    "name": "Ms. K.Sreelakshmi",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-ksreelakshmi",
+    "photoUrl": "/faculty/23.ksreelakshmi.png",
+    "email": "ksreelakshmi.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "CNIS"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "\u2013 M.E",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUH",
+        "year": "2015"
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2013"
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "Orcid:"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 2,
+    "bio": "Ms. K.Sreelakshmi is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in CNIS.",
+    "profileUrl": "https://gist.edu.in/gist/cse-sreelakshmi-2/"
   },
   {
-    sno: 27,
-    name: "Ms. Shaik Rakheeba",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-rakheeba",
-    profileUrl: "https://gist.edu.in/gist/cse-rakheeba/",
+    "sno": 25,
+    "name": "Mr. T.HarshaVardhan",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-tharshavardhan",
+    "photoUrl": "/faculty/25.Harshavardhan.png",
+    "email": "tharshavardhan.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "ISBM University Raipur Campus",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "Jawaharlal Nehru Technological University Hyderabad",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "Ponnaiyah Ramajayam Institute of Science and Technology",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "https://vidwan.inflibnet.ac.in/profile/652843",
+      "orcid": "0009-0006-5907-5105",
+      "googleScholar": "-4EyuXUAAAAJ"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 2,
+    "bio": "Mr. T.HarshaVardhan is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-harshavardhan/"
   },
   {
-    sno: 28,
-    name: "Mr. Ch. Barath Singh",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-barath-singh",
-    profileUrl: "https://gist.edu.in/gist/cse-barath-singh/",
+    "sno": 35,
+    "name": "Ms. Kilari Usha",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-kilari-usha",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "kilariusha.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. Kilari Usha is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 29,
-    name: "Ms. K. Sreeja",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-sreeja",
-    profileUrl: "https://gist.edu.in/gist/cse-sreeja/",
+    "sno": 37,
+    "name": "Mr. Ganta Chennakesavulu",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-ganta-chennakesavulu",
+    "photoUrl": "/faculty/37.chennakesavulu.png",
+    "email": "gantachennakesa.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "(Master of Engg) in CSE (Computer Science and Engineering) from Annamalai University, Chidambaram on May 2019 -B.E (Bachelor of Engg) in CSE (Computer Science and Engineering) from Annamalai University, Chidambaram on May 2017.",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "(Bachelor of Engg) in CSE (Computer Science and Engineering) from Annamalai University, Chidambaram on May 2017.",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Ganta Chennakesavulu is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-chennakesavulu/"
   },
   {
-    sno: 30,
-    name: "Mr. S. Rajasekhar",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-rajasekhar",
-    profileUrl: "https://gist.edu.in/gist/cse-rajasekhar/",
+    "sno": 38,
+    "name": "Mr. Puli Ramesh",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-puli-ramesh",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "puliramesh.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Puli Ramesh is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 31,
-    name: "Ms. D. Saritha",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-saritha",
-    profileUrl: "https://gist.edu.in/gist/cse-saritha/",
+    "sno": 39,
+    "name": "Mr. Shaik Dowlath",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-shaik-dowlath",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "shaikdowlath.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Shaik Dowlath is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 32,
-    name: "Ms. N. Sireesha",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-sireesha",
-    profileUrl: "https://gist.edu.in/gist/cse-sireesha/",
+    "sno": 43,
+    "name": "Mr. Chittamuru Ashok Kumar Reddy",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-chittamuru-ashok-kumar-reddy",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "chittamuruashok.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Chittamuru Ashok Kumar Reddy is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 33,
-    name: "Ms. Kovuru Poorna Chandrarao",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-poornachandrarao",
-    profileUrl: "https://gist.edu.in/gist/cse-poornachandrarao/",
+    "sno": 44,
+    "name": "Ms. Panuganti Lakshmi",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-panuganti-lakshmi",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "panugantilakshm.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. Panuganti Lakshmi is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 34,
-    name: "Mr. Gaddam Teja",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-theja",
-    profileUrl: "https://gist.edu.in/gist/cse-theja/",
+    "sno": 45,
+    "name": "Ms. Cherukuru Kamakshamma",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-cherukuru-kamakshamma",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "cherukurukamaks.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. Cherukuru Kamakshamma is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 35,
-    name: "Ms. Kilari Usha",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-kilari-usha",
-    profileUrl: null,
+    "sno": 46,
+    "name": "Mr. Baddipudi Srihari Naidu",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-baddipudi-srihari-naidu",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "baddipudisrihar.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Baddipudi Srihari Naidu is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 36,
-    name: "Ms. P. Supraja",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-supraja",
-    profileUrl: "https://gist.edu.in/gist/cse-supraja/",
+    "sno": 48,
+    "name": "Ms. Kartampati Poojitha",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-kartampati-poojitha",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "kartampatipooji.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. Kartampati Poojitha is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 37,
-    name: "Mr. Ganta Chennakesavulu",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-chennakesavulu",
-    profileUrl: "https://gist.edu.in/gist/cse-chennakesavulu/",
+    "sno": 49,
+    "name": "Ms. Shaik Akhila",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-shaik-akhila",
+    "photoUrl": "/gist-logo.jpg",
+    "email": "shaikakhila.cse@gist.edu.in",
+    "experienceYears": 5,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. Shaik Akhila is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": null
   },
   {
-    sno: 38,
-    name: "Mr. Puli Ramesh",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-puli-ramesh",
-    profileUrl: null,
+    "sno": 28,
+    "name": "Mr. Ch. Barath Singh",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-ch-barath-singh",
+    "photoUrl": "/faculty/28.Bharathisingh.png",
+    "email": "chbarathsingh.cse@gist.edu.in",
+    "experienceYears": 4,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Not specified",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2015"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Ch. Barath Singh is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-barath-singh/"
   },
   {
-    sno: 39,
-    name: "Mr. Shaik Dowlath",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-shaik-dowlath",
-    profileUrl: null,
+    "sno": 42,
+    "name": "Ms. Jahnavi Kondraju",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-jahnavi-kondraju",
+    "photoUrl": "/faculty/42Jahnavikondaraju.png",
+    "email": "jahnavikondraju.cse@gist.edu.in",
+    "experienceYears": 4,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA, 2012 B.Tech: JNTUH, 2008",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUH, 2008",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. Jahnavi Kondraju is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-jahnavi-2/"
   },
   {
-    sno: 40,
-    name: "Mr. Kanta Bhargav",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-bhargav",
-    profileUrl: "https://gist.edu.in/gist/cse-bhargav/",
+    "sno": 16,
+    "name": "Ms. M.Lakshmi",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-mlakshmi",
+    "photoUrl": "/faculty/16.Lakshmi.png",
+    "email": "mlakshmi.cse@gist.edu.in",
+    "experienceYears": 3,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Not specified",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2013"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. M.Lakshmi is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse_lakshmi/"
   },
   {
-    sno: 41,
-    name: "Mr. M. Ramesh Kumar",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-ramesh-kumar",
-    profileUrl: "https://gist.edu.in/gist/cse-ramesh-kumar/",
+    "sno": 30,
+    "name": "Mr. S.Rajasekhar",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-srajasekhar",
+    "photoUrl": "/faculty/30SRajasekhar.png",
+    "email": "srajasekhar.cse@gist.edu.in",
+    "experienceYears": 3,
+    "specialization": [
+      "Computer Networks",
+      "Software Engineering",
+      "Machine Learning",
+      "Data Structures",
+      "Software Architecture"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2013"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 10,
+    "bio": "Mr. S.Rajasekhar is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Networks, Software Engineering, Machine Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse-rajasekhar/"
   },
   {
-    sno: 42,
-    name: "Ms. Jahnavi Kondraju",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-jahnavi-2",
-    profileUrl: "https://gist.edu.in/gist/cse-jahnavi-2/",
+    "sno": 32,
+    "name": "Ms. N.Sireesha",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-nsireesha",
+    "photoUrl": "/faculty/32.NSireesha.png",
+    "email": "nsireesha.cse@gist.edu.in",
+    "experienceYears": 3,
+    "specialization": [
+      "Computer Networks",
+      "Software Engineering",
+      "Machine Learning",
+      "Data Structures",
+      "Software Architecture"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2013"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 10,
+    "bio": "Ms. N.Sireesha is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Networks, Software Engineering, Machine Learning.",
+    "profileUrl": "https://gist.edu.in/gist/cse-sireesha/"
   },
   {
-    sno: 43,
-    name: "Mr. Chittamuru Ashok Kumar Reddy",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-ashok-kumar",
-    profileUrl: null,
+    "sno": 34,
+    "name": "Mr. Gaddam Teja",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-gaddam-teja",
+    "photoUrl": "/faculty/34.Teja_.png",
+    "email": "gaddamteja.cse@gist.edu.in",
+    "experienceYears": 3,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "St.peters university, Avadi ,Chennai,2016. B.Tech:Pondicherry university,Pondicherry,2014.",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "Pondicherry university,Pondicherry,2014.",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Gaddam Teja is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-theja/"
   },
   {
-    sno: 44,
-    name: "Ms. Panuganti Lakshmi",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-panuganti-lakshmi",
-    profileUrl: null,
+    "sno": 19,
+    "name": "Ms. P.Sravani",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-psravani",
+    "photoUrl": "/faculty/19Sravani.png",
+    "email": "psravani.cse@gist.edu.in",
+    "experienceYears": 2,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "NEC",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2020"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. P.Sravani is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse_sravani/"
   },
   {
-    sno: 45,
-    name: "Ms. Cherukuru Kamakshamma",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-kamakshamma",
-    profileUrl: null,
+    "sno": 22,
+    "name": "Ms. G.Sukanya",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-gsukanya",
+    "photoUrl": "/faculty/22.sukanya.png",
+    "email": "gsukanya.cse@gist.edu.in",
+    "experienceYears": 2,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "Geethanjali Institute of Science & Technology JNTUA",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "Audisankara College of Engineering JNTUA",
+        "year": "2015"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Ms. G.Sukanya is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-sukanya/"
   },
   {
-    sno: 46,
-    name: "Mr. Baddipudi Srihari Naidu",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-srihari-naidu",
-    profileUrl: null,
+    "sno": 24,
+    "name": "Ms. K.Pavitra",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-kpavitra",
+    "photoUrl": "/faculty/24.pavitra.png",
+    "email": "kpavitra.cse@gist.edu.in",
+    "experienceYears": 2,
+    "specialization": [
+      "Software engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "VIT, Vellore, 2022",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "580057"
+    },
+    "patentsCount": 0,
+    "publicationsCount": 2,
+    "bio": "Ms. K.Pavitra is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Software engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-pavithra/"
   },
   {
-    sno: 47,
-    name: "Ms. Kareti Rani",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-rani",
-    profileUrl: "https://gist.edu.in/gist/cse-rani/",
+    "sno": 40,
+    "name": "Mr. Kanta Bhargav",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-kanta-bhargav",
+    "photoUrl": "/faculty/40.bhargav.png",
+    "email": "kantabhargav.cse@gist.edu.in",
+    "experienceYears": 2,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "Ph.D",
+        "institution": "Not specified",
+        "year": ""
+      },
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA",
+        "year": "2014"
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 4,
+    "bio": "Mr. Kanta Bhargav is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-bhargav/"
   },
   {
-    sno: 48,
-    name: "Ms. Kartampati Poojitha",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-poojitha",
-    profileUrl: null,
+    "sno": 27,
+    "name": "Ms. Shaik Rakheeba",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-shaik-rakheeba",
+    "photoUrl": "/faculty/27.rakheeba.png",
+    "email": "shaikrakheeba.cse@gist.edu.in",
+    "experienceYears": 1,
+    "specialization": [
+      "Computer Science & Engineering",
+      "Software Engineering"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "Quba College Of Engineering and Technology B.Tech : Quba College Of Engineering and Technology",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "Quba College Of Engineering and Technology",
+        "year": ""
+      }
+    ],
+    "researchDetails": {
+      "vidwan": "580096"
+    },
+    "patentsCount": 2,
+    "publicationsCount": 4,
+    "bio": "Ms. Shaik Rakheeba is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Computer Science & Engineering, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-rakheeba/"
   },
   {
-    sno: 49,
-    name: "Ms. Shaik Akhila",
-    qualification: "M.Tech",
-    designation: "Assistant Professor",
-    slug: "cse-akhila",
-    profileUrl: null,
-  },
+    "sno": 47,
+    "name": "Ms. Kareti Rani",
+    "qualification": "M.Tech",
+    "designation": "Assistant Professor",
+    "rankOrder": 4,
+    "slug": "cse-kareti-rani",
+    "photoUrl": "/faculty/47.Rani_.png",
+    "email": "karetirani.cse@gist.edu.in",
+    "experienceYears": 1,
+    "specialization": [
+      "Machine Learning",
+      "Computer Networks",
+      "Software Engineering",
+      "Machine Learning",
+      "Data Structures",
+      "Software Architecture"
+    ],
+    "education": [
+      {
+        "degree": "M.Tech",
+        "institution": "JNTUA, 2019 B.Tech : JNTUA, 2016",
+        "year": ""
+      },
+      {
+        "degree": "B.Tech",
+        "institution": "JNTUA, 2016",
+        "year": ""
+      }
+    ],
+    "researchDetails": {},
+    "patentsCount": 0,
+    "publicationsCount": 12,
+    "bio": "Ms. Kareti Rani is an experienced Assistant Professor in the Department of Computer Science & Engineering at GIST, specializing in Machine Learning, Computer Networks, Software Engineering.",
+    "profileUrl": "https://gist.edu.in/gist/cse-rani/"
+  }
 ];
 
 // Source: https://gist.edu.in/gist/computer-science-and-engineering/ (Laboratories tab)

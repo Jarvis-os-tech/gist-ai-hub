@@ -51,7 +51,7 @@ export function getMediaThumbnailUrl(item: MediaContentItem): string {
   if (item.thumbnailUrl) return item.thumbnailUrl;
   const ytId = getYouTubeVideoId(item.embedUrl || item.src);
   if (ytId) return `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
-  return "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80";
+  return "/gist-banner.jpg";
 }
 
 export function getMediaEmbedUrl(item: MediaContentItem, autoplay: boolean = false): string | null {

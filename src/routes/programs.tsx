@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { SYLLABI, PROGRAMMES } from "@/lib/department-data";
 import { ExternalLink, FileText } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 
 export const Route = createFileRoute("/programs")({
   head: () => ({
@@ -17,12 +18,16 @@ export const Route = createFileRoute("/programs")({
   component: ProgramsPage,
 });
 
-function PdLink({ label, url }: { label: string; url: string }) {
+function PdLink({ label, url, index, reduce }: { label: string; url: string; index: number; reduce: boolean | null }) {
   return (
-    <a
+    <motion.a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
+      initial={reduce ? false : { opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       style={{
         display: "flex",
         alignItems: "center",
@@ -66,11 +71,13 @@ function PdLink({ label, url }: { label: string; url: string }) {
         </div>
       </div>
       <ExternalLink size={15} color="var(--gist-orange)" />
-    </a>
+    </motion.a>
   );
 }
 
 function ProgramsPage() {
+  const reduce = useReducedMotion();
+
   return (
     <PageShell
       eyebrow="Academics"
@@ -79,7 +86,7 @@ function ProgramsPage() {
       crumbs={[{ label: "Programs" }]}
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
-        {/* Programme Cards */}
+        {/* Programme Cards — staggered */}
         <div
           style={{
             display: "grid",
@@ -88,9 +95,13 @@ function ProgramsPage() {
             marginBottom: 56,
           }}
         >
-          {PROGRAMMES.map((p) => (
-            <div
+          {PROGRAMMES.map((p, i) => (
+            <motion.div
               key={p.title}
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 background: "linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%)",
                 borderRadius: "var(--radius-xl)",
@@ -110,7 +121,8 @@ function ProgramsPage() {
               </div>
               <h2
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontWeight: 700,
                   fontSize: 22,
                   color: "#fff",
                   lineHeight: 1.3,
@@ -145,9 +157,9 @@ function ProgramsPage() {
                   </div>
                   <div
                     style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: 28,
+                      fontFamily: "'Plus Jakarta Sans', sans-serif",
                       fontWeight: 700,
+                      fontSize: 28,
                       color: "var(--gold-soft)",
                     }}
                   >
@@ -155,13 +167,17 @@ function ProgramsPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* B.Tech Syllabus */}
         <div style={{ marginBottom: 48 }}>
-          <div
+          <motion.div
+            initial={reduce ? false : { opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             style={{
               display: "flex",
               alignItems: "center",
@@ -187,10 +203,10 @@ function ProgramsPage() {
             <div>
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontWeight: 700,
                   fontSize: 22,
                   color: "var(--navy-deep)",
-                  fontWeight: 700,
                 }}
               >
                 B.Tech — CSE Syllabus
@@ -199,16 +215,20 @@ function ProgramsPage() {
                 Bachelor of Technology in Computer Science & Engineering
               </div>
             </div>
-          </div>
+          </motion.div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {SYLLABI.btech.map((s) => (
-              <PdLink key={s.label} label={s.label} url={s.pdfUrl} />
+            {SYLLABI.btech.map((s, i) => (
+              <PdLink key={s.label} label={s.label} url={s.pdfUrl} index={i} reduce={reduce} />
             ))}
           </div>
         </div>
 
         {/* Note */}
-        <div
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           style={{
             marginTop: 48,
             padding: "20px 24px",
@@ -237,7 +257,7 @@ function ProgramsPage() {
             </a>
             .
           </div>
-        </div>
+        </motion.div>
       </div>
     </PageShell>
   );

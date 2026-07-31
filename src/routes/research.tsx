@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { DEPARTMENT } from "@/lib/department-data";
 import { ExternalLink } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 
 export const Route = createFileRoute("/research")({
   head: () => ({
@@ -18,6 +19,8 @@ export const Route = createFileRoute("/research")({
 });
 
 function ResearchPage() {
+  const reduce = useReducedMotion();
+
   return (
     <PageShell
       eyebrow="Research"
@@ -40,16 +43,21 @@ function ResearchPage() {
           >
             Major Areas
           </div>
-          <h2
+          <motion.h2
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontWeight: 700,
               fontSize: 26,
               color: "var(--navy-deep)",
               marginBottom: 28,
             }}
           >
             Research Focus Areas
-          </h2>
+          </motion.h2>
           <div
             style={{
               display: "grid",
@@ -58,22 +66,26 @@ function ResearchPage() {
             }}
           >
             {DEPARTMENT.researchAreas.map((area, i) => (
-              <div
+              <motion.div
                 key={area}
+                initial={reduce ? false : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   padding: "20px",
                   background: i % 2 === 0 ? "var(--navy-deep)" : "var(--surface)",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius-lg)",
                   color: i % 2 === 0 ? "#fff" : "var(--navy-deep)",
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: 15,
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
                   fontWeight: 600,
+                  fontSize: 15,
                   lineHeight: 1.4,
                 }}
               >
                 {area}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -100,16 +112,21 @@ function ResearchPage() {
             >
               Approach
             </div>
-            <h2
+            <motion.h2
+              initial={reduce ? false : { opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 700,
                 fontSize: 22,
                 color: "var(--navy-deep)",
                 marginBottom: 18,
               }}
             >
               Industry-Institute Collaboration
-            </h2>
+            </motion.h2>
             <p
               style={{
                 fontSize: 15,
@@ -138,16 +155,21 @@ function ResearchPage() {
             >
               NPTEL
             </div>
-            <h2
+            <motion.h2
+              initial={reduce ? false : { opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 700,
                 fontSize: 22,
                 color: "var(--navy-deep)",
                 marginBottom: 18,
               }}
             >
               Online Certifications
-            </h2>
+            </motion.h2>
             <p
               style={{
                 fontSize: 15,
@@ -182,10 +204,17 @@ function ResearchPage() {
         </div>
 
         {/* Student Publications & Activities */}
-        <div style={{ marginBottom: 48 }}>
+        <motion.div
+          style={{ marginBottom: 48 }}
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontWeight: 700,
               fontSize: 24,
               color: "var(--navy-deep)",
               marginBottom: 24,
@@ -219,12 +248,16 @@ function ResearchPage() {
                 label: "Research & Development — GIST",
                 url: "https://gist.edu.in/gist/research-development/",
               },
-            ].map(({ label, url }) => (
-              <a
+            ].map(({ label, url }, i) => (
+              <motion.a
                 key={label}
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -249,13 +282,17 @@ function ResearchPage() {
               >
                 <span style={{ fontWeight: 500, fontSize: 14 }}>{label}</span>
                 <ExternalLink size={14} style={{ flexShrink: 0 }} />
-              </a>
+              </motion.a>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* PSOs relevance */}
-        <div
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           style={{
             padding: 28,
             background: "var(--surface-2)",
@@ -266,7 +303,8 @@ function ResearchPage() {
         >
           <h3
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontWeight: 700,
               fontSize: 20,
               color: "var(--navy-deep)",
               marginBottom: 14,
@@ -298,7 +336,7 @@ function ResearchPage() {
               </span>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </PageShell>
   );

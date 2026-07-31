@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { LABORATORIES } from "@/lib/department-data";
-import { Monitor, User } from "lucide-react";
+import { Monitor } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { useState, useRef, useEffect } from "react";
 
 export const Route = createFileRoute("/labs")({
   head: () => ({
@@ -17,7 +19,43 @@ export const Route = createFileRoute("/labs")({
   component: LabsPage,
 });
 
+function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
+  const [val, setVal] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    if (reduce) { setVal(to); return; }
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          const start = performance.now();
+          const duration = 1600;
+          const step = (t: number) => {
+            const p = Math.min(1, (t - start) / duration);
+            const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+            setVal(Math.floor(ease * to));
+            if (p < 1) requestAnimationFrame(step);
+            else setVal(to);
+          };
+          requestAnimationFrame(step);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [to, reduce]);
+
+  return <span ref={ref}>{val}{suffix}</span>;
+}
+
 function LabsPage() {
+  const reduce = useReducedMotion();
+
   return (
     <PageShell
       eyebrow="Infrastructure"
@@ -26,8 +64,12 @@ function LabsPage() {
       crumbs={[{ label: "Laboratories" }]}
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
-        {/* Summary stats */}
-        <div
+        {/* Summary stats — animated counters */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
@@ -36,13 +78,17 @@ function LabsPage() {
           }}
         >
           {[
-            { label: "Laboratories", value: "8" },
-            { label: "Total Systems", value: "550+" },
-            { label: "Incharges", value: "8" },
-            { label: "AI / GPU Lab", value: "1" },
-          ].map(({ label, value }) => (
-            <div
+            { label: "Laboratories", value: 8, suffix: "" },
+            { label: "Total Systems", value: 550, suffix: "+" },
+            { label: "Incharges", value: 8, suffix: "" },
+            { label: "AI / GPU Lab", value: 1, suffix: "" },
+          ].map(({ label, value, suffix }, i) => (
+            <motion.div
               key={label}
+              initial={reduce ? false : { opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 background: "var(--navy-deep)",
                 borderRadius: "var(--radius-lg)",
@@ -53,13 +99,13 @@ function LabsPage() {
             >
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: 36,
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
                   fontWeight: 700,
+                  fontSize: 36,
                   color: "var(--gold-soft)",
                 }}
               >
-                {value}
+                <Counter to={value} suffix={suffix} />
               </div>
               <div
                 style={{
@@ -72,11 +118,11 @@ function LabsPage() {
               >
                 {label}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Labs Grid */}
+        {/* Labs Grid — staggered */}
         <div
           style={{
             display: "grid",
@@ -84,13 +130,17 @@ function LabsPage() {
             gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
           }}
         >
-          {LABORATORIES.map((lab) => (
-            <article
+          {LABORATORIES.map((lab, i) => (
+            <motion.article
               key={lab.sno}
               className="card"
               style={{
                 borderTop: `3px solid ${lab.sno === 8 ? "var(--gist-orange)" : "var(--navy-deep)"}`,
               }}
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Lab header */}
               <div
@@ -119,7 +169,8 @@ function LabsPage() {
 
               <h3
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontWeight: 700,
                   fontSize: 18,
                   color: "var(--navy-deep)",
                   lineHeight: 1.3,
@@ -156,9 +207,9 @@ function LabsPage() {
                   </div>
                   <div
                     style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: 22,
+                      fontFamily: "'Plus Jakarta Sans', sans-serif",
                       fontWeight: 700,
+                      fontSize: 22,
                       color: "var(--navy-deep)",
                     }}
                   >
@@ -203,7 +254,7 @@ function LabsPage() {
                 <span style={{ fontWeight: 600, color: "var(--text-body)" }}>Configuration: </span>
                 {lab.config}
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

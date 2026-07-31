@@ -37,4 +37,6 @@ dist-ssr
 
 # Internal agent logs
 .agents/
+.claude/
+scratch/
 

@@ -22,6 +22,7 @@ import {
   Tv,
 } from "lucide-react";
 import { useState } from "react";
+import { motion, useReducedMotion, AnimatePresence } from "motion/react";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -40,6 +41,7 @@ export const Route = createFileRoute("/gallery")({
 function GalleryPage() {
   const [activeItem, setActiveItem] = useState<MediaContentItem | null>(null);
   const [playingItemId, setPlayingItemId] = useState<string | null>(null);
+  const reduce = useReducedMotion();
 
   const filteredMedia = INTEGRATED_MEDIA_DATABASE;
 
@@ -57,7 +59,10 @@ function GalleryPage() {
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 88 }}>
         {/* ─── OFFICIAL PLATFORMS BADGE BAR ─── */}
-        <div
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           style={{
             display: "flex",
             flexWrap: "wrap",
@@ -136,7 +141,7 @@ function GalleryPage() {
               <Globe size={14} /> GIST Main Website ↗
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* ─── MEDIA GRID WITH INLINE PLAYING & THUMBNAILS ─── */}
         {filteredMedia.length > 0 && (
@@ -155,15 +160,19 @@ function GalleryPage() {
                 gap: 28,
               }}
             >
-              {filteredMedia.map((item) => {
+              {filteredMedia.map((item, i) => {
                 const isPlaying = playingItemId === item.id;
                 const embedUrl = getMediaEmbedUrl(item, true);
                 const thumbnailUrl = getMediaThumbnailUrl(item);
                 const isVertical = item.aspectRatio === "vertical";
 
                 return (
-                  <div
+                  <motion.div
                     key={item.id}
+                    initial={reduce ? false : { opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: Math.min(i * 0.06, 0.6), ease: [0.16, 1, 0.3, 1] }}
                     style={{
                       borderRadius: "var(--radius-xl)",
                       overflow: "hidden",
@@ -413,7 +422,7 @@ function GalleryPage() {
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
@@ -469,8 +478,13 @@ function GalleryPage() {
         )}
 
         {/* ─── LIGHTBOX MODAL WITH DIRECT INLINE PLAYER ─── */}
+        <AnimatePresence>
         {activeItem && (
-          <div
+          <motion.div
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             style={{
               position: "fixed",
               inset: 0,
@@ -484,7 +498,11 @@ function GalleryPage() {
             }}
             onClick={() => setActiveItem(null)}
           >
-            <div
+            <motion.div
+              initial={reduce ? false : { opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 position: "relative",
                 width: "100%",
@@ -614,9 +632,10 @@ function GalleryPage() {
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </PageShell>
   );

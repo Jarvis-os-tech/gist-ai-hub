@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, MapPin, Facebook, Twitter, Youtube, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Youtube, Instagram } from "lucide-react";
 import { DEPARTMENT } from "@/lib/department-data";
 
 export function SiteFooter() {

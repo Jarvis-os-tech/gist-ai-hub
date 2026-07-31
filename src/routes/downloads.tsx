@@ -19,6 +19,7 @@ import {
   Handshake,
 } from "lucide-react";
 import { useState } from "react";
+import { motion, useReducedMotion, AnimatePresence } from "motion/react";
 
 export const Route = createFileRoute("/downloads")({
   head: () => ({
@@ -107,7 +108,7 @@ function SectionCard({
         }}
       >
         <Icon size={18} />
-        <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: "#fff" }}>
+        <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 17, color: "#fff" }}>
           {title}
         </h3>
       </div>
@@ -120,6 +121,8 @@ function SectionCard({
 
 function DownloadsPage() {
   const [active, setActive] = useState<SectionId>("calendar");
+  const reduce = useReducedMotion();
+
 
   return (
     <PageShell
@@ -130,7 +133,13 @@ function DownloadsPage() {
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
         {/* Section tabs */}
-        <div className="tabs-list" style={{ marginBottom: 36 }}>
+        <motion.div
+          className="tabs-list"
+          style={{ marginBottom: 36 }}
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
           {SECTIONS.map((s) => (
             <button
               key={s.id}
@@ -141,7 +150,16 @@ function DownloadsPage() {
               {s.label}
             </button>
           ))}
-        </div>
+        </motion.div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? {} : { opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          >
 
         {active === "calendar" && (
           <SectionCard title="Department Academic Calendar" icon={Calendar}>
@@ -285,7 +303,11 @@ function DownloadsPage() {
         )}
 
         {/* Additional links */}
-        <div
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           style={{
             marginTop: 48,
             padding: "24px",
@@ -296,7 +318,8 @@ function DownloadsPage() {
         >
           <div
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontWeight: 700,
               fontSize: 18,
               color: "var(--navy-deep)",
               marginBottom: 14,
@@ -351,7 +374,9 @@ function DownloadsPage() {
               </a>
             ))}
           </div>
-        </div>
+        </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </PageShell>
   );

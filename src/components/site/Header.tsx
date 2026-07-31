@@ -1,7 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { DEPARTMENT } from "@/lib/department-data";
+import { openAIChatWidget } from "./AIChatWidget";
 
 const NAV_ITEMS = [
   { label: "Home", to: "/" },
@@ -19,8 +21,15 @@ const NAV_ITEMS = [
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { location } = useRouterState();
   const pathname = location.pathname;
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header>
@@ -38,8 +47,7 @@ export function SiteHeader() {
               alt="GIST Logo"
               className="inst-logo"
               onError={(e) => {
-                // Fallback if CDN unreachable
-                e.currentTarget.style.display = "none";
+                (e.currentTarget as HTMLElement).style.display = "none";
               }}
             />
           </a>
@@ -57,8 +65,12 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* ─── Orange Navigation Bar ─── */}
-      <nav className="site-nav" role="navigation" aria-label="Main navigation">
+      {/* ─── Enhanced Navigation Bar ─── */}
+      <nav
+        className={`site-nav${scrolled ? " scrolled" : ""}`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
         <div className="site-nav-inner">
           {/* Desktop links */}
           <div className="site-nav-links" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
@@ -73,62 +85,95 @@ export function SiteHeader() {
             ))}
           </div>
 
-          {/* CSE Department label (right) */}
-          <div
-            style={{
-              color: "rgba(255,255,255,0.85)",
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              whiteSpace: "nowrap",
-              flexShrink: 0,
-              paddingLeft: 16,
-            }}
-          >
-            CSE Dept.
-          </div>
+          {/* Right section */}
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0, paddingLeft: 16 }}>
+            <button
+              onClick={openAIChatWidget}
+              className="btn btn-ghost"
+              style={{
+                fontSize: 12,
+                padding: "8px 16px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                whiteSpace: "nowrap",
+              }}
+            >
+              <Sparkles size={13} /> AI Assistant
+            </button>
 
-          {/* Mobile toggle */}
-          <button
-            className="nav-mobile-toggle"
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label="Toggle menu"
-            style={{ marginLeft: "auto" }}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+            {/* Mobile toggle */}
+            <button
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label="Toggle menu"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 36,
+                height: 36,
+                borderRadius: 8,
+                background: "rgba(255,255,255,0.12)",
+                border: "none",
+                color: "#fff",
+                cursor: "pointer",
+              }}
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div
-            style={{
-              background: "rgba(15,37,71,0.97)",
-              backdropFilter: "blur(12px)",
-              borderTop: "1px solid rgba(255,255,255,0.12)",
-              paddingBottom: 16,
-            }}
-          >
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  display: "block",
-                  padding: "12px 24px",
-                  color: pathname === item.to ? "var(--gold-soft)" : "rgba(255,255,255,0.85)",
-                  fontWeight: pathname === item.to ? 600 : 400,
-                  fontSize: 15,
-                  borderBottom: "1px solid rgba(255,255,255,0.06)",
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        )}
+        {/* Enhanced Mobile Menu with staggered animations */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                background: "rgba(11, 25, 44, 0.98)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                borderTop: "1px solid rgba(255,255,255,0.08)",
+                overflow: "hidden",
+              }}
+            >
+              <div style={{ padding: "12px 0 16px" }}>
+                {NAV_ITEMS.map((item, i) => (
+                  <motion.div
+                    key={item.to}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: i * 0.04,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    <Link
+                      to={item.to}
+                      onClick={() => setMenuOpen(false)}
+                      style={{
+                        display: "block",
+                        padding: "12px 24px",
+                        color: pathname === item.to ? "var(--gold-soft)" : "rgba(255,255,255,0.85)",
+                        fontWeight: pathname === item.to ? 700 : 500,
+                        fontSize: 15,
+                        borderLeft: pathname === item.to ? "3px solid var(--gold-soft)" : "3px solid transparent",
+                        background: pathname === item.to ? "rgba(244, 196, 48, 0.06)" : "transparent",
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );

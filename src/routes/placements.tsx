@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { ROLL_OF_HONOUR, DEPARTMENT } from "@/lib/department-data";
 import { Trophy, ExternalLink } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 
 export const Route = createFileRoute("/placements")({
   head: () => ({
@@ -18,6 +19,8 @@ export const Route = createFileRoute("/placements")({
 });
 
 function PlacementsPage() {
+  const reduce = useReducedMotion();
+
   return (
     <PageShell
       eyebrow="Achievements"
@@ -27,7 +30,10 @@ function PlacementsPage() {
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
         {/* Trophy Banner */}
-        <div
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           style={{
             display: "flex",
             alignItems: "center",
@@ -55,7 +61,8 @@ function PlacementsPage() {
           <div>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 700,
                 fontSize: 24,
                 color: "#fff",
                 lineHeight: 1.2,
@@ -68,7 +75,7 @@ function PlacementsPage() {
               (2008–2023)
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Roll of Honour Table */}
         <div style={{ marginBottom: 48 }}>
@@ -90,8 +97,14 @@ function PlacementsPage() {
                 </tr>
               </thead>
               <tbody>
-                {ROLL_OF_HONOUR.map((r) => (
-                  <tr key={r.sno}>
+                {ROLL_OF_HONOUR.map((r, i) => (
+                  <motion.tr
+                    key={r.sno}
+                    initial={reduce ? false : { opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.03, ease: [0.16, 1, 0.3, 1] }}
+                  >
                     <td>{r.sno}</td>
                     <td>
                       <span style={{ fontWeight: 600, color: "var(--gist-orange)" }}>
@@ -115,7 +128,7 @@ function PlacementsPage() {
                         {r.cgpa}
                       </span>
                     </td>
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
@@ -151,13 +164,17 @@ function PlacementsPage() {
               desc: "Training programmes to enhance student employability and technical skills.",
               url: "https://gist.edu.in/gist/employability-skills-training/",
             },
-          ].map(({ title, desc, url }) => (
-            <a
+          ].map(({ title, desc, url }, i) => (
+            <motion.a
               key={title}
               href={url}
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="card" style={{ height: "100%", cursor: "pointer" }}>
                 <div
@@ -170,7 +187,8 @@ function PlacementsPage() {
                 >
                   <h3
                     style={{
-                      fontFamily: "'Playfair Display', serif",
+                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                      fontWeight: 700,
                       fontSize: 17,
                       color: "var(--navy-deep)",
                     }}
@@ -181,7 +199,7 @@ function PlacementsPage() {
                 </div>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6 }}>{desc}</p>
               </div>
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>

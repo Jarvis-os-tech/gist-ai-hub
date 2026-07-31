@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { DEPARTMENT } from "@/lib/department-data";
 import { getAccurateDepartmentReply } from "@/components/site/AIChatWidget";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
@@ -33,6 +34,7 @@ function ChatPage() {
   const [isTyping, setIsTyping] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -292,12 +294,32 @@ function ChatPage() {
               </div>
 
               <div className="cse-messages">
+                <AnimatePresence initial={false}>
                 {messages.map((m) => (
-                  <div key={m.id} className={`cse-msg ${m.from}`}>
+                  <motion.div
+                    key={m.id}
+                    className={`cse-msg ${m.from}`}
+                    initial={reduce ? false : { opacity: 0, y: 12, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  >
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.text}</ReactMarkdown>
-                  </div>
+                  </motion.div>
                 ))}
-                {isTyping && <div className="cse-msg bot">Searching official records…</div>}
+                </AnimatePresence>
+                <AnimatePresence>
+                {isTyping && (
+                  <motion.div
+                    className="cse-msg bot"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <span className="cse-typing-pulse">Searching official records</span>
+                  </motion.div>
+                )}
+                </AnimatePresence>
               </div>
             </div>
           </div>
@@ -407,6 +429,15 @@ function ChatPage() {
         .cse-footer {
           display:flex; align-items:center; gap:6px; justify-content:center;
           font-size:11px; color:#8a94a6; padding:8px 12px 14px; background:#fff;
+        }
+
+        @keyframes typePulse {
+          0%,100% { opacity: 0.4; }
+          50% { opacity: 1; }
+        }
+        .cse-typing-pulse::after {
+          content: '…';
+          animation: typePulse 1.4s ease-in-out infinite;
         }
       `}</style>
     </div>

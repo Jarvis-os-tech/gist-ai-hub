@@ -3,6 +3,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { VOICE_COMMITTEE, VOICE_EVENTS } from "@/lib/department-data";
 import { ExternalLink } from "lucide-react";
 import { useState } from "react";
+import { motion, useReducedMotion, AnimatePresence } from "motion/react";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -22,6 +23,7 @@ const TABS = ["CSE Events", "VOICE Association"] as const;
 
 function EventsPage() {
   const [tab, setTab] = useState<(typeof TABS)[number]>("CSE Events");
+  const reduce = useReducedMotion();
 
   return (
     <PageShell
@@ -31,7 +33,12 @@ function EventsPage() {
       crumbs={[{ label: "Events" }]}
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
-        <div className="tabs-list">
+        <motion.div
+          className="tabs-list"
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
           {TABS.map((t) => (
             <button
               key={t}
@@ -42,8 +49,16 @@ function EventsPage() {
               {t}
             </button>
           ))}
-        </div>
+        </motion.div>
 
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={tab}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? {} : { opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          >
         {tab === "CSE Events" && (
           <div>
             <div
@@ -55,8 +70,12 @@ function EventsPage() {
                 marginBottom: 40,
               }}
             >
-              <div
+              <motion.div
                 className="card"
+                initial={reduce ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   flex: "1 1 320px",
                   background: "linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%)",
@@ -77,7 +96,8 @@ function EventsPage() {
                 </div>
                 <h2
                   style={{
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontWeight: 700,
                     fontSize: 22,
                     color: "#fff",
                     lineHeight: 1.3,
@@ -116,7 +136,7 @@ function EventsPage() {
                 >
                   View All CSE Events <ExternalLink size={14} />
                 </a>
-              </div>
+              </motion.div>
 
               <div style={{ flex: "1 1 280px", display: "flex", flexDirection: "column", gap: 12 }}>
                 {[
@@ -137,12 +157,16 @@ function EventsPage() {
                     label: "GDSC Report NBA",
                     url: "https://gist.edu.in/gist/wp-content/uploads/2024/08/GDSC-Report-NBA.pdf",
                   },
-                ].map(({ label, url }) => (
-                  <a
+                ].map(({ label, url }, i) => (
+                  <motion.a
                     key={label}
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    initial={reduce ? false : { opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -167,16 +191,24 @@ function EventsPage() {
                   >
                     <span style={{ fontSize: 14, fontWeight: 500 }}>{label}</span>
                     <ExternalLink size={14} style={{ flexShrink: 0 }} />
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </div>
 
             {/* GIST TechFest 2021 Highlights */}
-            <div className="card" style={{ background: "var(--surface-2)" }}>
+            <motion.div
+              className="card"
+              style={{ background: "var(--surface-2)" }}
+              initial={reduce ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h3
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontWeight: 700,
                   fontSize: 20,
                   color: "var(--navy-deep)",
                   marginBottom: 16,
@@ -254,7 +286,13 @@ function EventsPage() {
                         award: "1st (₹800)",
                       },
                     ].map((row, i) => (
-                      <tr key={i}>
+                      <motion.tr
+                        key={i}
+                        initial={reduce ? false : { opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                      >
                         <td style={{ fontWeight: 500 }}>{row.name}</td>
                         <td>{row.event}</td>
                         <td>{row.topic}</td>
@@ -262,12 +300,12 @@ function EventsPage() {
                         <td>
                           <span className="badge badge-orange">{row.award}</span>
                         </td>
-                      </tr>
+                      </motion.tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </motion.div>
           </div>
         )}
 
@@ -297,7 +335,8 @@ function EventsPage() {
               </div>
               <h2
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontWeight: 700,
                   fontSize: 24,
                   color: "#fff",
                   marginBottom: 14,
@@ -313,10 +352,17 @@ function EventsPage() {
             </div>
 
             {/* Committee */}
-            <div style={{ marginBottom: 40 }}>
+            <motion.div
+              style={{ marginBottom: 40 }}
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h3
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontWeight: 700,
                   fontSize: 20,
                   color: "var(--navy-deep)",
                   marginBottom: 20,
@@ -341,26 +387,38 @@ function EventsPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {VOICE_COMMITTEE.map((m) => (
-                      <tr key={m.sno}>
+                    {VOICE_COMMITTEE.map((m, i) => (
+                      <motion.tr
+                        key={m.sno}
+                        initial={reduce ? false : { opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                      >
                         <td>{m.sno}</td>
                         <td style={{ fontWeight: 600, color: "var(--navy-deep)" }}>{m.name}</td>
                         <td>{m.designation}</td>
                         <td>
                           <span className="badge badge-orange">{m.role}</span>
                         </td>
-                      </tr>
+                      </motion.tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </motion.div>
 
             {/* Events Table */}
-            <div>
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h3
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontWeight: 700,
                   fontSize: 20,
                   color: "var(--navy-deep)",
                   marginBottom: 20,
@@ -386,19 +444,27 @@ function EventsPage() {
                   </thead>
                   <tbody>
                     {VOICE_EVENTS.map((e, i) => (
-                      <tr key={i}>
+                      <motion.tr
+                        key={i}
+                        initial={reduce ? false : { opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                      >
                         <td style={{ fontWeight: 600, color: "var(--gist-orange)" }}>{e.ay}</td>
                         <td style={{ fontWeight: 500, color: "var(--navy-deep)" }}>{e.event}</td>
                         <td style={{ whiteSpace: "nowrap" }}>{e.date}</td>
                         <td>{e.semester}</td>
-                      </tr>
+                      </motion.tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </motion.div>
           </div>
         )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </PageShell>
   );

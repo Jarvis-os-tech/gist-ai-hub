@@ -89,6 +89,6 @@ CONTACT INFORMATION:
 - Phone: ${DEPARTMENT.contact.phone}
 - Email: ${DEPARTMENT.contact.email}
 - Website: ${DEPARTMENT.contact.website}
-- Social Media: Facebook, Twitter, YouTube, Instagram
+- Social Media: Facebook, YouTube, Instagram
 `;
 }

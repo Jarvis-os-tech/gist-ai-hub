@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { DEPARTMENT } from "@/lib/department-data";
 import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { FacultyAvatar } from "@/components/ui/FacultyAvatar";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -18,6 +20,8 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const reduce = useReducedMotion();
+
   return (
     <PageShell
       eyebrow="Contact"
@@ -35,15 +39,19 @@ function ContactPage() {
         >
           {/* Contact Cards */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            <h2
+            <motion.h2
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 700,
                 fontSize: 22,
                 color: "var(--navy-deep)",
               }}
             >
               Department Contact
-            </h2>
+            </motion.h2>
 
             {[
               {
@@ -67,9 +75,13 @@ function ContactPage() {
                 href: `mailto:${DEPARTMENT.contact.email}`,
                 linkLabel: "Send Email",
               },
-            ].map(({ Icon, label, value, href, linkLabel }) => (
-              <div
+            ].map(({ Icon, label, value, href, linkLabel }, i) => (
+              <motion.div
                 key={label}
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   display: "flex",
                   gap: 16,
@@ -127,7 +139,7 @@ function ContactPage() {
                     {linkLabel} →
                   </a>
                 </div>
-              </div>
+              </motion.div>
             ))}
 
             {/* HOD Card */}
@@ -152,28 +164,7 @@ function ContactPage() {
                 Head of Department
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                <div
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: "50%",
-                    background: "var(--gist-orange)",
-                    display: "grid",
-                    placeItems: "center",
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: "#fff",
-                    flexShrink: 0,
-                  }}
-                >
-                  {DEPARTMENT.hod.name
-                    .split(" ")
-                    .filter((w) => !["Dr.", "Mr.", "Ms."].includes(w))
-                    .map((w) => w[0])
-                    .slice(0, 2)
-                    .join("")}
-                </div>
+                <FacultyAvatar src={DEPARTMENT.hod.photoUrl} name={DEPARTMENT.hod.name} size={56} />
                 <div>
                   <div style={{ fontWeight: 700, fontSize: 17 }}>{DEPARTMENT.hod.name}</div>
                   <div style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", marginTop: 2 }}>
@@ -200,16 +191,21 @@ function ContactPage() {
 
           {/* Useful Links */}
           <div>
-            <h2
+            <motion.h2
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 700,
                 fontSize: 22,
                 color: "var(--navy-deep)",
                 marginBottom: 24,
               }}
             >
               Useful Links
-            </h2>
+            </motion.h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {[
                 {
@@ -234,12 +230,16 @@ function ContactPage() {
                   label: "Online Certificate Verification",
                   url: "https://gist.edu.in/gist/verification-of-certificates/",
                 },
-              ].map(({ label, url }) => (
-                <a
+              ].map(({ label, url }, i) => (
+                <motion.a
                   key={label}
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  initial={reduce ? false : { opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -265,7 +265,7 @@ function ContactPage() {
                 >
                   <span style={{ fontWeight: 500 }}>{label}</span>
                   <ExternalLink size={13} style={{ flexShrink: 0 }} />
-                </a>
+                </motion.a>
               ))}
             </div>
 
@@ -281,7 +281,8 @@ function ContactPage() {
             >
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontWeight: 700,
                   fontSize: 16,
                   color: "var(--navy-deep)",
                   marginBottom: 14,
@@ -292,7 +293,6 @@ function ContactPage() {
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
                 {[
                   { label: "Facebook", url: DEPARTMENT.socialMedia.facebook },
-                  { label: "Twitter", url: DEPARTMENT.socialMedia.twitter },
                   { label: "YouTube", url: DEPARTMENT.socialMedia.youtube },
                   { label: "Instagram", url: DEPARTMENT.socialMedia.instagram },
                 ].map(({ label, url }) => (

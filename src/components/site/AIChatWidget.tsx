@@ -29,53 +29,16 @@ export function getAccurateDepartmentReply(queryText: string): string {
 
   // Guardrail for Unwanted / Off-Topic Queries
   const unwantedKeywords = [
-    "weather",
-    "recipe",
-    "cook",
-    "food",
-    "movie",
-    "film",
-    "song",
-    "sing",
-    "music",
-    "joke",
-    "story",
-    "cricket",
-    "football",
-    "match",
-    "game",
-    "gaming",
-    "playstation",
-    "xbox",
-    "election",
-    "politics",
-    "president",
-    "prime minister",
-    "crypto",
-    "bitcoin",
-    "stock",
-    "trading",
-    "relationship",
-    "dating",
-    "love",
-    "hack",
-    "password",
-    "bypass",
-    "illegal",
-    "drug",
-    "alcohol",
-    "gambling",
-    "casino",
-    "weapon",
-    "bomb",
-    "kill",
-    "die",
-    "horoscope",
-    "astrology",
+    "weather", "recipe", "cook", "food", "movie", "film", "song", "sing",
+    "music", "joke", "story", "cricket", "football", "match", "game", "gaming",
+    "playstation", "xbox", "election", "politics", "president", "prime minister",
+    "crypto", "bitcoin", "stock", "trading", "relationship", "dating", "love",
+    "hack", "password", "bypass", "illegal", "drug", "alcohol", "gambling",
+    "casino", "weapon", "bomb", "kill", "die", "horoscope", "astrology",
   ];
 
   if (unwantedKeywords.some((kw) => t.includes(kw))) {
-    return `⚠️ **I won't be able to help you with that type of query.**\n\nI am the official **CSE Department Assistant for GIST** and I am specialized strictly in helping with department information, faculty, laboratories, academic programs, placements, events, and college details.`;
+    return `⚠️ **Off-Topic Query**\n\nI am the official **CSE Department Assistant for GIST** and I can only help with college details, faculty, laboratories, academic programs, placements, events, and admissions.`;
   }
 
   // Greetings & Conversational Queries
@@ -83,12 +46,15 @@ export function getAccurateDepartmentReply(queryText: string): string {
     t === "hi" ||
     t === "hello" ||
     t === "hey" ||
+    t.startsWith("hi ") ||
+    t.startsWith("hello ") ||
+    t.startsWith("hey ") ||
     t.includes("good morning") ||
     t.includes("good afternoon") ||
     t.includes("good evening") ||
     t.includes("greetings")
   ) {
-    return `👋 **Hello!** I am the official AI Assistant for the **Department of Computer Science & Engineering (CSE)** at **GIST**.\n\nHow can I help you today? You can ask me about:\n- 👥 Faculty & HOD details\n- 🎓 B.Tech programme\n- 🧪 Computer & NVIDIA AI Labs\n- 🏆 Placements & Roll of Honour\n- 🤝 MOUs & Industry Collaborations\n- 📅 VOICE Events & Workshops\n- 📞 Department Contact & Codes`;
+    return `👋 **Welcome to GIST CSE Assistant!**\n\nHow can I help you today? You can ask me about:\n- 👥 **Faculty & HOD** profiles\n- 🎓 **B.Tech & M.Tech** programmes & Regulations\n- 🧪 **9 Laboratories** (including NVIDIA AI Nexus Lab)\n- 🏆 **Placements & Roll of Honour**\n- 🤝 **Industry MOUs** & Collaborations\n- 📅 **VOICE Events** & Workshops\n- 📞 **Contact & EAPCET Code (\`GTNN\`)**`;
   }
 
   // Who are you / Identity Queries
@@ -99,7 +65,7 @@ export function getAccurateDepartmentReply(queryText: string): string {
     t.includes("about you") ||
     t.includes("introduce yourself")
   ) {
-    return `🤖 **I am the CSE Department Assistant**\n\nI am an AI assistant designed to provide official and accurate information regarding the **Department of Computer Science & Engineering** at **Geethanjali Institute of Science and Technology (GIST)**.\n\nAll my responses are grounded directly in verified department records!`;
+    return `🤖 **Official GIST CSE AI Assistant**\n\nI am designed to provide instant, verified information regarding the **Department of Computer Science & Engineering** at **Geethanjali Institute of Science and Technology (GIST)**.`;
   }
 
   // What can you do / Capabilities Queries
@@ -110,48 +76,131 @@ export function getAccurateDepartmentReply(queryText: string): string {
     t.includes("features") ||
     t.includes("options")
   ) {
-    return `💡 **Here is what I can do for you:**\n\n1. **Faculty Information:** Lookup any of our 49 faculty members, HOD profiles, and qualifications.\n2. **Academic Programmes:** Details on B.Tech intake (420 seats), duration, and specializations.\n3. **Laboratories:** Configurations and incharges for all 8 labs (including NVIDIA AI Lab).\n4. **Placements & Toppers:** Information on CGPA toppers and placement records.\n5. **Industry Collaborations:** Active MOUs (Codegnan, EduSkills, Cisco, Oracle).\n6. **Events & Contact:** VOICE student association events, EAPCET code (\`GTNN\`), and contact info.`;
+    return `💡 **How I Can Assist You:**\n- 👥 **Faculty Lookup:** Information on all 49 faculty members & HOD.\n- 🎓 **Academics & Regulations:** B.Tech intake (420 seats), M.Tech, and R20/R23 syllabus.\n- 🧪 **Laboratories:** Configurations and incharges for all 9 labs.\n- 🏆 **Placements & Toppers:** CGPA toppers and top recruiter data.\n- 🤝 **Industry MOUs:** Codegnan, Cisco, Oracle, and EduSkills partnerships.\n- 📞 **Admissions & Codes:** EAPCET Code (\`GTNN\`) and campus location.`;
   }
 
   // Thank you Queries
   if (t.includes("thank") || t.includes("thanks") || t.includes("great") || t.includes("awesome")) {
-    return `😊 **You're very welcome!** Feel free to ask if you have any more questions about the CSE Department at GIST. Have a great day!`;
+    return `😊 **You're very welcome!** Feel free to ask if you need anything else about the CSE Department at GIST. Have a great day!`;
+  }
+
+  // Stop words to prevent false substring matches on faculty names
+  const stopWords = new Set([
+    "are", "the", "and", "who", "how", "what", "where", "many", "there", "is", "of",
+    "in", "to", "for", "with", "tell", "show", "list", "name", "past", "former",
+    "faculty", "faculties", "faculits", "professor", "professors", "teacher", "teachers",
+    "staff", "college", "dept", "department", "gist", "cse", "about", "details", "give", "located"
+  ]);
+
+  // EAPCET / College Code
+  if (t.includes("eapcet") || t.includes("eamcet") || t.includes("appgecet") || (t.includes("code") && !t.includes("coding"))) {
+    return `**College Admission Codes (GIST):**\n- **EAPCET / ECET / POLYCET Code:** \`${DEPARTMENT.eapcetCode}\`\n- **APPGECET Code:** \`${DEPARTMENT.appgecetCode}\``;
+  }
+
+  // Academic Regulations (Autonomous / R20 / R23)
+  if (t.includes("regulation") || t.includes("r20") || t.includes("r23") || t.includes("curriculum")) {
+    return `**Academic Regulations:**\n- **Status:** Autonomous (JNTUA Affiliated)\n- **Regulations:** R20 & R23 Regulations\n- **Downloads:** Detailed course structures & syllabi for all semesters are available under the Downloads page.`;
+  }
+
+  // Past / Former HOD
+  if (t.includes("past hod") || t.includes("previous hod") || t.includes("former hod") || t.includes("old hod")) {
+    return `Historical records for past HODs are not archived here. The current Head of Department (HOD) is **${DEPARTMENT.hod.name}** (${DEPARTMENT.hod.designation}).`;
+  }
+
+  // Faculty Count / How many faculty
+  if (
+    (t.includes("how many") || t.includes("count") || t.includes("total") || t.includes("number")) &&
+    (t.includes("facul") || t.includes("teacher") || t.includes("staff") || t.includes("professor"))
+  ) {
+    return `**CSE Faculty Strength:**\n- **Total Full-Time Faculty:** **${FACULTY.length} members**\n- **Breakdown:** 1 HOD, 4 Professors, 6 Associate Professors, 38 Assistant Professors`;
+  }
+
+  // Facilities / Infrastructure
+  if (
+    t.includes("facility") ||
+    t.includes("facilities") ||
+    t.includes("facilits") ||
+    t.includes("facilites") ||
+    t.includes("infrastructure") ||
+    t.includes("amenity") ||
+    t.includes("amenities")
+  ) {
+    return `**CSE Department Facilities:**\n- **9 Laboratories:** 580+ High-End PCs, NVIDIA AI Workstation Lab & AI Nexus Lab\n- **ICT Classrooms:** Smart interactive digital classrooms & Seminar Halls\n- **Connectivity:** 1 Gbps High-Speed Broadband & 24/7 Power Backup\n- **Clubs & Academies:** VOICE Association, CISCO Networking Academy & Oracle Academy`;
+  }
+
+  // Establishment / History
+  if (t.includes("established") || t.includes("start") || t.includes("history") || t.includes("founded") || (t.includes("year") && !t.includes("1st"))) {
+    return `**Department Establishment:**\n- **Year Established:** ${DEPARTMENT.established}\n- **Growth:** Commenced in 2008 with 60 seats and expanded to 420 intake by 2024.`;
+  }
+
+  // Accreditation / Affiliation / NAAC / NBA / Autonomous
+  if (
+    t.includes("accreditation") ||
+    t.includes("naac") ||
+    t.includes("nba") ||
+    t.includes("autonomous") ||
+    t.includes("affiliated") ||
+    t.includes("jntua") ||
+    t.includes("aicte")
+  ) {
+    return `**Accreditation & Affiliations:**\n- **Status:** ${DEPARTMENT.accreditation}\n- **Affiliation:** Approved by AICTE, New Delhi & Affiliated to JNTUA, Anantapuramu`;
+  }
+
+  // Intake / Seats / Students
+  if (t.includes("intake") || t.includes("seats") || t.includes("capacity") || t.includes("students")) {
+    return `**Annual Student Intake:**\n- **B.Tech CSE (UG):** ${DEPARTMENT.currentIntakeUG} seats\n- **M.Tech CSE (PG):** ${DEPARTMENT.currentIntakePG} seats`;
   }
 
   // HOD query
   if (
     t.includes("hod") ||
-    t.includes("head of department") ||
-    t.includes("lakshmana rao") ||
-    t.includes("who is the head")
+    t.includes("head") ||
+    t.includes("lakshmana rao")
   ) {
     const hod = DEPARTMENT.hod;
-    return `### 👨‍🏫 Head of Department (HOD)\n\n- **Name:** ${hod.name}\n- **Designation:** ${hod.designation}\n- **Qualification:** ${hod.qualification}\n- **Email:** [${hod.email}](mailto:${hod.email})\n- **Profile:** [View HOD Profile](${hod.profileUrl})`;
+    return `**Head of Department (HOD):**\n- **Name:** ${hod.name}\n- **Designation:** ${hod.designation}\n- **Qualification:** ${hod.qualification}\n- **Email:** [${hod.email}](mailto:${hod.email})`;
   }
 
-  // Faculty query
+  // Location / Address / Where / Located
+  if (
+    t.includes("location") ||
+    t.includes("located") ||
+    t.includes("address") ||
+    t.includes("where") ||
+    t.includes("nellore")
+  ) {
+    const c = DEPARTMENT.contact;
+    return `**Location & Contact:**\n- **Address:** ${c.address}\n- **Phone:** ${c.phone}\n- **Email:** [${c.email}](mailto:${c.email})`;
+  }
+
+  // Direct Name Search across 49 Faculty Members
+  const queryTokens = t.split(/[\s,.-]+/).filter((w) => w.length >= 4 && !stopWords.has(w));
+  if (queryTokens.length > 0) {
+    const matchedByName = FACULTY.find((f) => {
+      const fn = f.name.toLowerCase();
+      return queryTokens.some((token) => fn.includes(token));
+    });
+    if (matchedByName) {
+      return `**Faculty Profile:**\n- **Name:** ${matchedByName.name}\n- **Designation:** ${matchedByName.designation}\n- **Qualification:** ${matchedByName.qualification}\n- **Email:** [${matchedByName.email}](mailto:${matchedByName.email})`;
+    }
+  }
+
+  // Faculty general query
   if (
     t.includes("faculty") ||
     t.includes("professor") ||
     t.includes("teacher") ||
     t.includes("staff")
   ) {
-    const matched = FACULTY.find(
-      (f) =>
-        t.includes(f.name.toLowerCase()) ||
-        f.name
-          .toLowerCase()
-          .split(" ")
-          .some((part) => part.length > 3 && t.includes(part)),
-    );
-    if (matched) {
-      return `### 👤 Faculty Profile\n\n- **Name:** ${matched.name}\n- **Designation:** ${matched.designation}\n- **Qualification:** ${matched.qualification}${matched.profileUrl ? `\n- **Official Page:** [View Faculty Page](${matched.profileUrl})` : ""}`;
-    }
-
-    const topFaculty = FACULTY.slice(0, 8)
-      .map((f) => `- **${f.name}** (${f.designation}, ${f.qualification})`)
+    const topFaculty = FACULTY.slice(0, 6)
+      .map((f) => `- **${f.name}** (${f.designation})`)
       .join("\n");
-    return `### 👥 CSE Department Faculty\n\nThe department has **49 full-time faculty members**.\n\n**Key Faculty Members:**\n${topFaculty}\n\n🔗 [View Full Faculty List (49 Members)](https://gist.edu.in/gist/computer-science-and-engineering/)`;
+    return `**CSE Faculty Roster (${FACULTY.length} Total Members):**\n${topFaculty}\n\n🔗 [View All 49 Faculty Members](https://gist.edu.in/gist/computer-science-and-engineering/)`;
+  }
+
+  // Research Areas
+  if (t.includes("research") || t.includes("domain") || t.includes("area")) {
+    return `**CSE Research Specializations:**\n${DEPARTMENT.researchAreas.map((r) => `- ${r}`).join("\n")}`;
   }
 
   // Programs query
@@ -160,11 +209,11 @@ export function getAccurateDepartmentReply(queryText: string): string {
     t.includes("b.tech") ||
     t.includes("btech") ||
     t.includes("course") ||
-    t.includes("intake") ||
-    t.includes("specialization")
+    t.includes("specialization") ||
+    t.includes("degree")
   ) {
     const ug = PROGRAMMES[0];
-    return `### 🎓 Academic Programmes\n\n1. **${ug.title} (UG)**\n   - **Duration:** ${ug.duration}\n   - **Intake:** ${ug.intake} seats\n\n**Specializations:** Artificial Intelligence, Machine Learning, Data Science, Cyber Security, Cloud Computing, & IoT.\n\n🔗 [View Syllabus & Course Structure](https://gist.edu.in/gist/computer-science-and-engineering/)`;
+    return `**Academic Programmes Offered:**\n1. **${ug.title} (UG):** ${ug.duration} | Intake: ${ug.intake} seats\n2. **${PROGRAMMES[1]?.title || "M.Tech CSE"} (PG):** 2 Years | Intake: 18 seats\n\n**Specializations:** AI, Machine Learning, Data Science, Cyber Security, Cloud Computing, & IoT.`;
   }
 
   // Labs query
@@ -175,10 +224,38 @@ export function getAccurateDepartmentReply(queryText: string): string {
     t.includes("computer") ||
     t.includes("hardware")
   ) {
+    // Specific: New Lab query
+    if (t.includes("new lab") || t.includes("latest lab") || t.includes("newest lab") || t.includes("recent lab")) {
+      const newLab = LABORATORIES.find((l) => l.sno === 9);
+      return `**New Laboratory:**\n- **Name:** ${newLab?.name}\n- **Kits/Systems:** ${newLab?.computers}\n- **Incharge:** ${newLab?.incharge}\n- **Configuration:** ${newLab?.config}`;
+    }
+
+    // Specific: AI / NVIDIA / Nexus Lab query
+    if (t.includes("ai lab") || t.includes("nvidia") || t.includes("nexus") || t.includes("ai first")) {
+      const aiLabs = LABORATORIES.filter((l) => l.sno >= 8);
+      return `**AI & Edge GPU Laboratories:**\n` + aiLabs.map((l) => `- **${l.name}:** ${l.computers} Systems | *Incharge:* ${l.incharge}\n  *Config:* ${l.config}`).join("\n\n");
+    }
+
+    // Specific: How many / count
+    if (t.includes("how many") || t.includes("count") || t.includes("total")) {
+      return `The CSE Department has **${LABORATORIES.length} state-of-the-art laboratories** (580+ total workstations).`;
+    }
+
+    // Specific: Individual Lab name/number match
+    const specificLab = LABORATORIES.find((l) =>
+      t.includes(l.name.toLowerCase()) ||
+      t.includes(`lab ${l.sno}`) ||
+      t.includes(`lab-${l.sno}`)
+    );
+    if (specificLab) {
+      return `**${specificLab.name}:**\n- **Systems:** ${specificLab.computers}\n- **Incharge:** ${specificLab.incharge}\n- **Configuration:** ${specificLab.config}`;
+    }
+
+    // General list of all labs
     const labsList = LABORATORIES.map(
       (l) => `- **${l.name}:** ${l.computers} Systems | *Incharge:* ${l.incharge}`,
     ).join("\n");
-    return `### 🧪 Department Laboratories (${LABORATORIES.length} Labs)\n\n${labsList}\n\nAll labs have high-speed internet, UPS backup, and licensed software.\n\n🔗 [View Lab Facilities](https://gist.edu.in/gist/computer-science-and-engineering/)`;
+    return `**Department Laboratories (${LABORATORIES.length} Total):**\n${labsList}`;
   }
 
   // Placements & Toppers query
@@ -190,9 +267,9 @@ export function getAccurateDepartmentReply(queryText: string): string {
     t.includes("roll of honour")
   ) {
     const toppers = ROLL_OF_HONOUR.slice(0, 5)
-      .map((r) => `- **${r.batch}:** ${r.name} (${r.rollNo}) — **CGPA: ${r.cgpa}**`)
+      .map((r) => `- **${r.batch}:** ${r.name} — **CGPA: ${r.cgpa}**`)
       .join("\n");
-    return `### 🏆 Placements & Roll of Honour\n\nOur CSE department has strong placement records with leading IT companies.\n\n**Recent Batch Toppers:**\n${toppers}\n\n🔗 [View Placement Reports](https://gist.edu.in/gist/computer-science-and-engineering/)`;
+    return `**Batch Toppers & Roll of Honour:**\n${toppers}`;
   }
 
   // MOUs / Industry Collaborations
@@ -206,7 +283,7 @@ export function getAccurateDepartmentReply(queryText: string): string {
     t.includes("oracle")
   ) {
     const mousList = MOUS.map((m) => `- **${m.company}:** ${m.areas}`).join("\n");
-    return `### 🤝 Industry MOUs & Collaborations\n\n${mousList}\n\nIncludes active **CSI, ACM, ISTE, CISCO Networking Academy, and ORACLE Academy** chapters.\n\n🔗 [View All MOUs](https://gist.edu.in/gist/computer-science-and-engineering/)`;
+    return `**Industry MOUs & Collaborations:**\n${mousList}`;
   }
 
   // Events & VOICE Association
@@ -221,31 +298,64 @@ export function getAccurateDepartmentReply(queryText: string): string {
     const eventsList = VOICE_EVENTS.slice(0, 5)
       .map((e) => `- **${e.event}** (${e.ay}) — Date: ${e.date}`)
       .join("\n");
-    return `### 📅 Events & VOICE Association\n\n${eventsList}\n\nVOICE regularly organizes coding hackathons, guest lectures, and workshops.\n\n🔗 [View Events Gallery](https://gist.edu.in/gist/computer-science-and-engineering/)`;
+    return `**Recent VOICE Association Events:**\n${eventsList}`;
   }
 
-  // Contact / Address / Code
-  if (
-    t.includes("contact") ||
-    t.includes("address") ||
-    t.includes("phone") ||
-    t.includes("email") ||
-    t.includes("location") ||
-    t.includes("eapcet") ||
-    t.includes("eamcet") ||
-    t.includes("code")
-  ) {
-    const c = DEPARTMENT.contact;
-    return `### 📞 Department Contact Information\n\n- **College Codes:** EAPCET/ECET: \`${DEPARTMENT.eapcetCode}\` | APPGECET: \`${DEPARTMENT.appgecetCode}\`\n- **Address:** ${c.address}\n- **Phone:** ${c.phone}\n- **Email:** [${c.email}](mailto:${c.email})\n- **Main Website:** [https://gist.edu.in/gist/gist-home/](https://gist.edu.in/gist/gist-home/)`;
+  // Hostel & Hostal Queries (handles typos like "hostal", "hostel")
+  if (t.includes("hostel") || t.includes("hostal") || t.includes("canteen") || t.includes("mess") || t.includes("stay") || t.includes("accommodation")) {
+    if (t.includes("fee") || t.includes("fees") || t.includes("cost") || t.includes("charge") || t.includes("price") || t.includes("rent")) {
+      return `**GIST Hostel & Mess Fees:**\n- **Accommodation:** In-campus separate hostels for boys and girls with 24/7 security, Wi-Fi, and RO water.\n- **Food & Mess:** Includes daily breakfast, lunch, evening snacks, and dinner.\n- **Fee Details & Office Contact:** Hostel fee structures depend on room configuration. For exact current year fee slabs, contact the GIST Admin/Hostel Office at **+91 9912566220** or visit [gist.edu.in](https://gist.edu.in).`;
+    }
+    return `**GIST Campus Hostel & Food Facilities:**\n- **Hostels:** Modern, safe, in-campus separate hostels for boys and girls.\n- **Dining & Mess:** Hygienic campus canteen offering quality meals, snacks, and beverages.\n- **Amenities:** 24/7 RO Purified Water, Wi-Fi, Resident Wardens & CCTV Security.\n\n🔗 *For hostel admissions & fee details, visit:* [gist.edu.in](https://gist.edu.in)`;
+  }
+
+  // General Tuition Fee / College Fee / Fee Structure
+  if (t.includes("fee") || t.includes("fees") || t.includes("tuition") || t.includes("payment")) {
+    return `**GIST Fee Structure & Payment Information:**\n- **Tuition Fee:** Standardized as per APHERMC norms for Autonomous Engineering Colleges.\n- **Convenor Quota (Category-A):** Fee reimbursement (Jagananna Vidya Deevena) applicable for eligible EAPCET rank holders.\n- **Management Quota (Category-B):** Direct seat allotment as per APSCHE guidelines.\n- **Accounts Office Contact:** For exact course-wise fee breakdowns (B.Tech, M.Tech, Bus Fee), contact the GIST Accounts Section at **+91 9912566220** or visit [gist.edu.in](https://gist.edu.in).`;
+  }
+
+  // Transport & Bus Routes
+  if (t.includes("transport") || t.includes("bus") || t.includes("route") || t.includes("commute") || t.includes("travel")) {
+    return `**GIST Transport & Fleet:**\n- **College Buses:** Extensive bus service covering Nellore city, Kovur, Buchireddypalem, Allur, Kavali, and surrounding mandals.\n- **Safety & Comfort:** Experienced drivers, GPS tracking, and safety compliance.\n\n🔗 *For bus routes & timings, visit:* [gist.edu.in](https://gist.edu.in)`;
+  }
+
+  // Library & Digital Resources
+  if (t.includes("library") || t.includes("book") || t.includes("journal") || t.includes("ieee") || t.includes("digital library")) {
+    return `**GIST Central Library:**\n- **Collection:** 30,000+ volumes of textbooks, reference books, and national/international journals.\n- **Digital Library:** High-speed internet terminals with access to IEEE, DELNET, NPTEL, and e-journals.\n- **Working Hours:** Open on all working days for students and faculty.`;
+  }
+
+  // Admissions & Counseling
+  if (t.includes("admission") || t.includes("join") || t.includes("apply") || t.includes("cutoff") || t.includes("counseling")) {
+    return `**GIST Admissions & Counseling:**\n- **EAPCET / ECET Code:** \`${DEPARTMENT.eapcetCode}\` | **APPGECET Code:** \`${DEPARTMENT.appgecetCode}\`\n- **Admission Quotas:** Category-A (EAPCET Convener Quota) & Category-B (Management Quota).\n- **Eligibility:** 10+2 with Physics, Chemistry & Mathematics for B.Tech.\n\n🔗 *For application guidelines & seat matrix, visit:* [gist.edu.in](https://gist.edu.in)`;
+  }
+
+  // Sports & Extracurriculars
+  if (t.includes("sport") || t.includes("game") || t.includes("gym") || t.includes("playground") || t.includes("nss") || t.includes("ncc")) {
+    return `**Sports & Student Life at GIST:**\n- **Grounds:** Dedicated sports fields for Cricket, Football, Volleyball, Basketball, and Track Events.\n- **Indoor Facilities:** Table Tennis, Chess, Carrom, and Gymnasium.\n- **Clubs & Events:** Active NSS unit, annual sports meets, and cultural festivals.`;
+  }
+
+  // Other branches / departments
+  if (t.includes("other branch") || t.includes("other department") || t.includes("other course") || t.includes("branches") || t.includes("departments")) {
+    return `**B.Tech Departments at GIST:**\n- **CSE:** Computer Science & Engineering (Intake: 420 seats)\n- **ECE:** Electronics & Communication Engineering\n- **EEE:** Electrical & Electronics Engineering\n- **CE:** Civil Engineering\n- **ME:** Mechanical Engineering\n- **H&S:** Humanities & Sciences\n\n*Note: This platform is specifically tailored for the CSE Department.*`;
+  }
+
+  // More details / More information
+  if (t === "more details" || t === "more info" || t.includes("more detail") || t.includes("more information") || t.includes("tell me more")) {
+    return `**GIST & CSE Department Detailed Profile:**\n- **Established:** 2008 in Gangavaram (V), Kovur (M), Nellore\n- **Accreditation:** Autonomous | NAAC 'A' Grade | NBA Accredited (ECE, EEE, ME)\n- **Affiliation:** Approved by AICTE, New Delhi & Affiliated to JNTUA, Anantapuramu\n- **EAPCET Code:** \`${DEPARTMENT.eapcetCode}\` | **APPGECET Code:** \`${DEPARTMENT.appgecetCode}\`\n- **Infrastructure:** 9 Computer & AI Labs (580+ PCs), NVIDIA Edge AI Hub, Library, ICT Classrooms\n- **Contact:** [csehod@gist.edu.in](mailto:csehod@gist.edu.in) | +91 9912566220`;
   }
 
   // Vision & Mission
-  if (t.includes("vision") || t.includes("mission") || t.includes("about") || t.includes("gist")) {
-    return `### 🏫 About CSE Department, GIST\n\n${DEPARTMENT.about[0]}\n\n**Vision:**\n> "${DEPARTMENT.vision}"\n\n🔗 [Main GIST Website](https://gist.edu.in/gist/gist-home/)`;
+  if (t.includes("vision") || t.includes("mission") || t.includes("peo") || t.includes("po") || t.includes("pso")) {
+    return `**Department Vision:**\n> "${DEPARTMENT.vision}"\n\n**Mission:**\n${DEPARTMENT.mission.map((m, i) => `- M${i + 1}: ${m}`).join("\n")}`;
   }
 
-  // Fallback for Unwanted / Unrecognized Queries
-  return `⚠️ **I won't be able to help you with that type of query.**\n\nI am specialized strictly in official **GIST CSE Department** information. For general college details or other queries, please visit the official GIST website:\n👉 [https://gist.edu.in/gist/gist-home/](https://gist.edu.in/gist/gist-home/)`;
+  // About GIST / College Overview
+  if (t.includes("about") || t.includes("gist") || t.includes("college") || t.includes("overview")) {
+    return `**Geethanjali Institute of Science and Technology (GIST):**\n- **Established:** 2008 in Gangavaram, Kovur, Nellore, A.P.\n- **Status:** Autonomous Institute | NAAC 'A' Grade | NBA Accredited\n- **Affiliation:** Approved by AICTE, New Delhi & Affiliated to JNTUA\n- **Department:** ${DEPARTMENT.name} (HOD: ${DEPARTMENT.hod.name})\n- **EAPCET Code:** \`${DEPARTMENT.eapcetCode}\` | **APPGECET Code:** \`${DEPARTMENT.appgecetCode}\``;
+  }
+
+  // Helpful Clear & Informative Default Response for any GIST College / CSE query
+  return `**Geethanjali Institute of Science and Technology (GIST):**\n\nI am here to help with any information regarding GIST and the CSE Department:\n\n- **HOD:** ${DEPARTMENT.hod.name} ([${DEPARTMENT.hod.email}](mailto:${DEPARTMENT.hod.email}))\n- **Campus Location:** Gangavaram (V), Kovur (M), Nellore, A.P. 524137\n- **EAPCET / ECET Code:** \`${DEPARTMENT.eapcetCode}\` | **APPGECET Code:** \`${DEPARTMENT.appgecetCode}\`\n- **Intake:** 420 seats (B.Tech CSE) | 18 seats (M.Tech CSE)\n- **Accreditation:** Autonomous | NAAC 'A' Grade | NBA Accredited\n\n💡 **Need specific information?** You can ask about:\n- 👥 **Faculty & HOD Profiles**\n- 🧪 **9 Laboratories & NVIDIA AI Hub**\n- 🏠 **Hostel, Mess & Bus Transport**\n- 🎓 **Admissions, Fees & Scholarships**\n- 🏆 **Placements, Toppers & Industry MOUs**\n\n📞 **GIST Admin Helpline:** +91 9912566220 | 🌐 [gist.edu.in](https://gist.edu.in)`;
 }
 
 export function AIChatWidget() {
@@ -282,8 +392,25 @@ export function AIChatWidget() {
     setInput("");
     setIsTyping(true);
 
+    // Instant local response check for 0-delay responses (<50ms)
+    const instantReply = getAccurateDepartmentReply(trimmed);
+    const isDefaultFallback = instantReply.startsWith("**Geethanjali Institute of Science and Technology (GIST):**\n\nI am here to help");
+
+    if (!isDefaultFallback) {
+      setTimeout(() => {
+        const botMsg: Message = {
+          id: (Date.now() + 1).toString(),
+          text: instantReply,
+          from: "bot",
+        };
+        setMessages((prev) => [...prev, botMsg]);
+        setIsTyping(false);
+      }, 50);
+      return;
+    }
+
     try {
-      // Attempt backend API stream
+      // Attempt backend API stream for general unmapped questions
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -297,17 +424,59 @@ export function AIChatWidget() {
       });
 
       if (res.ok) {
-        const textData = await res.text();
-        if (textData && !textData.includes("API Key Required")) {
-          // Cleanly parse text or stream
-          const cleanedText = textData
-            .replace(/^[0-9]+:"/g, "")
-            .replace(/"$/g, "")
-            .replace(/\\n/g, "\n");
-          if (cleanedText.trim().length > 0) {
+        const contentType = res.headers.get("content-type") || "";
+        if (contentType.includes("application/json")) {
+          const data = await res.json();
+          if (data?.content) {
             const botMsg: Message = {
               id: (Date.now() + 1).toString(),
-              text: cleanedText,
+              text: data.content,
+              from: "bot",
+            };
+            setMessages((prev) => [...prev, botMsg]);
+            setIsTyping(false);
+            return;
+          }
+        }
+
+        const textData = await res.text();
+        if (textData && !textData.includes("API Key Required")) {
+          let extractedText = "";
+          const lines = textData.split("\n");
+
+          for (const line of lines) {
+            const trimmedLine = line.trim();
+            if (trimmedLine.startsWith("data: ")) {
+              const payload = trimmedLine.slice(6);
+              if (payload === "[DONE]") continue;
+              try {
+                const parsed = JSON.parse(payload);
+                if (parsed.type === "text-delta" && typeof parsed.delta === "string") {
+                  extractedText += parsed.delta;
+                } else if (parsed.type === "text" && typeof parsed.text === "string") {
+                  extractedText += parsed.text;
+                }
+              } catch {
+                if (payload && !payload.startsWith("{")) {
+                  extractedText += payload;
+                }
+              }
+            } else if (/^[0-9]+:"/.test(trimmedLine)) {
+              const match = trimmedLine.match(/^[0-9]+:"(.*)"$/);
+              if (match?.[1]) {
+                extractedText += match[1].replace(/\\n/g, "\n").replace(/\\"/g, '"');
+              }
+            }
+          }
+
+          if (!extractedText.trim() && textData.trim() && !textData.includes("data: {")) {
+            extractedText = textData;
+          }
+
+          if (extractedText.trim().length > 0) {
+            const botMsg: Message = {
+              id: (Date.now() + 1).toString(),
+              text: extractedText.trim(),
               from: "bot",
             };
             setMessages((prev) => [...prev, botMsg]);
@@ -317,20 +486,19 @@ export function AIChatWidget() {
         }
       }
     } catch {
-      // Fall through to instant grounded retrieval
+      // Fall through
     }
 
-    // Reliable Grounded Fallback Retrieval
+    // Reliable Fallback
     setTimeout(() => {
-      const replyText = getAccurateDepartmentReply(trimmed);
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
-        text: replyText,
+        text: instantReply,
         from: "bot",
       };
       setMessages((prev) => [...prev, botMsg]);
       setIsTyping(false);
-    }, 300);
+    }, 100);
   }
 
   function handleReset() {

@@ -141,7 +141,7 @@ export const DEPARTMENT = {
     faculty: 49,
     studentIntakeUG: 420,
     studentIntakePG: 18,
-    laboratories: 8,
+    laboratories: 9,
     yearsOfExcellence: new Date().getFullYear() - 2008,
     programmes: 2,
   },
@@ -1868,8 +1868,21 @@ export const FACULTY: FacultyMember[] = [
   }
 ];
 
+export type LaboratoryItem = {
+  sno: number;
+  name: string;
+  computers: number;
+  incharge: string;
+  config: string;
+  badge?: string;
+  initiative?: string;
+  infrastructure?: string[];
+  curriculumFocus?: string[];
+  projects?: string[];
+};
+
 // Source: https://gist.edu.in/gist/computer-science-and-engineering/ (Laboratories tab)
-export const LABORATORIES = [
+export const LABORATORIES: LaboratoryItem[] = [
   {
     sno: 1,
     name: "Computer Laboratory – I",
@@ -1921,11 +1934,36 @@ export const LABORATORIES = [
   },
   {
     sno: 8,
-    name: "NVIDIA Laboratory",
+    name: "NVIDIA Workstation Laboratory",
     computers: 30,
     incharge: "Mr. V. Chaitanya",
+    badge: "NVIDIA Workstation Lab",
     config:
       "WAVESHARE 77 FOV Camera, AC8265 Wireless NIC for Jetson Nano, 5V-4A Adapter, HDMI Cable, SanDisk Micro SD 32GB 120MB/s UHS1, Jetson Nano Dev Kit (Full System)",
+  },
+  {
+    sno: 9,
+    name: "AI Nexus Lab (NVIDIA AI First Campus)",
+    computers: 30,
+    incharge: "Dr. Lakshmana Rao Battarusetty & Mr. V. Chaitanya",
+    badge: "NVIDIA AI Nexus Lab",
+    config:
+      "NVIDIA Jetson Developer Kits, WaveShare 77 FOV Cameras, AC8265 Wireless NICs, 5V-4A Power Adapters, SanDisk 32GB UHS-I SD Cards",
+    initiative: "AI First Campus Initiative",
+    infrastructure: [
+      "Hardware Integration: Officially designated NVIDIA Laboratory within Computer Science & Engineering department",
+      "Edge Computing Platform: Equipped with NVIDIA Jetson developer kits to support advanced AI edge computing and hardware-software integration",
+      "Peripherals: Specialized WaveShare 77 FOV cameras and wireless network interface cards (NICs) designed to work seamlessly with Jetson architecture",
+    ],
+    curriculumFocus: [
+      "Curriculum Focus: Under the 'AI First Campus' roll-out, AI tools and foundational technologies are introduced right from 1st year",
+      "Core Competencies: Students utilize the lab to study and practice prompt engineering, machine learning modeling, and automation",
+      "Project Ecosystem: Designed to help students transition away from traditional manual coding by deploying ready-made AI models onto edge hardware for real-world projects",
+    ],
+    projects: [
+      "Automated AI Attendance Tracking System deployed on edge hardware",
+      "Real-world Edge Computing Computer Vision & Automation Systems",
+    ],
   },
 ];
 

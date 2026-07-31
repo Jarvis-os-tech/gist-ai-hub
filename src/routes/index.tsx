@@ -26,8 +26,8 @@ import {
   FACULTY,
 } from "@/lib/department-data";
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { RevealOnScroll, StaggerContainer, StaggerItem } from "@/components/animations/RevealOnScroll";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { RevealOnScroll } from "@/components/animations/RevealOnScroll";
 import { GlassCard, GradientOrb, ParticleField } from "@/components/animations/GlassCard";
 import { FacultyAvatar } from "@/components/ui/FacultyAvatar";
 
@@ -91,9 +91,44 @@ const ICON_MAP: Record<string, React.ElementType> = {
   BookOpen, GraduationCap, Users, FlaskConical, Download, Award, Calendar, Image, Mail,
 };
 
-function HomePage() {
-  const topFaculty = FACULTY.slice(0, 8);
+/** Splits text into words and animates each word with a staggered rise-and-fade */
+function WordReveal({ text, className = "" }: { text: string; className?: string }) {
   const reduce = useReducedMotion();
+  const words = text.split(" ");
+
+  return (
+    <span className={className} style={{ display: "inline" }}>
+      {words.map((word, i) => (
+        <motion.span
+          key={i}
+          initial={reduce ? false : { opacity: 0, y: 30, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            duration: 0.6,
+            delay: 0.2 + i * 0.08,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          style={{ display: "inline-block", marginRight: "0.3em" }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
+function HomePage() {
+  const topFaculty = FACULTY.slice(0, 6);
+  const reduce = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Parallax for hero image
+  const { scrollYProgress: heroScrollProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroImageY = useTransform(heroScrollProgress, [0, 1], ["0%", "30%"]);
+  const heroImageScale = useTransform(heroScrollProgress, [0, 1], [1, 1.15]);
 
   return (
     <div
@@ -110,12 +145,17 @@ function HomePage() {
 
       <SiteHeader />
 
-      {/* ─── CINEMATIC HERO ─── */}
-      <section className="hero" style={{ overflow: "hidden" }}>
-        <img
+      {/* ─── CINEMATIC HERO WITH PARALLAX ─── */}
+      <section className="hero" ref={heroRef} style={{ overflow: "hidden" }}>
+        {/* Parallax background image */}
+        <motion.img
           src={DEPARTMENT.bannerUrl}
           alt="GIST CSE Department"
           className="hero-bg"
+          style={{
+            y: reduce ? 0 : heroImageY,
+            scale: reduce ? 1 : heroImageScale,
+          }}
           onError={(e) => {
             (e.currentTarget as HTMLElement).style.display = "none";
           }}
@@ -133,7 +173,7 @@ function HomePage() {
         )}
 
         <div className="container-page" style={{ position: "relative", zIndex: 2, width: "100%" }}>
-          <div className="hero-content animate-fade-up">
+          <div className="hero-content">
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -145,20 +185,27 @@ function HomePage() {
               </div>
             </motion.div>
 
-            <motion.h1
-              className="hero-title"
-              initial={reduce ? false : { opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            >
-              Department of Computer Science <br />& Engineering, <span>GIST</span>
-            </motion.h1>
+            {/* Word-by-word staggered headline reveal */}
+            <h1 className="hero-title">
+              <WordReveal text="Department of Computer Science" />
+              <br />
+              <WordReveal text="& Engineering," />
+              {" "}
+              <motion.span
+                initial={reduce ? false : { opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                style={{ display: "inline-block" }}
+              >
+                <span>GIST</span>
+              </motion.span>
+            </h1>
 
             <motion.p
               className="hero-desc"
               initial={reduce ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
             >
               {DEPARTMENT.about[0]}
             </motion.p>
@@ -167,17 +214,34 @@ function HomePage() {
               className="hero-actions"
               initial={reduce ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 1.4 }}
             >
-              <Link to="/about" className="btn btn-secondary">
-                Explore Department <ArrowRight size={15} />
-              </Link>
-              <Link to="/faculty" className="btn btn-ghost">
-                Meet 49 Faculty
-              </Link>
-              <button onClick={openAIChatWidget} className="btn btn-primary">
-                <Sparkles size={15} /> Ask AI Assistant
-              </button>
+              {[
+                { to: "/about", label: "Explore Department", icon: <ArrowRight size={15} />, cls: "btn btn-secondary" },
+                { to: "/faculty", label: "Meet 49 Faculty", cls: "btn btn-ghost" },
+              ].map((btn, i) => (
+                <motion.div
+                  key={btn.to}
+                  initial={reduce ? false : { opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 1.5 + i * 0.12 }}
+                  whileHover={reduce ? {} : { y: -3 }}
+                >
+                  <Link to={btn.to} className={btn.cls}>
+                    {btn.label} {btn.icon}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.div
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.74 }}
+                whileHover={reduce ? {} : { y: -3 }}
+              >
+                <button onClick={openAIChatWidget} className="btn btn-primary">
+                  <Sparkles size={15} /> Ask AI Assistant
+                </button>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -591,7 +655,7 @@ function HomePage() {
         </section>
       </RevealOnScroll>
 
-      {/* ─── FACULTY PREVIEW ─── */}
+      {/* ─── FACULTY PREVIEW — SPLIT LAYOUT ─── */}
       <RevealOnScroll>
         <section className="section section-alt">
           <div className="container-page">
@@ -624,6 +688,8 @@ function HomePage() {
                 All {DEPARTMENT.stats.faculty} members <ArrowRight size={14} />
               </Link>
             </div>
+
+            {/* Faculty Grid Cards */}
             <div
               style={{
                 display: "grid",
@@ -631,63 +697,63 @@ function HomePage() {
                 gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
               }}
             >
-              {topFaculty.map((f, i) => {
-                const initials = f.name
-                  .replace(/^(Dr\.|Mr\.|Ms\.)\s*/, "")
-                  .split(" ")
-                  .map((n) => n[0])
-                  .slice(0, 2)
-                  .join("");
-                return (
-                  <motion.div
-                    key={f.slug}
-                    initial={reduce ? false : { opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.06 }}
-                  >
-                    <div className="card card-glow" style={{ cursor: "default" }}>
-                      <FacultyAvatar src={f.photoUrl} name={f.name} size={56} />
-                      <div
-                        style={{
-                          marginTop: 14,
-                          fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          fontSize: 16,
-                          color: "var(--navy-deep)",
-                          lineHeight: 1.3,
-                        }}
-                      >
-                        {f.name}
-                      </div>
-                      <div className="badge badge-orange" style={{ marginTop: 8 }}>
-                        {f.designation}
-                      </div>
-                      <div style={{ marginTop: 6, fontSize: 12, color: "var(--text-muted)" }}>
-                        {f.qualification}
-                      </div>
-                      {f.profileUrl && (
-                        <div style={{ marginTop: 12 }}>
-                          <a
-                            href={f.profileUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              fontSize: 12,
-                              color: "var(--gist-orange)",
-                              fontWeight: 600,
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: 4,
-                            }}
-                          >
-                            View Profile <ExternalLink size={11} />
-                          </a>
-                        </div>
-                      )}
+              {topFaculty.map((f, i) => (
+                <motion.div
+                  key={f.slug}
+                  initial={reduce ? false : { opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                >
+                  <div className="card card-glow" style={{ cursor: "default" }}>
+                    <FacultyAvatar src={f.photoUrl} name={f.name} size={56} />
+                    <div
+                      style={{
+                        marginTop: 14,
+                        fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontSize: 16,
+                        fontWeight: 700,
+                        color: "var(--navy-deep)",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {f.name}
                     </div>
-                  </motion.div>
-                );
-              })}
+                    <div className="badge badge-orange" style={{ marginTop: 8 }}>
+                      {f.designation}
+                    </div>
+                    <div style={{ marginTop: 6, fontSize: 12, color: "var(--text-muted)" }}>
+                      {f.qualification}
+                    </div>
+                    {f.profileUrl && (
+                      <div style={{ marginTop: 12 }}>
+                        <a
+                          href={f.profileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            fontSize: 12,
+                            color: "var(--gist-orange)",
+                            fontWeight: 600,
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 4,
+                          }}
+                        >
+                          View Profile <ExternalLink size={11} />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* View all CTA */}
+            <div style={{ textAlign: "center", marginTop: 32 }}>
+              <Link to="/faculty" className="btn btn-outline">
+                View All {DEPARTMENT.stats.faculty} Faculty Members <ArrowRight size={14} />
+              </Link>
             </div>
           </div>
         </section>

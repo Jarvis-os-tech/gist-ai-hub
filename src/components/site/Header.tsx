@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { DEPARTMENT } from "@/lib/department-data";
 import { openAIChatWidget } from "./AIChatWidget";
+import { ScrollProgress } from "@/components/animations/ScrollProgress";
 
 const NAV_ITEMS = [
   { label: "Home", to: "/" },
@@ -33,6 +34,9 @@ export function SiteHeader() {
 
   return (
     <header>
+      {/* ─── Scroll Progress Bar ─── */}
+      <ScrollProgress />
+
       {/* ─── Institutional Branding ─── */}
       <div className="inst-header">
         <div className="inst-inner">

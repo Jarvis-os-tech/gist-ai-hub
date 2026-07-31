@@ -93,6 +93,13 @@ export function FacultyPage() {
     }
   };
 
+  function getBadgeBg(f: FacultyMember) {
+    if (f.rankOrder === 1) return "linear-gradient(135deg, #d97706, #b45309)";
+    if (f.rankOrder === 2) return "linear-gradient(135deg, #1e3a8a, #3b82f6)";
+    if (f.rankOrder === 3) return "linear-gradient(135deg, #0284c7, #0d9488)";
+    return "linear-gradient(135deg, #475569, #64748b)";
+  }
+
   return (
     <PageShell
       eyebrow="People & Research"
@@ -192,177 +199,292 @@ export function FacultyPage() {
           </div>
         </div>
 
-        {/* Faculty Grid */}
-        <div
-          style={{
-            display: "grid",
-            gap: 20,
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          }}
-        >
+        {/* ─── FACULTY SPLIT LAYOUT — LEFT IMAGE / RIGHT DETAILS ─── */}
+        <div className="faculty-split-container">
           {list.map((f, i) => {
-            const initials = f.name
-              .replace(/^(Dr\.|Mr\.|Ms\.)\s*/, "")
-              .split(" ")
-              .map((n) => n[0])
-              .slice(0, 2)
-              .join("");
-
             const isHod = f.rankOrder === 1;
-            const isProf = f.rankOrder === 2;
-            const isAssoc = f.rankOrder === 3;
-
-            const badgeBg = isHod
-              ? "linear-gradient(135deg, #d97706, #b45309)"
-              : isProf
-                ? "linear-gradient(135deg, #1e3a8a, #3b82f6)"
-                : isAssoc
-                  ? "linear-gradient(135deg, #0284c7, #0d9488)"
-                  : "var(--surface-2)";
-
-            const badgeColor = isHod || isProf || isAssoc ? "#ffffff" : "var(--navy-deep)";
+            const badgeBg = getBadgeBg(f);
 
             return (
               <motion.article
                 key={f.slug}
-                className="card"
-                initial={reduce ? false : { opacity: 0, y: 20 }}
+                className="faculty-split-item"
+                initial={reduce ? false : { opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.8), ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                  border: isHod ? "2px solid var(--gist-orange)" : "1px solid var(--border)",
-                  position: "relative",
-                  overflow: "hidden",
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.6,
+                  delay: Math.min(i * 0.05, 0.4),
+                  ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                {isHod && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 12,
-                      right: 12,
-                      background: "var(--gist-orange)",
-                      color: "#fff",
-                      fontSize: 10,
-                      fontWeight: 700,
-                      padding: "2px 8px",
-                      borderRadius: 12,
-                      letterSpacing: 0.5,
-                      textTransform: "uppercase",
-                    }}
+                {/* ─── LEFT: Sticky Image Panel ─── */}
+                <div className="faculty-sticky-image">
+                  <span className="faculty-image-sno">S.No. {f.sno}</span>
+                  {isHod && <span className="faculty-image-hod-tag">Head of Dept</span>}
+
+                  <motion.div
+                    initial={reduce ? false : { scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    Head of Dept
-                  </div>
-                )}
+                    <FacultyAvatar
+                      src={f.photoUrl}
+                      name={f.name}
+                      size={180}
+                      style={{
+                        border: isHod ? "4px solid var(--gist-orange)" : "3px solid rgba(255,255,255,0.2)",
+                        boxShadow: isHod
+                          ? "0 8px 32px rgba(228, 92, 4, 0.4)"
+                          : "0 8px 24px rgba(0,0,0,0.3)",
+                      }}
+                    />
+                  </motion.div>
 
-                <div>
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
-                    <FacultyAvatar src={f.photoUrl} name={f.name} size={56} />
-
-                    <div style={{ minWidth: 0, flex: 1 }}>
-                      <h3
-                        style={{
-                          fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          fontSize: 16,
-                          fontWeight: 700,
-                          color: "var(--navy-deep)",
-                          lineHeight: 1.3,
-                          marginBottom: 6,
-                        }}
-                      >
-                        {f.name}
-                      </h3>
-                      <div
-                        style={{
-                          display: "inline-block",
-                          padding: "3px 10px",
-                          borderRadius: 999,
-                          background: badgeBg,
-                          color: badgeColor,
-                          fontSize: 11,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {f.designation}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 12,
-                          color: "var(--text-muted)",
-                          marginTop: 6,
-                          fontWeight: 500,
-                        }}
-                      >
-                        {f.qualification} • {f.experienceYears}+ Yrs Exp
-                      </div>
-                    </div>
+                  <div className="faculty-image-name">
+                    <h3>{f.name}</h3>
+                    <span
+                      className="faculty-designation-badge"
+                      style={{ background: badgeBg }}
+                    >
+                      {f.designation}
+                    </span>
                   </div>
 
-                  {/* Specialization Tags */}
-                  <div
-                    style={{
-                      marginTop: 14,
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: 6,
-                    }}
-                  >
-                    {f.specialization.slice(0, 2).map((spec, i) => (
-                      <span
-                        key={i}
-                        style={{
-                          fontSize: 11,
-                          padding: "3px 8px",
-                          borderRadius: 4,
-                          background: "var(--surface-2)",
-                          color: "var(--text-muted)",
-                          border: "1px solid var(--border)",
-                        }}
-                      >
-                        {spec}
-                      </span>
-                    ))}
+                  {/* Quick contact under image */}
+                  <div style={{ position: "relative", zIndex: 2, marginTop: 16, textAlign: "center" }}>
+                    <a
+                      href={`mailto:${f.email}`}
+                      style={{
+                        fontSize: 12,
+                        color: "var(--gold-soft)",
+                        fontWeight: 600,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 5,
+                        textDecoration: "none",
+                        opacity: 0.85,
+                        transition: "opacity 0.2s",
+                      }}
+                      onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+                      onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.85"; }}
+                    >
+                      <Mail size={12} /> {f.email}
+                    </a>
                   </div>
                 </div>
 
-                {/* Footer Action -> Load Profile Here */}
-                <div
-                  style={{
-                    marginTop: 18,
-                    paddingTop: 14,
-                    borderTop: "1px solid var(--border)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    fontSize: 12,
-                  }}
-                >
-                  <span style={{ color: "var(--text-muted)", fontSize: 11 }}>S.No. {f.sno}</span>
-                  <button
-                    onClick={() => setSelectedFaculty(f)}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      color: "var(--gist-orange)",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                      fontWeight: 700,
-                      cursor: "pointer",
-                      fontSize: 13,
-                      padding: "4px 8px",
-                      borderRadius: 6,
-                      transition: "background 0.2s ease",
-                    }}
-                    className="view-profile-btn"
+                {/* ─── RIGHT: Detail Panel ─── */}
+                <div className="faculty-detail-panel">
+                  {/* Header */}
+                  <motion.div
+                    className="faculty-detail-header"
+                    initial={reduce ? false : { opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
                   >
-                    View Profile <UserCheck size={14} />
-                  </button>
+                    <div>
+                      <h3>{f.name}</h3>
+                      <div className="faculty-qualification-line">
+                        <span>{f.qualification}</span>
+                        <span>•</span>
+                        <span>Department of CSE, GIST</span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setSelectedFaculty(f)}
+                      className="view-profile-btn"
+                      style={{
+                        background: "transparent",
+                        border: "1.5px solid var(--gist-orange)",
+                        color: "var(--gist-orange)",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                        fontWeight: 700,
+                        cursor: "pointer",
+                        fontSize: 13,
+                        padding: "8px 16px",
+                        borderRadius: 999,
+                        transition: "all 0.2s ease",
+                        flexShrink: 0,
+                      }}
+                    >
+                      Full Profile <UserCheck size={14} />
+                    </button>
+                  </motion.div>
+
+                  {/* Stats Row */}
+                  <motion.div
+                    className="faculty-stats-row"
+                    initial={reduce ? false : { opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.15 }}
+                  >
+                    <div className="faculty-stat-cell">
+                      <div className="stat-num">{f.experienceYears}+</div>
+                      <div className="stat-lbl">Years Exp</div>
+                    </div>
+                    <div className="faculty-stat-cell">
+                      <div className="stat-num">{f.publicationsCount || 0}+</div>
+                      <div className="stat-lbl">Publications</div>
+                    </div>
+                    <div className="faculty-stat-cell">
+                      <div className="stat-num">{f.patentsCount || 0}</div>
+                      <div className="stat-lbl">Patents</div>
+                    </div>
+                  </motion.div>
+
+                  {/* Bio */}
+                  {f.bio && (
+                    <motion.div
+                      initial={reduce ? false : { opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                      <div className="faculty-section-label">
+                        <Briefcase size={16} /> Professional Overview
+                      </div>
+                      <p style={{ fontSize: 14, color: "var(--text-body)", lineHeight: 1.7 }}>
+                        {f.bio}
+                      </p>
+                    </motion.div>
+                  )}
+
+                  {/* Specialization */}
+                  <motion.div
+                    initial={reduce ? false : { opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.25 }}
+                  >
+                    <div className="faculty-section-label">
+                      <BookOpen size={16} /> Specialization & Research
+                    </div>
+                    <div className="faculty-spec-tags">
+                      {f.specialization.map((spec, si) => (
+                        <motion.span
+                          key={si}
+                          className="faculty-spec-tag"
+                          initial={reduce ? false : { opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: 0.3 + si * 0.06 }}
+                        >
+                          {spec}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Education */}
+                  <motion.div
+                    initial={reduce ? false : { opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                  >
+                    <div className="faculty-section-label">
+                      <GraduationCap size={16} /> Education
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {f.education.map((edu, ei) => (
+                        <motion.div
+                          key={ei}
+                          className="faculty-edu-row"
+                          initial={reduce ? false : { opacity: 0, x: -24 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.4, delay: 0.35 + ei * 0.08 }}
+                        >
+                          <div>
+                            <strong style={{ color: "var(--navy-deep)" }}>{edu.degree}</strong>
+                            {" — "}
+                            <span style={{ color: "var(--text-muted)" }}>{edu.institution}</span>
+                          </div>
+                          <span
+                            style={{
+                              fontSize: 12,
+                              fontWeight: 700,
+                              color: "var(--gist-orange)",
+                              background: "var(--gist-orange-subtle)",
+                              padding: "3px 10px",
+                              borderRadius: 6,
+                              flexShrink: 0,
+                            }}
+                          >
+                            {edu.year}
+                          </span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Research Profiles */}
+                  {f.researchDetails && (
+                    <motion.div
+                      initial={reduce ? false : { opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.35 }}
+                    >
+                      <div className="faculty-section-label">
+                        <Award size={16} /> Research & Citation Profiles
+                      </div>
+                      <div className="faculty-research-grid">
+                        {f.researchDetails.vidwan && (
+                          <div className="faculty-research-cell">
+                            <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>Vidwan:</span>{" "}
+                            <strong style={{ color: "var(--navy-deep)" }}>{f.researchDetails.vidwan}</strong>
+                          </div>
+                        )}
+                        {f.researchDetails.orcid && (
+                          <div className="faculty-research-cell">
+                            <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>ORCID:</span>{" "}
+                            <strong style={{ color: "var(--navy-deep)" }}>{f.researchDetails.orcid}</strong>
+                          </div>
+                        )}
+                        {f.researchDetails.scopus && (
+                          <div className="faculty-research-cell">
+                            <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>Scopus:</span>{" "}
+                            <strong style={{ color: "var(--navy-deep)" }}>{f.researchDetails.scopus}</strong>
+                          </div>
+                        )}
+                        {f.researchDetails.googleScholar && (
+                          <div className="faculty-research-cell">
+                            <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>Scholar:</span>{" "}
+                            <strong style={{ color: "var(--navy-deep)" }}>{f.researchDetails.googleScholar}</strong>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Profile link */}
+                  {f.profileUrl && (
+                    <div style={{ paddingTop: 8 }}>
+                      <a
+                        href={f.profileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          fontSize: 13,
+                          color: "var(--gist-orange)",
+                          fontWeight: 600,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          textDecoration: "none",
+                        }}
+                      >
+                        Official Profile (gist.edu.in) <ExternalLink size={13} />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </motion.article>
             );

@@ -38,6 +38,19 @@ export const INTEGRATED_MEDIA_DATABASE: MediaContentItem[] = [
     date: "2026",
     author: "GIST CSE Lab",
   },
+  {
+    id: "gist-first-ai-campus",
+    type: "youtube",
+    category: "events",
+    title: "Nellore's First AI Campus - Geethanjali Institute of Science & Technology",
+    description: "Media coverage by SumanTV Nellore highlighting Geethanjali Institute of Science & Technology as Nellore's first AI campus.",
+    src: "https://youtu.be/PH93YXJ3WuE?si=EwraJ1SKG0lV0qMY",
+    embedUrl: "https://www.youtube.com/embed/PH93YXJ3WuE",
+    thumbnailUrl: "https://img.youtube.com/vi/PH93YXJ3WuE/hqdefault.jpg",
+    aspectRatio: "landscape",
+    date: "2026",
+    author: "SumanTV Nellore",
+  },
 ];
 
 export function getYouTubeVideoId(url?: string): string | null {

@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { DEPARTMENT } from "@/lib/department-data";
-import { CheckCircle2, Target, Trophy, ExternalLink } from "lucide-react";
+import { CheckCircle2, Target, Trophy, ExternalLink, BookOpen, Download, Microscope } from "lucide-react";
 import { useState } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "motion/react";
 import { GlassCard, GradientOrb } from "@/components/animations/GlassCard";
@@ -36,6 +36,46 @@ function AboutPage() {
       crumbs={[{ label: "About" }]}
     >
       <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
+        {/* Quick About Subnav for Research & Downloads */}
+        <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
+          <Link
+            to="/research"
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              padding: "8px 16px",
+              borderRadius: "var(--radius-md)",
+              background: "var(--surface)",
+              color: "var(--navy-deep)",
+              border: "1px solid var(--border)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              textDecoration: "none",
+            }}
+          >
+            <Microscope size={14} style={{ color: "var(--gist-orange)" }} /> Research & Publications ↗
+          </Link>
+          <Link
+            to="/downloads"
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              padding: "8px 16px",
+              borderRadius: "var(--radius-md)",
+              background: "var(--surface)",
+              color: "var(--navy-deep)",
+              border: "1px solid var(--border)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              textDecoration: "none",
+            }}
+          >
+            <Download size={14} style={{ color: "var(--gist-orange)" }} /> Downloads & Resources ↗
+          </Link>
+        </div>
+
         {/* Tab Nav */}
         <motion.div
           className="tabs-list"

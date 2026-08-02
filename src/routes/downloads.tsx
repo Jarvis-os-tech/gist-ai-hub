@@ -129,9 +129,48 @@ function DownloadsPage() {
       eyebrow="Resources"
       title="Downloads & Resources"
       description="Department calendars, newsletters, tech magazines, MOUs, internship reports, industrial visits and GDSC report — all sourced from the official GIST CSE website."
-      crumbs={[{ label: "Downloads" }]}
+      crumbs={[{ label: "About", to: "/about" }, { label: "Downloads" }]}
     >
-      <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
+      <div className="container-page" style={{ paddingTop: 32, paddingBottom: 72 }}>
+        {/* Navigation back to About & Research */}
+        <div style={{ display: "flex", gap: 12, marginBottom: 28, flexWrap: "wrap" }}>
+          <a
+            href="/about"
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              padding: "8px 16px",
+              borderRadius: "var(--radius-md)",
+              background: "var(--surface)",
+              color: "var(--navy-deep)",
+              border: "1px solid var(--border)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              textDecoration: "none",
+            }}
+          >
+            ← Back to About Overview
+          </a>
+          <a
+            href="/research"
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              padding: "8px 16px",
+              borderRadius: "var(--radius-md)",
+              background: "var(--surface)",
+              color: "var(--navy-deep)",
+              border: "1px solid var(--border)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              textDecoration: "none",
+            }}
+          >
+            Research & Publications →
+          </a>
+        </div>
         {/* Section tabs */}
         <motion.div
           className="tabs-list"

@@ -26,9 +26,48 @@ function ResearchPage() {
       eyebrow="Research"
       title="Research & Development"
       description="The CSE Department actively promotes research across emerging technology domains through industry-institute collaboration, student projects and faculty publications."
-      crumbs={[{ label: "Research" }]}
+      crumbs={[{ label: "About", to: "/about" }, { label: "Research" }]}
     >
-      <div className="container-page" style={{ paddingTop: 40, paddingBottom: 72 }}>
+      <div className="container-page" style={{ paddingTop: 32, paddingBottom: 72 }}>
+        {/* Navigation back to About & Downloads */}
+        <div style={{ display: "flex", gap: 12, marginBottom: 28, flexWrap: "wrap" }}>
+          <a
+            href="/about"
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              padding: "8px 16px",
+              borderRadius: "var(--radius-md)",
+              background: "var(--surface)",
+              color: "var(--navy-deep)",
+              border: "1px solid var(--border)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              textDecoration: "none",
+            }}
+          >
+            ← Back to About Overview
+          </a>
+          <a
+            href="/downloads"
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              padding: "8px 16px",
+              borderRadius: "var(--radius-md)",
+              background: "var(--surface)",
+              color: "var(--navy-deep)",
+              border: "1px solid var(--border)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              textDecoration: "none",
+            }}
+          >
+            Downloads & Resources →
+          </a>
+        </div>
         {/* Research Areas Grid */}
         <div style={{ marginBottom: 56 }}>
           <div
